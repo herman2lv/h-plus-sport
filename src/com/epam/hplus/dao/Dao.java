@@ -72,9 +72,13 @@ public class Dao {
 			Statement statement = connection.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			out.append(table).append("\n");
+			for (int i = 1; i <= set.getMetaData().getColumnCount(); i++) {
+				out.append(String.format("%-25.25s |", set.getMetaData().getColumnLabel(i)));
+			}
+			out.append("\n");
 			while (set.next()) {
 				for (int i = 1; i <= set.getMetaData().getColumnCount(); i++) {
-					out.append(String.format("%-15s\t", set.getString(i)));
+					out.append(String.format("%-25.25s |", set.getString(i)));
 				}
 				out.append("\n");
 			}
