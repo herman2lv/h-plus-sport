@@ -10,29 +10,9 @@
 
 </head>
 <body>
-	<header id="home" class="header">
-		<nav class="nav" role="navigation">
-			<div class="container nav-elements">
-				<div class="branding">
-					<a href="#home"><img src="images/hpluslogo.svg"
-						alt="Logo - H Plus Sports"></a>
-				</div>
-				<!-- branding -->
-				<ul class="navbar">
-					<li><a href="home">home</a></li>
-					<li><a href="redirect">linkedIn</a></li>
-
-				</ul>
-				<!-- navbar -->
-			</div>
-			<!-- container nav-elements -->
-		</nav>
-		<!-- <div class="container tagline">
-    <h1 class="headline">Our Mission</h1>
-    <p>We support and encourage <em>active and healthy</em> lifestyles, by offering <em>ethically sourced</em> and <em>eco-friendly</em> nutritional products for the <em>performance-driven</em> athlete.</p>
-  </div>container tagline -->
-	</header>
-	<!-- #home -->
+	
+	<%@include file="header.jsp"%>
+	
 	<section>
 	<%=displayDate()%>
 	</section>
@@ -41,13 +21,13 @@
 			<% if(request.getAttribute("error")!=null){ %>
 			<em><%=request.getAttribute("error")%></em><br />
 			<%} %>
-
 			<em>LOGIN USER</em>
 			<form action="login" method="post">
-				<label>Username</label> <input type="text" name="username"
-					id="username"><br /> <label>Password</label> <input
-					type="password" name="password" id="password"><br /> <input
-					type="submit" value="Login">
+				<label>Username</label>
+				<input type="text" name="username"
+					   id="username"><br /> <label>Password</label> 
+                <input type="password" name="password" id="password"><br/>
+                <input type="submit" value="Login">
 			</form>
 		</div>
 	</section>
