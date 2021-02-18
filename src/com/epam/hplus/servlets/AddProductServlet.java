@@ -15,23 +15,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = "/search")
-public class SearchServlet extends HttpServlet {
+@WebServlet(urlPatterns="/addProduct")
+public class AddProductServlet extends HttpServlet {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String searchString = req.getParameter("search");
 		HttpSession session = req.getSession();
-		session.setAttribute("searchString", searchString);
+		List<String> cart = (ArrayList<String>) session.getAttribute("cart");
+		if (cart == null) {
+			cart = new ArrayList<>();
+		}
+		cart.add(req.getParameter("product"));
+		session.setAttribute("cart", cart);
+		String searchString = (String) session.getAttribute("searchString");
 		DbConnectionConfig config = Servlets.getDbConfig(getServletContext());
 		List<Product> products = new Dao().searchProducts(config, searchString);
-		List<String> cart = (ArrayList<String>) session.getAttribute("cart");
-		int cartSize = 0;
-		if (cart != null) {
-			cartSize = cart.size();
-		}
-		req.setAttribute("cartSize", cartSize);
 		req.setAttribute("products", products);
-		req.getRequestDispatcher("search.jsp").forward(req, resp);
+		req.setAttribute("cartSize", cart.size());
+		req.getRequestDispatcher("/search.jsp").forward(req, resp);
 	}
 }

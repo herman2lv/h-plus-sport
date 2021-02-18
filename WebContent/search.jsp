@@ -19,14 +19,14 @@
 				high-quality, nutrient-rich, nutritional products that <em>enhance
 					active lifestyles</em>.
 			</p>
-			<p><span id="size">Items in Cart: {6}</span></p>
+			<p><span id="size">Items in Cart: ${cartSize}</span></p>
 		</div>
 		<div class="productContainer">
 		<%
 		List<Product> products = (List) request.getAttribute("products");
 		for (Product product : products) {
 		%>
-			<form method="get" action="addProducts">
+			<form method="get" action="addProduct">
                 <div class="productContainerItem">
                     <img id="pic1" src="<%= product.getProductImgPath()%>">
                     <input type="text" name="product" value="<%= product.getName()%>"><br/>
