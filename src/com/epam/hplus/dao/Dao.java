@@ -53,6 +53,25 @@ public class Dao {
 		return rowsAffected;
 	}
 	
+	public boolean validateUser(DbConnectionConfig config, String username, String password) {
+		try {
+			Connection connection = DbConnection.getConnectionToDatabase(config);
+			String query = "SELECT * FROM users WHERE username = ? AND password = ?"
+					+ " COLLATE utf8mb4_bin";
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, username);
+			statement.setString(2, password);
+			ResultSet set = statement.executeQuery();
+			if (set.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 	public String getTable(DbConnectionConfig config, String table) {
 		String query = "SELECT * FROM ";
 		switch (table) {
