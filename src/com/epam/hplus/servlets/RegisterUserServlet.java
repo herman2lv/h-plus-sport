@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = "/register")
-public class RegisterUser extends HttpServlet {
+public class RegisterUserServlet extends HttpServlet {
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String FIRST_NAME = "fname";
