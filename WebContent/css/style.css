@@ -85,18 +85,32 @@ em {
 	display: none
 }
 
-@media screen and (min-width:600px) {
-	.header {
-		background: -webkit-linear-gradient(top, rgba(0, 0, 0, .2),
-			rgba(0, 0, 0, .5)), url(../images/backgrounds/running.jpg);
-		background: linear-gradient(180deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .5)),
-			url(../images/backgrounds/running.jpg);
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: cover;
-		height: 100vh;
-		max-height: 300px
-	}
+@media screen and (min-width:750px) {
+    .header {
+        background: -webkit-linear-gradient(top, rgba(0, 0, 0, .2),
+            rgba(0, 0, 0, .5)), url(../images/backgrounds/running.jpg);
+        background: linear-gradient(180deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .5)),
+            url(../images/backgrounds/running.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        height: 100vh;
+        max-height: 400px
+    }
+}
+
+@media screen and (max-width:750px) {
+    .header {
+        background: -webkit-linear-gradient(top, rgba(0, 0, 0, .2),
+            rgba(0, 0, 0, .5)), url(../images/backgrounds/running.jpg);
+        background: linear-gradient(180deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .5)),
+            url(../images/backgrounds/running.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        height: 100vh;
+        max-height: 600px
+    }
 }
 
 @media screen and (min-width:600px) {
@@ -257,6 +271,12 @@ em {
 	line-height: 160%
 }
 
+.headline {
+    text-transform: uppercase;
+    font-size: 5rem;
+    line-height: 1%
+}
+
 .section .headline {
 	text-transform: uppercase;
 	font-weight: 300;
@@ -313,7 +333,7 @@ em {
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
-	height: 100vh;
+	height: 60vh;
 	max-height: auto
 }
 
