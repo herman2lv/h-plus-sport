@@ -8,9 +8,6 @@
 <meta charset="ISO-8859-1">
 <title>H+ Sport</title>
 
-
-
-
 </head>
 <body>
 	<header id="home" class="header">
@@ -36,11 +33,7 @@
   </div>container tagline -->
 	</header>
 	<!-- #home -->
-
-
-
 	<section>
-	
 	<%=displayDate()%>
 	</section>
 	<section id="login" class="section">
@@ -87,13 +80,11 @@
 	</footer>
 	<!-- footer -->
 <%!
-
 public String displayDate(){
-	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-mm-dd hh:mm");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd hh:mm");
 	Date toDate = Calendar.getInstance().getTime();
 	return dateFormat.format(toDate);
 }
-
 %>
 </body>
 </html>

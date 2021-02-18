@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="java.util.List"%>
+<%@page import="com.epam.hplus.beans.Product" 
+        errorPage="error.jsp" isErrorPage="false"%>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -26,15 +29,9 @@
 					<li><a href="register">new user?</a></li>
 					<li><a href="redirect">linkedIn</a></li>
 				</ul>
-				<!-- navbar -->
 			</div>
-			<!-- container nav-elements -->
 		</nav>
 	</header>
-	<!-- #home -->
-
-
-
 
 	<section id="products" class="section">
 		<div class="container">
@@ -44,40 +41,25 @@
 				high-quality, nutrient-rich, nutritional products that <em>enhance
 					active lifestyles</em>.
 			</p>
-			<p>
-				<span id="size">Items in Cart: {6}</span>
-			</p>
+			<p><span id="size">Items in Cart: {6}</span></p>
 		</div>
 		<div class="productContainer">
+		<%
+		List<Product> products = (List) request.getAttribute("products");
+		for (Product product : products) {
+		%>
 			<form method="get" action="addProducts">
-
-				<div class="productContainerItem">
-					<img id="pic1" src="{0}"> <input type="text" name="product"
-						value="{3}"><br />
-					<button>Add to Cart</button>
-				</div>
-
-
-				<div class="productContainerItem">
-					<img id="pic2" src="{1}"> <input type="text" name="product"
-						value="{4}"><br />
-					<button>Add to Cart</button>
-				</div>
-				<div class="productContainerItem">
-					<img id="pic3" src="{2}"> <input type="text" name="product"
-						value="{5}"><br />
-					<button>Add to Cart</button>
-				</div>
-			</form>
+                <div class="productContainerItem">
+                    <img id="pic1" src="<%= product.getProductImgPath()%>">
+                    <input type="text" name="product" value="<%= product.getName()%>"><br/>
+                    <button>Add to Cart</button>
+                </div>
+            </form>
+		<%}%>
 		</div>
 	</section>
-	<!-- #products -->
-
 	<br />
 	<br />
-
-
-
 	<section id="search" class="section">
 		<header class="imageheader"></header>
 		<div class="container">
@@ -89,8 +71,6 @@
 			</form>
 		</div>
 	</section>
-	<!-- guarantee -->
-
 	<section id="history" class="section">
 		<div class="container">
 			<div class="text-content">
@@ -120,7 +100,6 @@
 				</p>
 			</div>
 		</div>
-		<!-- container text -->
 	</section>
 
 
