@@ -37,7 +37,7 @@
 	
 <%!
 public String displayDate(){
-	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd hh:mm");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm");
 	Date toDate = Calendar.getInstance().getTime();
 	return dateFormat.format(toDate);
 }
