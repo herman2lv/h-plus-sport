@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.epam.hplus.beans.Order;
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
 
@@ -90,6 +92,25 @@ public class Dao {
 		return false;
 	}
 	
+	public List<Order> getOrdersOfUser(Connection connection, String username) {
+		List<Order> orders = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM orders WHERE user_name = ?";
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, username);
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				int id = set.getInt("order_id");
+				String product = set.getString("product_name");
+				String productImgPath = set.getString("image_path");
+				Date orderDate = new Date(set.getDate("order_date").getTime());
+				orders.add(new Order(id, product, productImgPath, orderDate, username));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
 	
 	public String getTable(Connection connection, String table) {
 		String query = "SELECT * FROM ";
