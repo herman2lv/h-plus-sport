@@ -51,6 +51,28 @@ public class Dao {
 		return rowsAffected;
 	}
 	
+	public User getUserProfile(Connection connection, String username) {
+		User user = null;
+		try {
+			String query = "SELECT * FROM users WHERE username = ?";
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, username);
+			ResultSet set = statement.executeQuery();
+			if (set.next()) {
+				String nameOriginalCase = set.getString("username");
+				String password = set.getString("password");
+				String firstName = set.getString("first_name");
+				String lastName = set.getString("last_name");
+				String activity = set.getString("activity");
+				int age = set.getInt("age");
+				user = new User(nameOriginalCase, password, firstName, lastName, activity, age);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
 	public boolean validateUser(Connection connection, String username, String password) {
 		try {
 			String query = "SELECT * FROM users WHERE username = ? AND password = ?"
