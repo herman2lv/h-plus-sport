@@ -29,20 +29,19 @@
 	
 	<section id="profile" class="section">
 		<div class="container">
-        <jsp:useBean id="user" scope="request" type="com.epam.hplus.beans.User"/>
 			<h2 class="headline">My Profile</h2>
 			<table id="profile">
 				<tr>
 					<td>Username</td>
-					<td><jsp:getProperty property="username" name="user"/></td>
+					<td>${user.username}</td>
 				</tr>
 				<tr>
 					<td>First Name</td>
-					<td><jsp:getProperty property="firstName" name="user"/></td>
+					<td>${user.firstName}</td>
 				</tr>
 				<tr>
 					<td>Last Name</td>
-					<td><jsp:getProperty property="lastName" name="user"/></td>
+					<td>${user.lastName}</td>
 				</tr>
 				<tr>
 					<td>Age</td>
