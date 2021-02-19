@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<%@include file="header.jsp"%>
+	<jsp:include page="header.jsp"/>
 
 	<section id="registration" class="section">
 	 <div class="container tagline">
@@ -28,9 +28,8 @@
 		</div>
 	</section>
 
-	<%@include file="searchSection.jsp"%>
-    
-    <%@include file="footer.jsp"%>
+    <jsp:include page="searchSection.jsp"/>
+    <jsp:include page="footer.jsp"/>
 
 </body>
 </html>

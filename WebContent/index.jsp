@@ -8,7 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<%@ include file="headerForMainPage.jsp"%>
+
+<jsp:include page="headerForMainPage.jsp"/>
+
 <section id="history" class="section">
   <div class="container">
     <div class="text-content">
@@ -172,9 +174,8 @@
   </div>
 </section>
 
-<%@include file="searchSection.jsp"%>
-
-<%@include file="footer.jsp"%>
+<jsp:include page="searchSection.jsp"/>
+<jsp:include page="footer.jsp"/>
 
 </body>
 </html>

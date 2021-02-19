@@ -11,7 +11,7 @@
 </head>
 <body>
 	
-	<%@include file="header.jsp"%>
+	<jsp:include page="header.jsp"/>
 	
 	<section>
 	<%=displayDate()%>
@@ -32,9 +32,8 @@
 		</div>
 	</section>
 	
-	<%@include file="searchSection.jsp"%>
-	
-	<%@include file="footer.jsp"%>
+    <jsp:include page="searchSection.jsp"/>
+    <jsp:include page="footer.jsp"/>
 	
 <%!
 public String displayDate(){

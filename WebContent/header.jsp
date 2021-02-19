@@ -1,3 +1,3 @@
 <header id="home" class="header">
-<%@include file="navbar.jsp"%>
+<jsp:include page="navbar.jsp"/>
 </header>
