@@ -1,10 +1,7 @@
 package com.epam.hplus.servlets;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.text.MessageFormat;
 
 import com.epam.hplus.beans.User;
 import com.epam.hplus.dao.Dao;
@@ -27,10 +24,7 @@ public class RegisterUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		String pagePath = req.getServletContext().getRealPath("register.html");
-		String page = getFileAsString(pagePath);
-		page = replacePlaceholders(page, "");
-		resp.getWriter().append(page);
+		req.getRequestDispatcher("register.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -39,16 +33,14 @@ public class RegisterUserServlet extends HttpServlet {
 		User user = createInstanceOfUser(req);
 		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
 		int rowsAffected = new Dao().createUser(connection, user);
-		String resultOfQuery;
+		String registraionStatus;
 		if (rowsAffected == 0) {
-			resultOfQuery = "User was't registered, an errow occured";
+			registraionStatus = "User was't registered, an errow occured";
 		} else {
-			resultOfQuery = "User registered successfully";
+			registraionStatus = "User registered successfully";
 		}
-		String pagePath = req.getServletContext().getRealPath("register.html");
-		String resultPage = getFileAsString(pagePath);
-		resultPage = replacePlaceholders(resultPage, resultOfQuery);
-		resp.getWriter().append(resultPage);
+		req.setAttribute("registraionStatus", registraionStatus);
+		req.getRequestDispatcher("register.jsp").forward(req, resp);
 	}
 	
 	private User createInstanceOfUser(HttpServletRequest req) {
@@ -59,23 +51,5 @@ public class RegisterUserServlet extends HttpServlet {
 		String activity = req.getParameter(ACTIVITY);
 		int age = Integer.valueOf(req.getParameter(AGE));
 		return new User(username, password, firstName, lastName, activity, age);
-	}
-	
-	private String getFileAsString(String filePath) {
-		StringBuilder fileString = new StringBuilder();
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				fileString.append(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fileString.toString();
-	}
-	
-	private String replacePlaceholders(String fileString, String resultOfQuery) {
-		fileString = MessageFormat.format(fileString, resultOfQuery);
-		return fileString;
 	}
 }
