@@ -31,7 +31,9 @@
 			</form>
 		</div>
 	</section>
-
+	
+	<%@include file="searchSection.jsp"%>
+	
 	<%@include file="footer.jsp"%>
 	
 <%!
