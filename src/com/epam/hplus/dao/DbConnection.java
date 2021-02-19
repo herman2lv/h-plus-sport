@@ -4,15 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.epam.hplus.beans.DbConnectionConfig;
-
 public class DbConnection {
-	public static Connection getConnectionToDatabase(DbConnectionConfig dbConfig) {
+	public static Connection getConnectionToDatabase(String url, String user, String password) {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(dbConfig.getUrl(), 
-					dbConfig.getUser(), dbConfig.getPassword());
+			connection = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

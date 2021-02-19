@@ -4,17 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.List;
 
-import com.epam.hplus.beans.DbConnectionConfig;
-import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
 import com.epam.hplus.dao.Dao;
-import com.epam.hplus.dao.DbConnection;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,7 +37,8 @@ public class RegisterUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		User user = createInstanceOfUser(req);
-		int rowsAffected = new Dao().createUser(Servlets.getDbConfig(getServletContext()), user);
+		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
+		int rowsAffected = new Dao().createUser(connection, user);
 		String resultOfQuery;
 		if (rowsAffected == 0) {
 			resultOfQuery = "User was't registered, an errow occured";

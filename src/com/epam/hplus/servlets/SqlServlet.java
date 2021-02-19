@@ -1,11 +1,10 @@
 package com.epam.hplus.servlets;
 
 import java.io.IOException;
+import java.sql.Connection;
 
-import com.epam.hplus.beans.DbConnectionConfig;
 import com.epam.hplus.dao.Dao;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,7 +20,8 @@ public class SqlServlet extends HttpServlet {
 		if (tableName == null) {
 			tableName = "";
 		}
-		String table = new Dao().getTable(Servlets.getDbConfig(getServletContext()), tableName);
+		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
+		String table = new Dao().getTable(connection, tableName);
 		resp.getWriter().print(table);
 	}
 }

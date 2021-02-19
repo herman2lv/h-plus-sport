@@ -1,10 +1,10 @@
 package com.epam.hplus.servlets;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.hplus.beans.DbConnectionConfig;
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.dao.Dao;
 
@@ -28,8 +28,8 @@ public class AddProductServlet extends HttpServlet {
 		cart.add(req.getParameter("product"));
 		session.setAttribute("cart", cart);
 		String searchString = (String) session.getAttribute("searchString");
-		DbConnectionConfig config = Servlets.getDbConfig(getServletContext());
-		List<Product> products = new Dao().searchProducts(config, searchString);
+		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
+		List<Product> products = new Dao().searchProducts(connection, searchString);
 		req.setAttribute("products", products);
 		req.setAttribute("cartSize", cart.size());
 		req.getRequestDispatcher("/search.jsp").forward(req, resp);

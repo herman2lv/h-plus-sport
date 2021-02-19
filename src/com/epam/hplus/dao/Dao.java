@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epam.hplus.beans.DbConnectionConfig;
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
 
@@ -17,11 +16,11 @@ public class Dao {
 	private static final String PRODUCT_NAME = "product_name";
 	private static final String PRODUCT_ID = "product_id";
 
-	public List<Product> searchProducts(DbConnectionConfig config, String searchString) {
+	public List<Product> searchProducts(Connection connection, String searchString) {
 		List<Product> products = new ArrayList<>();
 		try {
-			Connection connection = DbConnection.getConnectionToDatabase(config);
-			String query = "SELECT * FROM products WHERE product_name like '%" + searchString + "%'";
+			String query = "SELECT * FROM products WHERE product_name like '%" 
+					+ searchString + "%'";
 			Statement statement = connection.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			while (set.next()) {
@@ -34,10 +33,9 @@ public class Dao {
 		return products;
 	}
 	
-	public int createUser(DbConnectionConfig config, User user) {
+	public int createUser(Connection connection, User user) {
 		int rowsAffected = 0;
 		try {
-			Connection connection = DbConnection.getConnectionToDatabase(config);
 			String query = "INSERT into users values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, user.getUsername());
@@ -53,9 +51,8 @@ public class Dao {
 		return rowsAffected;
 	}
 	
-	public boolean validateUser(DbConnectionConfig config, String username, String password) {
+	public boolean validateUser(Connection connection, String username, String password) {
 		try {
-			Connection connection = DbConnection.getConnectionToDatabase(config);
 			String query = "SELECT * FROM users WHERE username = ? AND password = ?"
 					+ " COLLATE utf8mb4_bin";
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -72,7 +69,7 @@ public class Dao {
 	}
 	
 	
-	public String getTable(DbConnectionConfig config, String table) {
+	public String getTable(Connection connection, String table) {
 		String query = "SELECT * FROM ";
 		switch (table) {
 			case "users":
@@ -87,7 +84,6 @@ public class Dao {
 		}
 		StringBuilder out = new StringBuilder();
 		try {
-			Connection connection = DbConnection.getConnectionToDatabase(config);
 			Statement statement = connection.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			out.append(table).append("\n");
