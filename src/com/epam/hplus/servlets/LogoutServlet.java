@@ -10,10 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = "/logout")
 public class LogoutServlet extends HttpServlet {
+	private static final String HOME_SERVLET = "home";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		req.getSession().invalidate();
-		req.getRequestDispatcher("home").forward(req, resp);
+		req.getRequestDispatcher(HOME_SERVLET).forward(req, resp);
 	}
 }

@@ -6,7 +6,6 @@ public class Product {
 	private String productImgPath;
 	
 	public Product(long productId, String name, String productImgPath) {
-		super();
 		this.productId = productId;
 		this.name = name;
 		this.productImgPath = productImgPath;
@@ -30,7 +29,4 @@ public class Product {
 	public void setProductImgPath(String productImgPath) {
 		this.productImgPath = productImgPath;
 	}
-	
-		
-
 }

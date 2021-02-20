@@ -15,13 +15,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = "/orderHistory")
 public class OrderHistoryServlet extends HttpServlet {
+	private static final String DB_CONNECTION = "dbConnection";
+	private static final String USERNAME = "username";
+	private static final String HISTORY_JSP = "history.jsp";
+	private static final String ORDERS = "orders";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		String username = (String) req.getSession().getAttribute("username");
-		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
+		String username = (String) req.getSession().getAttribute(USERNAME);
+		Connection connection = (Connection) getServletContext().getAttribute(DB_CONNECTION);
 		List<Order> orders = new Dao().getOrdersOfUser(connection, username);
-		req.setAttribute("orders", orders);
-		req.getRequestDispatcher("history.jsp").forward(req, resp);
+		req.setAttribute(ORDERS, orders);
+		req.getRequestDispatcher(HISTORY_JSP).forward(req, resp);
 	}
 }

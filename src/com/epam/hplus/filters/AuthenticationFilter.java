@@ -16,6 +16,12 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @WebFilter(urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
+	private static final String USERNAME = "username";
+	private static final String ANY_CHARS_BETWEEN_SLASHES_REGEX = "/.*[^/].*/";
+	private static final String ANY_CHAR_REGEX = ".*";
+	private static final String LOGIN_JSP = "/login.jsp";
+	private static final String ERROR_MESSAGE = "You are not authorized. Please, login";
+	private static final String ERROR = "error";
 	private List<String> restrictedResources;
 	
 	@Override
@@ -31,15 +37,15 @@ public class AuthenticationFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		String uri = request.getRequestURI();
 		if (isRestrictedResource(uri) && userIsNotAthorized(request)) {
-			req.setAttribute("error", "You are not authorized. Please, login");
-			req.getRequestDispatcher("/login.jsp").forward(request, res);
+			req.setAttribute(ERROR, ERROR_MESSAGE);
+			req.getRequestDispatcher(LOGIN_JSP).forward(request, res);
 		}
 		chain.doFilter(request, res);
 	}
 	
 	private boolean isRestrictedResource(String uri) {
 		for (String restrictedUri : restrictedResources) {
-			if (uri.matches("/.*[^/].*/" + restrictedUri + ".*")) {
+			if (uri.matches(ANY_CHARS_BETWEEN_SLASHES_REGEX + restrictedUri + ANY_CHAR_REGEX)) {
 				return true;
 			}
 		}
@@ -47,7 +53,6 @@ public class AuthenticationFilter implements Filter {
 	}
 	
 	private boolean userIsNotAthorized(HttpServletRequest request) {
-		return request.getSession().getAttribute("username") == null;
+		return request.getSession().getAttribute(USERNAME) == null;
 	}
-
 }

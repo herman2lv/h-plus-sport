@@ -14,6 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = "/register")
 public class RegisterUserServlet extends HttpServlet {
+	private static final String REGISTRAION_STATUS = "registraionStatus";
+	private static final String SUCCESS_MESSAGE = "User registered successfully";
+	private static final String ERROR_MESSAGE = "User was't registered, an error occured";
+	private static final String DB_CONNECTION = "dbConnection";
+	private static final String REGISTER_JSP = "register.jsp";
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String FIRST_NAME = "fname";
@@ -24,23 +29,23 @@ public class RegisterUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		req.getRequestDispatcher("register.jsp").forward(req, resp);
+		req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		User user = createInstanceOfUser(req);
-		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
+		Connection connection = (Connection) getServletContext().getAttribute(DB_CONNECTION);
 		int rowsAffected = new Dao().createUser(connection, user);
 		String registraionStatus;
 		if (rowsAffected == 0) {
-			registraionStatus = "User was't registered, an errow occured";
+			registraionStatus = ERROR_MESSAGE;
 		} else {
-			registraionStatus = "User registered successfully";
+			registraionStatus = SUCCESS_MESSAGE;
 		}
-		req.setAttribute("registraionStatus", registraionStatus);
-		req.getRequestDispatcher("register.jsp").forward(req, resp);
+		req.setAttribute(REGISTRAION_STATUS, registraionStatus);
+		req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
 	}
 	
 	private User createInstanceOfUser(HttpServletRequest req) {

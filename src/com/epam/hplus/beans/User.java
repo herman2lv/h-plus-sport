@@ -9,7 +9,6 @@ public class User {
 	private int age;
 	
 	public User(String username, String password, String firstName, String lastName, String activity, int age) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -65,8 +64,4 @@ public class User {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
-	
-	
-	
 }

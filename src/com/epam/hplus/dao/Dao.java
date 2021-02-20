@@ -14,6 +14,18 @@ import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
 
 public class Dao {
+	private static final String ORDER_DATE = "order_date";
+	private static final String ORDER_ID = "order_id";
+	private static final String USER_NAME_ORDERS_TABLE = "user_name";
+	private static final String ORDERS_TABLE = "orders";
+	private static final String AGE = "age";
+	private static final String ACTIVITY = "activity";
+	private static final String LAST_NAME = "last_name";
+	private static final String FIRST_NAME = "first_name";
+	private static final String PASSWORD = "password";
+	private static final String PRODUCTS_TABLE = "products";
+	private static final String USERS_TABLE = "users";
+	private static final String USERNAME = "username";
 	private static final String IMAGE_PATH = "image_path";
 	private static final String PRODUCT_NAME = "product_name";
 	private static final String PRODUCT_ID = "product_id";
@@ -21,8 +33,8 @@ public class Dao {
 	public List<Product> searchProducts(Connection connection, String searchString) {
 		List<Product> products = new ArrayList<>();
 		try {
-			String query = "SELECT * FROM products WHERE product_name like '%" 
-					+ searchString + "%'";
+			String query = "SELECT * FROM " + PRODUCTS_TABLE + " WHERE " 
+					+ PRODUCT_NAME + " like '%" + searchString + "%'";
 			Statement statement = connection.createStatement();
 			ResultSet set = statement.executeQuery(query);
 			while (set.next()) {
@@ -38,7 +50,7 @@ public class Dao {
 	public int createUser(Connection connection, User user) {
 		int rowsAffected = 0;
 		try {
-			String query = "INSERT into users values (?, ?, ?, ?, ?, ?)";
+			String query = "INSERT into " + USERS_TABLE + " values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, user.getUsername());
 			statement.setString(2, user.getPassword());
@@ -56,17 +68,17 @@ public class Dao {
 	public User getUserProfile(Connection connection, String username) {
 		User user = null;
 		try {
-			String query = "SELECT * FROM users WHERE username = ?";
+			String query = "SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + " = ?";
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, username);
 			ResultSet set = statement.executeQuery();
 			if (set.next()) {
-				String nameOriginalCase = set.getString("username");
-				String password = set.getString("password");
-				String firstName = set.getString("first_name");
-				String lastName = set.getString("last_name");
-				String activity = set.getString("activity");
-				int age = set.getInt("age");
+				String nameOriginalCase = set.getString(USERNAME);
+				String password = set.getString(PASSWORD);
+				String firstName = set.getString(FIRST_NAME);
+				String lastName = set.getString(LAST_NAME);
+				String activity = set.getString(ACTIVITY);
+				int age = set.getInt(AGE);
 				user = new User(nameOriginalCase, password, firstName, lastName, activity, age);
 			}
 		} catch (SQLException e) {
@@ -77,8 +89,8 @@ public class Dao {
 	
 	public boolean validateUser(Connection connection, String username, String password) {
 		try {
-			String query = "SELECT * FROM users WHERE username = ? AND password = ?"
-					+ " COLLATE utf8mb4_bin";
+			String query = "SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME 
+					+ " = ? AND " + PASSWORD + " = ?" + " COLLATE utf8mb4_bin";
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, username);
 			statement.setString(2, password);
@@ -95,15 +107,16 @@ public class Dao {
 	public List<Order> getOrdersOfUser(Connection connection, String username) {
 		List<Order> orders = new ArrayList<>();
 		try {
-			String query = "SELECT * FROM orders WHERE user_name = ?";
+			String query = "SELECT * FROM " + ORDERS_TABLE + " WHERE " 
+					+ USER_NAME_ORDERS_TABLE + " = ?";
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, username);
 			ResultSet set = statement.executeQuery();
 			while (set.next()) {
-				int id = set.getInt("order_id");
-				String product = set.getString("product_name");
-				String productImgPath = set.getString("image_path");
-				Date orderDate = new Date(set.getDate("order_date").getTime());
+				int id = set.getInt(ORDER_ID);
+				String product = set.getString(PRODUCT_NAME);
+				String productImgPath = set.getString(IMAGE_PATH);
+				Date orderDate = new Date(set.getDate(ORDER_DATE).getTime());
 				orders.add(new Order(id, product, productImgPath, orderDate, username));
 			}
 		} catch (SQLException e) {

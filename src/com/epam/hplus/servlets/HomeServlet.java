@@ -10,9 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/home", "/index.html"})
 public class HomeServlet extends HttpServlet {
+	private static final String INDEX_JSP = "index.jsp";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		req.getRequestDispatcher(INDEX_JSP).forward(req, resp);
 	}
 }
