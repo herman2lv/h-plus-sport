@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.hplussport.com/apptaglib" prefix="app"%>
 <html>
 <head>
-<link rel="stylesheet" href="css/style.css">
-<meta charset="ISO-8859-1">
-<title>H+ Sport</title>
-
+	<link rel="stylesheet" href="css/style.css">
+	<meta charset="ISO-8859-1">
+	<title>H+ Sport</title>
 </head>
 <body>
-	
+
 	<jsp:include page="header.jsp"/>
-	
+
 	<section>
-	<%=displayDate()%>
+	<app:insertDate/>
 	</section>
+	
 	<section id="login" class="section">
 		<div class="container tagline">
-			<%if(request.getAttribute("error") != null){%>
-			<em>${error}</em><br />
-			<%}%>
+            <c:if test="${error != null}">
+                <em>${error}</em><br />
+			</c:if>
 			<em>LOGIN USER</em>
 			<form action="login" method="post">
 				<label>Username</label>
@@ -34,13 +33,6 @@
 	
     <jsp:include page="searchSection.jsp"/>
     <jsp:include page="footer.jsp"/>
-	
-<%!
-public String displayDate(){
-	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm");
-	Date toDate = Calendar.getInstance().getTime();
-	return dateFormat.format(toDate);
-}
-%>
+    
 </body>
 </html>
