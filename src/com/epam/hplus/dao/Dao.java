@@ -111,38 +111,4 @@ public class Dao {
 		}
 		return orders;
 	}
-	
-	public String getTable(Connection connection, String table) {
-		String query = "SELECT * FROM ";
-		switch (table) {
-			case "users":
-				query += "users";
-				break;
-			case "orders":
-				query += "orders";
-				break;
-			default:
-				table = "products";
-				query += "products";
-		}
-		StringBuilder out = new StringBuilder();
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet set = statement.executeQuery(query);
-			out.append(table).append("\n");
-			for (int i = 1; i <= set.getMetaData().getColumnCount(); i++) {
-				out.append(String.format("%-25.25s |", set.getMetaData().getColumnLabel(i)));
-			}
-			out.append("\n");
-			while (set.next()) {
-				for (int i = 1; i <= set.getMetaData().getColumnCount(); i++) {
-					out.append(String.format("%-25.25s |", set.getString(i)));
-				}
-				out.append("\n");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return out.toString();
-	}
 }
