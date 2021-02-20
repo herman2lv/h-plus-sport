@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<%@page import="java.util.List"%>
-<%@page import="com.epam.hplus.beans.Product" 
-        errorPage="error.jsp" isErrorPage="false"%>
+<%@page errorPage="error.jsp" isErrorPage="false"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,6 +11,7 @@
 <body>
 
     <jsp:include page="header.jsp"/>
+    <jsp:include page="searchSection.jsp"/>
     
 	<section id="products" class="section">
 		<div class="container">
@@ -24,24 +24,20 @@
 			<p><span id="size">Items in Cart: ${cartSize}</span></p>
 		</div>
 		<div class="productContainer">
-		<%
-		List<Product> products = (List) request.getAttribute("products");
-		for (Product product : products) {
-		%>
-			<form method="get" action="addProduct">
-                <div class="productContainerItem">
-                    <img id="pic1" src="<%= product.getProductImgPath()%>">
-                    <input type="text" name="product" value="<%= product.getName()%>"><br/>
-                    <button>Add to Cart</button>
-                </div>
-            </form>
-		<%}%>
+            <c:forEach items="${products}" var="product">
+				<form method="get" action="addProduct">
+	                <div class="productContainerItem">
+	                    <img id="pic1" src="${product.productImgPath}">
+	                    <input type="text" name="product" value="${product.name}"><br/>
+	                    <button>Add to Cart</button>
+	                </div>
+	            </form>
+            </c:forEach>
 		</div>
 	</section>
 	<br/>
 	<br/>
 	
-    <jsp:include page="searchSection.jsp"/>
     <jsp:include page="footer.jsp"/>
 
 </body>

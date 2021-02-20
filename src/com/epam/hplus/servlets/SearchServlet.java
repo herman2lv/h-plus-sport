@@ -21,6 +21,9 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		String searchString = req.getParameter("search");
+		if (searchString == null) {
+			searchString = "";
+		}
 		HttpSession session = req.getSession();
 		session.setAttribute("searchString", searchString);
 		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
