@@ -253,6 +253,32 @@ em {
 	margin-top: 3rem
 }
 
+.search {
+	min-height: 15vh;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	line-height: 160%
+}
+
+.search .headline {
+	text-transform: uppercase;
+	font-weight: 300;
+	font-size: 4rem;
+	margin-top: 1rem;
+	line-height: 110%
+}
+
 .section {
 	min-height: 40vh;
 	display: -webkit-box;
@@ -392,32 +418,6 @@ em {
 	animation: a 1s
 }
 
-@
--webkit-keyframes a { 0%{
-	-webkit-transform: translate3d(0, 100%, 0);
-	transform: translate3d(0, 100%, 0);
-	visibility: visible
-}
-
-to {
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0)
-}
-
-}
-@
-keyframes a { 0%{
-	-webkit-transform: translate3d(0, 100%, 0);
-	transform: translate3d(0, 100%, 0);
-	visibility: visible
-}
-
-to {
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0)
-}
-
-}
 @media screen and (min-width:600px) {
 	#products .product-list .product-item {
 		width: 33.33333%

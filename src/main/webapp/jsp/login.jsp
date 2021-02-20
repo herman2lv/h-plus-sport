@@ -5,7 +5,7 @@
 <head>
 	<link rel="stylesheet" href="css/style.css">
 	<meta charset="ISO-8859-1">
-	<title>H+ Sport</title>
+	<title>H+ Sport - Login</title>
 </head>
 <body>
 
@@ -18,14 +18,17 @@
 	<section id="login" class="section">
 		<div class="container tagline">
             <c:if test="${error != null}">
-                <em>${error}</em><br />
+                <em>${error}</em>
+				<br/>
 			</c:if>
 			<em>LOGIN USER</em>
 			<form action="login" method="post">
-				<label>Username</label>
-				<input type="text" name="username"
-					   id="username"><br /> <label>Password</label> 
-                <input type="password" name="password" id="password"><br/>
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username" required>
+				<br/>
+				<label for="password">Password</label> 
+                <input type="password" name="password" id="password" required>
+				<br/>
                 <input type="submit" value="Login">
 			</form>
 		</div>

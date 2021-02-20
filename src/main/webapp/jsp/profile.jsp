@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>H+ Sport</title>
+<title>H+ Sport - My Profile</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
