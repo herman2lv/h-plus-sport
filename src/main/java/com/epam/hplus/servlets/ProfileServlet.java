@@ -12,20 +12,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
+import static com.epam.hplus.constants.Context.REQUEST_USER;
+import static com.epam.hplus.constants.Context.SESSION_USERNAME;
+import static com.epam.hplus.constants.JspFiles.PROFILE_JSP;
+
 @WebServlet(urlPatterns = "/profile")
 public class ProfileServlet extends HttpServlet {
-    private static final String PROFILE_JSP = "profile.jsp";
-    private static final String USER = "user";
-    private static final String DB_CONNECTION = "dbConnection";
-    private static final String USERNAME = "username";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String username = (String) req.getSession().getAttribute(USERNAME);
-        Connection connection = (Connection) getServletContext().getAttribute(DB_CONNECTION);
+        String username = (String) req.getSession().getAttribute(SESSION_USERNAME);
+        Connection connection = (Connection) getServletContext().getAttribute(APP_DB_CONNECTION);
         User user = new Dao().getUserProfile(connection, username);
-        req.setAttribute(USER, user);
+        req.setAttribute(REQUEST_USER, user);
         req.getRequestDispatcher(PROFILE_JSP).forward(req, resp);
     }
 }

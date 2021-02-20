@@ -13,7 +13,29 @@ import com.epam.hplus.beans.Order;
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
 
-import static com.epam.hplus.constants.Database.*;
+import static com.epam.hplus.constants.Database.ORDERS_IMAGE_PATH;
+import static com.epam.hplus.constants.Database.ORDERS_ORDER_DATE;
+import static com.epam.hplus.constants.Database.ORDERS_ORDER_ID;
+import static com.epam.hplus.constants.Database.ORDERS_PRODUCT_NAME;
+import static com.epam.hplus.constants.Database.ORDERS_TABLE;
+import static com.epam.hplus.constants.Database.ORDERS_USERNAME;
+import static com.epam.hplus.constants.Database.PRODUCTS_IMAGE_PATH;
+import static com.epam.hplus.constants.Database.PRODUCTS_PRODUCT_ID;
+import static com.epam.hplus.constants.Database.PRODUCTS_PRODUCT_NAME;
+import static com.epam.hplus.constants.Database.PRODUCTS_TABLE;
+import static com.epam.hplus.constants.Database.USERS_ACTIVITY;
+import static com.epam.hplus.constants.Database.USERS_ACTIVITY_INDEX;
+import static com.epam.hplus.constants.Database.USERS_AGE;
+import static com.epam.hplus.constants.Database.USERS_AGE_INDEX;
+import static com.epam.hplus.constants.Database.USERS_FIRST_NAME;
+import static com.epam.hplus.constants.Database.USERS_FIRST_NAME_INDEX;
+import static com.epam.hplus.constants.Database.USERS_LAST_NAME;
+import static com.epam.hplus.constants.Database.USERS_LAST_NAME_INDEX;
+import static com.epam.hplus.constants.Database.USERS_PASSWORD;
+import static com.epam.hplus.constants.Database.USERS_PASSWORD_INDEX;
+import static com.epam.hplus.constants.Database.USERS_TABLE;
+import static com.epam.hplus.constants.Database.USERS_USERNAME;
+import static com.epam.hplus.constants.Database.USERS_USERNAME_INDEX;
 
 public class Dao {
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";

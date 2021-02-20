@@ -14,14 +14,17 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
+import static com.epam.hplus.constants.Context.REQUEST_ERROR;
+import static com.epam.hplus.constants.Context.SESSION_USERNAME;
+import static com.epam.hplus.constants.JspFiles.LOGIN_JSP;
+
 @WebFilter(urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
-    private static final String USERNAME = "username";
+
     private static final String ANY_CHARS_BETWEEN_SLASHES_REGEX = "/.*[^/].*/";
     private static final String ANY_CHAR_REGEX = ".*";
-    private static final String LOGIN_JSP = "/login.jsp";
     private static final String ERROR_MESSAGE = "You are not authorized. Please, login";
-    private static final String ERROR = "error";
+
     private List<String> restrictedResources;
 
     @Override
@@ -37,7 +40,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String uri = request.getRequestURI();
         if (isRestrictedResource(uri) && userIsNotAthorized(request)) {
-            req.setAttribute(ERROR, ERROR_MESSAGE);
+            req.setAttribute(REQUEST_ERROR, ERROR_MESSAGE);
             req.getRequestDispatcher(LOGIN_JSP).forward(request, res);
         }
         chain.doFilter(request, res);
@@ -53,6 +56,6 @@ public class AuthenticationFilter implements Filter {
     }
 
     private boolean userIsNotAthorized(HttpServletRequest request) {
-        return request.getSession().getAttribute(USERNAME) == null;
+        return request.getSession().getAttribute(SESSION_USERNAME) == null;
     }
 }

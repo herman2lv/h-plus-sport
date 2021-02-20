@@ -8,10 +8,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static com.epam.hplus.constants.JspFiles.INDEX_JSP;
+
 @WebServlet(urlPatterns = {"/home", "/index.html"})
 public class HomeServlet extends HttpServlet {
-    private static final String INDEX_JSP = "index.jsp";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

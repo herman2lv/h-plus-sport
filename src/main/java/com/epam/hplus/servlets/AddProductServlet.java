@@ -15,30 +15,31 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
+import static com.epam.hplus.constants.Context.SESSION_CART;
+import static com.epam.hplus.constants.Context.REQUEST_CART_SIZE;
+import static com.epam.hplus.constants.Context.REQUEST_PRODUCT;
+import static com.epam.hplus.constants.Context.REQUEST_PRODUCTS;
+import static com.epam.hplus.constants.Context.SESSION_SEARCH_STRING;
+import static com.epam.hplus.constants.JspFiles.SEARCH_JSP;
+
 @WebServlet(urlPatterns = "/addProduct")
 public class AddProductServlet extends HttpServlet {
-    private static final String DB_CONNECTION = "dbConnection";
-    private static final String SEARCH_STRING = "searchString";
-    private static final String SEARCH_JSP = "/search.jsp";
-    private static final String CART_SIZE = "cartSize";
-    private static final String PRODUCTS = "products";
-    private static final String CART = "cart";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
-        List<String> cart = (ArrayList<String>) session.getAttribute(CART);
+        List<String> cart = (ArrayList<String>) session.getAttribute(SESSION_CART);
         if (cart == null) {
             cart = new ArrayList<>();
         }
-        cart.add(req.getParameter("product"));
-        session.setAttribute(CART, cart);
-        String searchString = (String) session.getAttribute(SEARCH_STRING);
-        Connection connection = (Connection) getServletContext().getAttribute(DB_CONNECTION);
+        cart.add(req.getParameter(REQUEST_PRODUCT));
+        session.setAttribute(SESSION_CART, cart);
+        String searchString = (String) session.getAttribute(SESSION_SEARCH_STRING);
+        Connection connection = (Connection) getServletContext().getAttribute(APP_DB_CONNECTION);
         List<Product> products = new Dao().searchProducts(connection, searchString);
-        req.setAttribute(PRODUCTS, products);
-        req.setAttribute(CART_SIZE, cart.size());
+        req.setAttribute(REQUEST_PRODUCTS, products);
+        req.setAttribute(REQUEST_CART_SIZE, cart.size());
         req.getRequestDispatcher(SEARCH_JSP).forward(req, resp);
     }
 }

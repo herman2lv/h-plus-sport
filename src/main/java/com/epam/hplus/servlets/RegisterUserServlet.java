@@ -12,19 +12,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
+import static com.epam.hplus.constants.Context.REQUEST_ACTIVITY;
+import static com.epam.hplus.constants.Context.REQUEST_AGE;
+import static com.epam.hplus.constants.Context.REQUEST_FIRST_NAME;
+import static com.epam.hplus.constants.Context.REQUEST_LAST_NAME;
+import static com.epam.hplus.constants.Context.REQUEST_PASSWORD;
+import static com.epam.hplus.constants.Context.REQUEST_USERNAME;
+import static com.epam.hplus.constants.JspFiles.REGISTER_JSP;
+
 @WebServlet(urlPatterns = "/register")
 public class RegisterUserServlet extends HttpServlet {
-    private static final String REGISTRAION_STATUS = "registraionStatus";
+    private static final String REGISTRATION_STATUS = "registrationStatus";
     private static final String SUCCESS_MESSAGE = "User registered successfully";
-    private static final String ERROR_MESSAGE = "User was't registered, an error occured";
-    private static final String DB_CONNECTION = "dbConnection";
-    private static final String REGISTER_JSP = "register.jsp";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String FIRST_NAME = "fname";
-    private static final String LAST_NAME = "lname";
-    private static final String ACTIVITY = "activity";
-    private static final String AGE = "age";
+    private static final String ERROR_MESSAGE = "User wasn't registered, an error occurred";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,25 +37,25 @@ public class RegisterUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         User user = createInstanceOfUser(req);
-        Connection connection = (Connection) getServletContext().getAttribute(DB_CONNECTION);
+        Connection connection = (Connection) getServletContext().getAttribute(APP_DB_CONNECTION);
         int rowsAffected = new Dao().createUser(connection, user);
-        String registraionStatus;
+        String registrationStatus;
         if (rowsAffected == 0) {
-            registraionStatus = ERROR_MESSAGE;
+            registrationStatus = ERROR_MESSAGE;
         } else {
-            registraionStatus = SUCCESS_MESSAGE;
+            registrationStatus = SUCCESS_MESSAGE;
         }
-        req.setAttribute(REGISTRAION_STATUS, registraionStatus);
+        req.setAttribute(REGISTRATION_STATUS, registrationStatus);
         req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
     }
 
     private User createInstanceOfUser(HttpServletRequest req) {
-        String username = req.getParameter(USERNAME);
-        String password = req.getParameter(PASSWORD);
-        String firstName = req.getParameter(FIRST_NAME);
-        String lastName = req.getParameter(LAST_NAME);
-        String activity = req.getParameter(ACTIVITY);
-        int age = Integer.valueOf(req.getParameter(AGE));
+        String username = req.getParameter(REQUEST_USERNAME);
+        String password = req.getParameter(REQUEST_PASSWORD);
+        String firstName = req.getParameter(REQUEST_FIRST_NAME);
+        String lastName = req.getParameter(REQUEST_LAST_NAME);
+        String activity = req.getParameter(REQUEST_ACTIVITY);
+        int age = Integer.valueOf(req.getParameter(REQUEST_AGE));
         return new User(username, password, firstName, lastName, activity, age);
     }
 }

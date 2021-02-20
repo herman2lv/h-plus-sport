@@ -13,20 +13,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
+import static com.epam.hplus.constants.Context.REQUEST_ORDERS;
+import static com.epam.hplus.constants.Context.SESSION_USERNAME;
+import static com.epam.hplus.constants.JspFiles.HISTORY_JSP;
+
 @WebServlet(urlPatterns = "/orderHistory")
 public class OrderHistoryServlet extends HttpServlet {
-    private static final String DB_CONNECTION = "dbConnection";
-    private static final String USERNAME = "username";
-    private static final String HISTORY_JSP = "history.jsp";
-    private static final String ORDERS = "orders";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String username = (String) req.getSession().getAttribute(USERNAME);
-        Connection connection = (Connection) getServletContext().getAttribute(DB_CONNECTION);
+        String username = (String) req.getSession().getAttribute(SESSION_USERNAME);
+        Connection connection = (Connection) getServletContext().getAttribute(APP_DB_CONNECTION);
         List<Order> orders = new Dao().getOrdersOfUser(connection, username);
-        req.setAttribute(ORDERS, orders);
+        req.setAttribute(REQUEST_ORDERS, orders);
         req.getRequestDispatcher(HISTORY_JSP).forward(req, resp);
     }
 }
