@@ -1,7 +1,8 @@
 /build
+/target
+/.idea
 *.class
 *.war
 *.jar
 *.iml
 .tern-project
-
