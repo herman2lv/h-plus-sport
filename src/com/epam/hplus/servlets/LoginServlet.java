@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 		boolean isValidUser = new Dao().validateUser(connection, username, password);
 		if (isValidUser) {
 			req.getSession().setAttribute("username", username);
-			req.getRequestDispatcher("/home.jsp").forward(req, resp);
+			req.getRequestDispatcher("/cart.jsp").forward(req, resp);
 		} else {
 			req.setAttribute("error", "Invalid credentials. Please, login again");
 			req.getRequestDispatcher("/login.jsp").forward(req, resp);

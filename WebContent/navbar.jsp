@@ -8,6 +8,7 @@
 			<li><a href="home">home</a></li>
 			<li><a href="search">catalog</a></li>
 			<li><a href="home#people">people</a></li>
+			<li><a href="cart">cart</a></li>
 			<c:if test="${sessionScope.username == null}">
 				<li><a href="login">login</a></li>
 				<li><a href="register">new user?</a></li>
