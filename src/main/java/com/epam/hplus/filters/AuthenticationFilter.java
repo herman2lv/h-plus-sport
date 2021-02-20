@@ -26,7 +26,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        restrictedResources = new ArrayList<String>(Arrays.asList(
+        restrictedResources = new ArrayList<>(Arrays.asList(
                 "profile",
                 "orderHistory"));
     }

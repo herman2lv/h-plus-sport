@@ -13,28 +13,9 @@ import com.epam.hplus.beans.Order;
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
 
+import static com.epam.hplus.constants.Database.*;
+
 public class Dao {
-    private static final String ORDER_DATE = "order_date";
-    private static final String ORDER_ID = "order_id";
-    private static final String USER_NAME_ORDERS_TABLE = "user_name";
-    private static final String ORDERS_TABLE = "orders";
-    private static final String AGE = "age";
-    private static final String ACTIVITY = "activity";
-    private static final String LAST_NAME = "last_name";
-    private static final String FIRST_NAME = "first_name";
-    private static final String PASSWORD = "password";
-    private static final String PRODUCTS_TABLE = "products";
-    private static final String USERS_TABLE = "users";
-    private static final String USERNAME = "username";
-    private static final String IMAGE_PATH = "image_path";
-    private static final String PRODUCT_NAME = "product_name";
-    private static final String PRODUCT_ID = "product_id";
-    private static final int USERNAME_COLUMN_INDEX = 1;
-    private static final int PASSWORD_COLUMN_INDEX = 2;
-    private static final int FIRST_NAME_COLUMN_INDEX = 3;
-    private static final int LAST_NAME_COLUMN_INDEX = 4;
-    private static final int AGE_COLUMN_INDEX = 5;
-    private static final int ACTIVITY_COLUMN_INDEX = 6;
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String WHERE = " WHERE ";
 
@@ -42,12 +23,12 @@ public class Dao {
         List<Product> products = new ArrayList<>();
         try {
             String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE
-                           + PRODUCT_NAME + " like '%" + searchString + "%'";
+                           + PRODUCTS_PRODUCT_NAME + " like '%" + searchString + "%'";
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(query);
             while (set.next()) {
-                products.add(new Product(set.getLong(PRODUCT_ID), set.getString(PRODUCT_NAME),
-                        set.getString(IMAGE_PATH)));
+                products.add(new Product(set.getLong(PRODUCTS_PRODUCT_ID), set.getString(PRODUCTS_PRODUCT_NAME),
+                        set.getString(PRODUCTS_IMAGE_PATH)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,12 +41,12 @@ public class Dao {
         try {
             String query = "INSERT into " + USERS_TABLE + " values (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(USERNAME_COLUMN_INDEX, user.getUsername());
-            statement.setString(PASSWORD_COLUMN_INDEX, user.getPassword());
-            statement.setString(FIRST_NAME_COLUMN_INDEX, user.getFirstName());
-            statement.setString(LAST_NAME_COLUMN_INDEX, user.getLastName());
-            statement.setInt(AGE_COLUMN_INDEX, user.getAge());
-            statement.setString(ACTIVITY_COLUMN_INDEX, user.getActivity());
+            statement.setString(USERS_USERNAME_INDEX, user.getUsername());
+            statement.setString(USERS_PASSWORD_INDEX, user.getPassword());
+            statement.setString(USERS_FIRST_NAME_INDEX, user.getFirstName());
+            statement.setString(USERS_LAST_NAME_INDEX, user.getLastName());
+            statement.setInt(USERS_AGE_INDEX, user.getAge());
+            statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
             rowsAffected = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,17 +57,17 @@ public class Dao {
     public User getUserProfile(Connection connection, String username) {
         User user = null;
         try {
-            String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERNAME + " = ?";
+            String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_USERNAME + " = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet set = statement.executeQuery();
             if (set.next()) {
-                String nameOriginalCase = set.getString(USERNAME);
-                String password = set.getString(PASSWORD);
-                String firstName = set.getString(FIRST_NAME);
-                String lastName = set.getString(LAST_NAME);
-                String activity = set.getString(ACTIVITY);
-                int age = set.getInt(AGE);
+                String nameOriginalCase = set.getString(USERS_USERNAME);
+                String password = set.getString(USERS_PASSWORD);
+                String firstName = set.getString(USERS_FIRST_NAME);
+                String lastName = set.getString(USERS_LAST_NAME);
+                String activity = set.getString(USERS_ACTIVITY);
+                int age = set.getInt(USERS_AGE);
                 user = new User(nameOriginalCase, password, firstName, lastName, activity, age);
             }
         } catch (SQLException e) {
@@ -97,8 +78,8 @@ public class Dao {
 
     public boolean validateUser(Connection connection, String username, String password) {
         try {
-            String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERNAME
-                           + " = ? AND " + PASSWORD + " = ?" + " COLLATE utf8mb4_bin";
+            String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_USERNAME
+                           + " = ? AND " + USERS_PASSWORD + " = ?" + " COLLATE utf8mb4_bin";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -115,16 +96,15 @@ public class Dao {
     public List<Order> getOrdersOfUser(Connection connection, String username) {
         List<Order> orders = new ArrayList<>();
         try {
-            String query = SELECT_ALL_FROM + ORDERS_TABLE + WHERE
-                           + USER_NAME_ORDERS_TABLE + " = ?";
+            String query = SELECT_ALL_FROM + ORDERS_TABLE + WHERE + ORDERS_USERNAME + " = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet set = statement.executeQuery();
             while (set.next()) {
-                int id = set.getInt(ORDER_ID);
-                String product = set.getString(PRODUCT_NAME);
-                String productImgPath = set.getString(IMAGE_PATH);
-                Date orderDate = new Date(set.getDate(ORDER_DATE).getTime());
+                int id = set.getInt(ORDERS_ORDER_ID);
+                String product = set.getString(ORDERS_PRODUCT_NAME);
+                String productImgPath = set.getString(ORDERS_IMAGE_PATH);
+                Date orderDate = new Date(set.getDate(ORDERS_ORDER_DATE).getTime());
                 orders.add(new Order(id, product, productImgPath, orderDate, username));
             }
         } catch (SQLException e) {

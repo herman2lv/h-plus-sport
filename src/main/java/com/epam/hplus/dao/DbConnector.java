@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DbConnector {
-    private static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
+import static com.epam.hplus.constants.Database.MYSQL_DRIVER;
 
+public class DbConnector {
     private DbConnector() {
     }
 
