@@ -6,10 +6,6 @@
         id="WebApp_ID" 
         version="3.0">
   <display-name>H-plus</display-name>
-  <servlet>
-    <servlet-name>GetServlet</servlet-name>
-    <servlet-class>com.epam.hplus.servlets.GetServlet</servlet-class>
-  </servlet>
   <context-param>
     <param-name>dbUrl</param-name>
     <param-value>jdbc:mysql://127.0.0.1:3306/hplus</param-value>
