@@ -37,12 +37,7 @@ public class Order {
 	public Date getOrderDate() {
 		return orderDate;
 	}
-	
-	public String getFormattedDate(String pattern){
-		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-		return dateFormat.format(orderDate);
-	}
-	
+		
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}

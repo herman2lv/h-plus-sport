@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -43,7 +44,7 @@
 	                <tr>
 	                    <td>${counter.count}</td>
 	                    <td>${order.product}</td>
-	                    <td>${order.getFormattedDate("YYYY MM dd")}</td>
+	                    <td><fmt:formatDate value="${order.orderDate}" pattern="YYYY-MM-dd"/></td>
 	                    <td><img width="200px" height="150px" src="${order.productImgPath}"></td>
 	                </tr>
 	            </c:forEach>
