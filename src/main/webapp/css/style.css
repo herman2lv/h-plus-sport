@@ -132,11 +132,7 @@ em {
 }
 
 .nav {
-	margin-top: 1.75rem /* navelements */
-}
-
-.nav .nav-elements { /* navbar */
-	
+	margin-top: 1.75rem
 }
 
 .nav .nav-elements .branding {
@@ -215,7 +211,7 @@ em {
 		flex-wrap: wrap
 	}
 }
-/* nav */
+
 .footer {
 	background-color: #312a10;
 	color: #fff;
@@ -347,10 +343,6 @@ em {
 	}
 }
 
-#products { /*.product-list*/
-	
-}
-
 #products .imageheader {
 	background: -webkit-linear-gradient(top, transparent, transparent),
 		url(../images/backgrounds/swimming.jpg);
@@ -373,7 +365,7 @@ em {
 	display: flex;
 	-webkit-flex-flow: row wrap;
 	-ms-flex-flow: row wrap;
-	flex-flow: row wrap /*.product-item*/
+	flex-flow: row wrap
 }
 
 #products .product-list .product-item {
@@ -383,7 +375,7 @@ em {
 	width: 50%;
 	-webkit-transition: all .4s ease-in-out;
 	transition: all .4s ease-in-out;
-	opacity: .8 /*.product-name*/
+	opacity: .8
 }
 
 #products .product-list .product-item .product-name {
@@ -435,7 +427,7 @@ em {
 		width: 16.66667%
 	}
 }
-/* products*/
+
 #guarantee {
 	color: #fff;
 	font-size: 2rem;
@@ -463,7 +455,7 @@ em {
 }
 
 #people {
-	background-color: #e7c84c /*.people-cards*/
+	background-color: #e7c84c
 }
 
 #people .imageheader {
@@ -483,10 +475,6 @@ em {
 	padding-bottom: 2rem
 }
 
-#people .people-cards { /*.person-card*/
-	
-}
-
 #people .people-cards .person-card {
 	background: hsla(0, 0%, 100%, .2);
 	box-shadow: 5px 5px 3px rgba(243, 211, 80, .5);
@@ -496,7 +484,7 @@ em {
 	transition: all .2s ease-in;
 	-webkit-transform: scale(.9);
 	transform: scale(.9);
-	opacity: .8 /*.card-text*/
+	opacity: .8
 }
 
 #people .people-cards .person-card .card-info {
@@ -515,7 +503,7 @@ em {
 	font-size: 1.4rem;
 	line-height: 100%
 }
-/*.card-info*/
+
 #people .people-cards .person-card .card-text {
 	font-size: 1.6rem;
 	font-weight: 300;
@@ -562,9 +550,7 @@ em {
 		width: calc(100%/ 3 - 1.5rem)
 	}
 }
-/*.people*/
 
-/*added search product related classes*/
 #search {
 	color: #fff;
 	font-size: 2rem;
@@ -581,7 +567,6 @@ section#products>li>button {
 	margin: 5px;
 }
 
-/*added form controls classes for register user screen*/
 #registration input#username {
 	margin: 5px;
 }
@@ -652,7 +637,6 @@ span#size{
 	width: 100%;
 }
 
-/*added classes for login screen*/
 section#login {
 	background-color: #8f9305;
 }
@@ -661,8 +645,6 @@ section#login {
 	margin-left: 5px;
 }
 
-
-/*added classes for order history*/
 #orderHistory th{
 	font-size: 15px;
 	background-color: #f3d350;
