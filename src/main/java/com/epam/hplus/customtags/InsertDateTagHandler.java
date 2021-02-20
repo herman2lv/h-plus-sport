@@ -8,7 +8,7 @@ import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.PageContext;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
-public class InsertDateTagHadler extends SimpleTagSupport {
+public class InsertDateTagHandler extends SimpleTagSupport {
     private String format = "YYYY-MM-dd HH:mm";
 
     public String getFormat() {

@@ -12,6 +12,8 @@ import java.util.List;
 import com.epam.hplus.beans.Order;
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.beans.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.epam.hplus.constants.Database.ORDERS_IMAGE_PATH;
 import static com.epam.hplus.constants.Database.ORDERS_ORDER_DATE;
@@ -38,6 +40,7 @@ import static com.epam.hplus.constants.Database.USERS_USERNAME;
 import static com.epam.hplus.constants.Database.USERS_USERNAME_INDEX;
 
 public class Dao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Dao.class);
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String WHERE = " WHERE ";
 
@@ -53,7 +56,7 @@ public class Dao {
                         set.getString(PRODUCTS_IMAGE_PATH)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return products;
     }
@@ -71,7 +74,7 @@ public class Dao {
             statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
             rowsAffected = statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return rowsAffected;
     }
@@ -93,7 +96,7 @@ public class Dao {
                 user = new User(nameOriginalCase, password, firstName, lastName, activity, age);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return user;
     }
@@ -110,7 +113,7 @@ public class Dao {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return false;
     }
@@ -130,7 +133,7 @@ public class Dao {
                 orders.add(new Order(id, product, productImgPath, orderDate, username));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return orders;
     }

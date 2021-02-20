@@ -9,7 +9,7 @@
     <uri>http://www.hplussport.com/apptaglib</uri>
     <tag>
         <name>insertDate</name>
-        <tag-class>com.epam.hplus.customtags.InsertDateTagHadler</tag-class>
+        <tag-class>com.epam.hplus.customtags.InsertDateTagHandler</tag-class>
         <attribute>
             <name>format</name>
         </attribute>
