@@ -13,6 +13,6 @@ public class RedirectServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		resp.sendRedirect("https://linkedin.com");
+		resp.sendRedirect("https://github.com/herman2lv/h-plus-sport");
 	}
 }

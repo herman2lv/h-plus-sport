@@ -19,7 +19,7 @@
 				<li><a href='logout'>logout</a></li>
             </c:if>
 			<li><a href="#search">search</a></li>
-			<li><a href="redirect">linkedIn</a></li>
+			<li><a href="redirect">GitHub</a></li>
 		</ul>
 	</div>
 </nav>
