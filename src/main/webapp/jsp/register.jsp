@@ -13,7 +13,7 @@
 	<section id="registration" class="section">
 	 <div class="container tagline">
 	 <em>Register User</em><br/>
-	 <em>${registraionStatus}</em>
+	 <em>${registrationStatus}</em>
 		<form action="register" method="post">
 			<label>Username</label> <input type="text" name="username" id="username"><br/>
 			<label>Password</label> <input type="password" name="password" id="password"><br/>
