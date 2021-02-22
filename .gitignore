@@ -1,8 +1,13 @@
 /build
 /target
 /.idea
+/.settings
+.project
+.classpath
+*.swp
 *.class
 *.war
 *.jar
 *.iml
 .tern-project
+
