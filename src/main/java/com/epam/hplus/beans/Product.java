@@ -1,14 +1,20 @@
 package com.epam.hplus.beans;
 
+import java.math.BigDecimal;
+
 public class Product {
     private long productId;
     private String name;
     private String productImgPath;
+    private BigDecimal cost;
+    private String description;
 
-    public Product(long productId, String name, String productImgPath) {
+    public Product(long productId, String name, String productImgPath, BigDecimal cost, String description) {
         this.productId = productId;
         this.name = name;
         this.productImgPath = productImgPath;
+        this.cost = cost;
+        this.description = description;
     }
 
     public long getProductId() {
@@ -33,5 +39,21 @@ public class Product {
 
     public void setProductImgPath(String productImgPath) {
         this.productImgPath = productImgPath;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

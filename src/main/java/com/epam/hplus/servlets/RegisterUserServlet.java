@@ -1,11 +1,7 @@
 package com.epam.hplus.servlets;
 
-import java.io.IOException;
-import java.sql.Connection;
-
 import com.epam.hplus.beans.User;
 import com.epam.hplus.dao.Dao;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +10,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
-import static com.epam.hplus.constants.Context.REQUEST_REGISTRATION_STATUS;
 import static com.epam.hplus.constants.Context.REQUEST_ACTIVITY;
-import static com.epam.hplus.constants.Context.REQUEST_AGE;
+import static com.epam.hplus.constants.Context.REQUEST_DOB;
 import static com.epam.hplus.constants.Context.REQUEST_FIRST_NAME;
 import static com.epam.hplus.constants.Context.REQUEST_LAST_NAME;
 import static com.epam.hplus.constants.Context.REQUEST_PASSWORD;
+import static com.epam.hplus.constants.Context.REQUEST_REGISTRATION_STATUS;
 import static com.epam.hplus.constants.Context.REQUEST_USERNAME;
 import static com.epam.hplus.constants.JspFiles.REGISTER_JSP;
 
@@ -29,8 +31,9 @@ public class RegisterUserServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterUserServlet.class);
     private static final String SUCCESS_MESSAGE = "User registered successfully";
     private static final String ERROR_MESSAGE = "User wasn't registered, an error occurred";
-    protected static final String LOG_UNSUCCESSFUL_REGISTRATION =
+    private static final String LOG_UNSUCCESSFUL_REGISTRATION =
             "Unsuccessful attempt to register new user";
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -61,7 +64,13 @@ public class RegisterUserServlet extends HttpServlet {
         String firstName = req.getParameter(REQUEST_FIRST_NAME);
         String lastName = req.getParameter(REQUEST_LAST_NAME);
         String activity = req.getParameter(REQUEST_ACTIVITY);
-        int age = Integer.valueOf(req.getParameter(REQUEST_AGE));
-        return new User(username, password, firstName, lastName, activity, age);
+        Date date = null;
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(DATE_PATTERN);
+            date = format.parse(req.getParameter(REQUEST_DOB));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new User(username, password, firstName, lastName, activity, date);
     }
 }

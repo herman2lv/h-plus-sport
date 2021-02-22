@@ -19,7 +19,7 @@ public class Context {
     public static final String REQUEST_FIRST_NAME = "fname";
     public static final String REQUEST_LAST_NAME = "lname";
     public static final String REQUEST_ACTIVITY = "activity";
-    public static final String REQUEST_AGE = "age";
+    public static final String REQUEST_DOB = "dateOfBirth";
     public static final String REQUEST_SEARCH = "search";
     public static final String LOGIN_REQUEST_USERNAME = "username";
     public static final String LOGIN_REQUEST_PASSWORD = "password";

@@ -1,44 +1,34 @@
 package com.epam.hplus.beans;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Order {
     private long orderId;
-    private String product;
-    private String productImgPath;
-    private Date orderDate;
     private String username;
+    private Date orderDate;
+    private Map<Product, Integer> listOfProducts;
+    private BigDecimal orderCost;
 
-    public Order(int id, String product, String productImgPath, Date orderDate, String username) {
-        this.orderId = id;
-        this.product = product;
-        this.productImgPath = productImgPath;
-        this.orderDate = orderDate;
+    public Order(long orderId, String username, Date orderDate,
+                 Map<Product, Integer> listOfProducts, BigDecimal orderCost) {
+        this.orderId = orderId;
         this.username = username;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public String getProductImgPath() {
-        return productImgPath;
-    }
-
-    public void setProductImgPath(String productImgPath) {
-        this.productImgPath = productImgPath;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+        this.listOfProducts = listOfProducts;
+        this.orderCost = orderCost;
+    }
+
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public String getUsername() {
@@ -49,11 +39,27 @@ public class Order {
         this.username = username;
     }
 
-    public long getOrderId() {
-        return orderId;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public List<Entry<Product, Integer>> getListOfProducts() {
+        return new ArrayList<>(listOfProducts.entrySet());
+    }
+
+    public void setListOfProducts(Map<Product, Integer> listOfProducts) {
+        this.listOfProducts = listOfProducts;
+    }
+
+    public BigDecimal getOrderCost() {
+        return orderCost;
+    }
+
+    public void setOrderCost(BigDecimal orderCost) {
+        this.orderCost = orderCost;
     }
 }

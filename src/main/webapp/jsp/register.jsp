@@ -27,8 +27,8 @@
 			<label for="lname">Last Name</label>
 			<input type="text" name="lname" id="lname" required>
 			<br/>
-			<label for="age">Age</label>
-			<input type="number" name="age" id="age" required>
+			<label for="dateOfBirth">Date of Birth</label>
+			<input type="date" name="dateOfBirth" id="dateOfBirth" required>
 			<br/>
 			<label for="activity">What do you want to do?</label> 
 			<input type="radio" name="activity" id="activity" value="Playing a sport">Play a Sport?

@@ -1,20 +1,23 @@
 package com.epam.hplus.beans;
 
+import java.util.Date;
+
 public class User {
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String activity;
-    private int age;
+    private Date dateOfBirth;
 
-    public User(String username, String password, String firstName, String lastName, String activity, int age) {
+    public User(String username, String password, String firstName, String lastName,
+            String activity, Date dateOfBirth) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.activity = activity;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getUsername() {
@@ -57,11 +60,11 @@ public class User {
         this.activity = activity;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

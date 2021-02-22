@@ -18,16 +18,23 @@
 		        <table id="orderHistory">
 		            <tr>
 		                <th>Order No.</th>
-		                <th>Product Name</th>
 		                <th>Order Date</th>
-		                <th>Product Image</th>
+		                <th>Products</th>
+		                <th>Cost</th>
 		            </tr>
 		            <c:forEach items="${orders}" var="order" varStatus="counter">
 		                <tr>
 		                    <td>${counter.count}</td>
-		                    <td>${order.product}</td>
 		                    <td><fmt:formatDate value="${order.orderDate}" pattern="YYYY-MM-dd"/></td>
-		                    <td><img width="200px" height="150px" src="${order.productImgPath}"></td>
+                            <td>
+                                <table>
+                                    <c:forEach items="${order.listOfProducts}" var="product">
+                                        <tr><td><img width="200px" height="150px" src="${product.key.productImgPath}"></td></tr>
+                                        <tr><td>${product.key.name} x ${product.value}</td></tr>
+                                    </c:forEach>
+                                </table>
+                            </td>
+		                    <td>${order.orderCost}</td>
 		                </tr>
 		            </c:forEach>
 		        </table>

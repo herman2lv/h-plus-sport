@@ -1,35 +1,86 @@
-drop database if exists hplus;
+DROP database if exists hplus;
 
-create database hplus;
+CREATE database hplus;
 
-use hplus;
+USE hplus;
 
-create table products(product_id integer primary key, product_name varchar(50), image_path varchar(100));
+CREATE table products (
+    product_id int primary key auto_increment, 
+    product_name varchar(50), 
+    image_path varchar(100),
+    cost decimal (6,2),
+    description text
+);
 
-create table users(username varchar(50) primary key not null,password varchar(50),
- first_name varchar(50), last_name varchar(50),age integer,activity varchar(100));
- 
-create table orders(order_id int primary key auto_increment, product_name varchar(50), image_path varchar(50),order_date date, user_name varchar(50),
-FOREIGN KEY (user_name) REFERENCES users(username));
+CREATE table users (
+    username varchar(50) primary key not null,
+    password varchar(50) not null, 
+    first_name varchar(50), 
+    last_name varchar(50),
+    date_of_birth date,
+    activity varchar(100)
+);
+     
+CREATE table orders (
+    order_id int primary key auto_increment, 
+    username varchar(50) not null,
+    order_date date, 
+    order_cost decimal(6,2) not null,
+    FOREIGN KEY (username) REFERENCES users(username)
+);
 
-insert into users values('admin','admin','admin','admin',23,'Exercise in Gym');
-insert into users values('user','user','user','user',32,'Playing a sport');
+CREATE table orders_details (
+    order_id int,
+    product_id int,
+    number_of_products int not null,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
 
-insert into orders values(1,"mineralwater-blueberry","images/mineralwater-blueberry.jpg",'2017-03-07','admin');
-insert into orders values(2,"mineralwater-lemonlime","images/mineralwater-lemonlime.jpg",'2017-06-01','user');
-insert into orders values(3,"mineralwater-blueberry","images/mineralwater-blueberry.jpg",'2017-10-23','user');
-insert into orders values(4,"vitamin-bcomplex","images/vitamin-bcomplex.jpg",'2016-12-02','admin');
-insert into orders values(5,"proteinbar-peanutbutter","images/proteinbar-peanutbutter.jpg",'2015-07-15','admin');
- 
-insert into products values(1,"mineralwater-blueberry","images/mineralwater-blueberry.jpg");
-insert into products values(2,"mineralwater-lemonlime","images/mineralwater-lemonlime.jpg");
-insert into products values(3,"mineralwater-orange","images/mineralwater-orange.jpg");
-insert into products values(4,"mineralwater-peach","images/mineralwater-peach.jpg");
-insert into products values(5,"mineralwater-raspberry","images/mineralwater-raspberry.jpg");
-insert into products values(6,"mineralwater-strawberry","images/mineralwater-strawberry.jpg");
-insert into products values(7,"proteinbar-chocolate","images/proteinbar-chocolate.jpg");
-insert into products values(8,"proteinbar-lemon","images/proteinbar-lemon.jpg");
-insert into products values(9,"proteinbar-peanutbutter","images/proteinbar-peanutbutter.jpg");
-insert into products values(10,"vitamin-a","images/vitamin-a.jpg");
-insert into products values(11,"vitamin-bcomplex","images/vitamin-bcomplex.jpg");
-insert into products values(12,"vitamin-calcium","images/vitamin-c.jpg");
+INSERT into users values('admin','admin','Andrew','Webber','1986-04-26','Exercise in Gym');
+INSERT into users values('user','user','Mark','Johnson','1991-12-30','Playing a sport');
+INSERT into users values('luka','1234','Alexander','Showshenko','1954-08-30','Playing a sport');
+INSERT into users values('herman','1234','Herman','House','1999-09-15','Exercise in Gym');
+
+INSERT into orders (username, order_date, order_cost)
+    values('admin', '2020-03-07', 55.23),
+        ('admin', '2021-01-02', 52.23),
+        ('user', '2027-01-09', 25.01),
+        ('luka', '2021-01-12', 33.99),
+        ('herman', '2021-01-17', 82.99),
+        ('luka', '2021-02-02', 38.89),
+        ('user', '2021-02-21', 27.00),
+        ('admin', '2021-02-22', 75.00);
+
+INSERT into products (product_name, image_path, cost, description)
+    values("Mineralwater Blueberry","images/mineralwater-blueberry.jpg", 2.14, "Freshing mineral water"),
+        ("Mineralwater Lemonlime","images/mineralwater-lemonlime.jpg", 2.32, "Freshing mineral water"),
+        ("Mineralwater Orange","images/mineralwater-orange.jpg", 3.14, "Freshing mineral water"),
+        ("Mineralwater Peach","images/mineralwater-peach.jpg", 1.89, "Freshing mineral water"),
+        ("Mineralwater Raspberry","images/mineralwater-raspberry.jpg", 5.22, "Freshing mineral water"),
+        ("Mineralwater Strawberry","images/mineralwater-strawberry.jpg", 4.11, "Freshing mineral water"),
+        ("Proteinbar Chocolate","images/proteinbar-chocolate.jpg", 7.39, "Nutritious protein bar"),
+        ("Proteinbar Lemon","images/proteinbar-lemon.jpg", 8.88, "Nutritious protein bar"),
+        ("Proteinbar Peanutbutter","images/proteinbar-peanutbutter.jpg", 7.99, "Nutritious protein bar"),
+        ("Vitamin A","images/vitamin-a.jpg", 22.82, "Healthy vitamins"),
+        ("Vitamin B complex","images/vitamin-bcomplex.jpg", 27.22, "Healthy vitamins"),
+        ("Vitamin Calcium","images/vitamin-c.jpg", 26.11, "Healthy vitamins");
+
+INSERT into orders_details 
+    values(1, 1, 2),
+        (1, 2, 1),
+        (2, 3, 5),
+        (2, 2, 2),
+        (2, 4, 3),
+        (3, 8, 2),
+        (4, 9, 1),
+        (5, 10, 2),
+        (6, 11, 1),
+        (6, 12, 3),
+        (7, 3, 1),
+        (8, 7, 3),
+        (8, 3, 8),
+        (8, 9, 1),
+        (8, 10, 1);
+

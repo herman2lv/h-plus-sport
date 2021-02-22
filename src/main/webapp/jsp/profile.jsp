@@ -1,4 +1,5 @@
 <!DOCTYPE html >
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -26,8 +27,8 @@
 					<td>${user.lastName}</td>
 				</tr>
 				<tr>
-					<td>Age</td>
-					<td>${user.age}</td>
+					<td>Date of Birth</td>
+                    <td><fmt:formatDate value="${user.dateOfBirth}" pattern="YYYY-MM-dd"/></td>
 				</tr>
 				<tr>
 					<td>Interested in</td>
