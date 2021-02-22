@@ -58,10 +58,7 @@ public class Dao {
     public List<Product> searchProducts(Connection connection, String searchString) {
         List<Product> products = new ArrayList<>();
         try {
-            String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE + PRODUCTS_PRODUCT_NAME
-                           + " like '%" + searchString + "%'";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = getSetOfProducts(connection, searchString);
             while (resultSet.next()) {
                 products.add(createInstanceOfProduct(resultSet));
             }
@@ -69,6 +66,14 @@ public class Dao {
             LOGGER.error(e.getMessage(), e);
         }
         return products;
+    }
+
+    private ResultSet getSetOfProducts(Connection connection, String searchString)
+            throws SQLException {
+        String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE + PRODUCTS_PRODUCT_NAME
+                       + " like '%" + searchString + "%'";
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(query);
     }
 
     private Product createInstanceOfProduct(ResultSet resultSet) throws SQLException {
@@ -82,36 +87,31 @@ public class Dao {
     public int createUser(Connection connection, User user) {
         int rowsAffected = 0;
         try {
-            String query = "INSERT into " + USERS_TABLE + " values (?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(USERS_USERNAME_INDEX, user.getUsername());
-            statement.setString(USERS_PASSWORD_INDEX, user.getPassword());
-            statement.setString(USERS_FIRST_NAME_INDEX, user.getFirstName());
-            statement.setString(USERS_LAST_NAME_INDEX, user.getLastName());
-            statement.setDate(USERS_DOB_INDEX, new java.sql.Date(user.getDateOfBirth().getTime()));
-            statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
-            rowsAffected = statement.executeUpdate();
+            rowsAffected = insertUser(connection, user);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
         return rowsAffected;
     }
 
+    private int insertUser(Connection connection, User user) throws SQLException {
+        String query = "INSERT into " + USERS_TABLE + " values (?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(USERS_USERNAME_INDEX, user.getUsername());
+        statement.setString(USERS_PASSWORD_INDEX, user.getPassword());
+        statement.setString(USERS_FIRST_NAME_INDEX, user.getFirstName());
+        statement.setString(USERS_LAST_NAME_INDEX, user.getLastName());
+        statement.setDate(USERS_DOB_INDEX, new java.sql.Date(user.getDateOfBirth().getTime()));
+        statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
+        return statement.executeUpdate();
+    }
+
     public User getUserProfile(Connection connection, String username) {
         User user = null;
         try {
-            String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_USERNAME + EQUALS + "?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-            ResultSet set = statement.executeQuery();
-            if (set.next()) {
-                String nameOriginalCase = set.getString(USERS_USERNAME);
-                String password = set.getString(USERS_PASSWORD);
-                String firstName = set.getString(USERS_FIRST_NAME);
-                String lastName = set.getString(USERS_LAST_NAME);
-                String activity = set.getString(USERS_ACTIVITY);
-                Date dateOfBirth = set.getDate(USERS_DOB);
-                user = new User(nameOriginalCase, password, firstName, lastName, activity, dateOfBirth);
+            ResultSet resultSet = getSetOfUsers(connection, username);
+            if (resultSet.next()) {
+                user = createInstanceOfUser(resultSet);
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
@@ -119,14 +119,27 @@ public class Dao {
         return user;
     }
 
+    private ResultSet getSetOfUsers(Connection connection, String username)
+            throws SQLException {
+        String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_USERNAME + EQUALS + "?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        return statement.executeQuery();
+    }
+
+    private User createInstanceOfUser(ResultSet resultSet) throws SQLException {
+        String nameOriginalCase = resultSet.getString(USERS_USERNAME);
+        String password = resultSet.getString(USERS_PASSWORD);
+        String firstName = resultSet.getString(USERS_FIRST_NAME);
+        String lastName = resultSet.getString(USERS_LAST_NAME);
+        String activity = resultSet.getString(USERS_ACTIVITY);
+        Date dateOfBirth = resultSet.getDate(USERS_DOB);
+        return new User(nameOriginalCase, password, firstName, lastName, activity, dateOfBirth);
+    }
+
     public boolean validateUser(Connection connection, String username, String password) {
         try {
-            String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_USERNAME + EQUALS
-                           + "? AND " + USERS_PASSWORD + EQUALS + "?" + " COLLATE utf8mb4_bin";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, password);
-            ResultSet set = statement.executeQuery();
+            ResultSet set = getSetOfUsers(connection, username, password);
             if (set.next()) {
                 return true;
             }
@@ -136,36 +149,67 @@ public class Dao {
         return false;
     }
 
+    private ResultSet getSetOfUsers(Connection connection, String username, String password)
+            throws SQLException {
+        String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_USERNAME + EQUALS
+                       + "? AND " + USERS_PASSWORD + EQUALS + "?" + " COLLATE utf8mb4_bin";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        statement.setString(2, password);
+        return statement.executeQuery();
+    }
+
     public List<Order> getOrdersOfUser(Connection connection, String username) {
         List<Order> orders = new ArrayList<>();
         try {
-            String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE
-                                 + WHERE + ORDERS_USERNAME + EQUALS + "?";
-            PreparedStatement statementOrders = connection.prepareStatement(queryOrders);
-            String queryProducts = SELECT_ALL_FROM + ORDERS_DETAILS_TABLE
-                                   + " LEFT JOIN " + PRODUCTS_TABLE
-                                   + " ON " + ORDERS_DETAILS_PRODUCT_ID_FULL
-                                   + EQUALS + PRODUCTS_PRODUCT_ID_FULL
-                                   + WHERE + ORDERS_DETAILS_ORDER_ID_FULL + EQUALS + "?";
-            PreparedStatement statementProducts = connection.prepareStatement(queryProducts);
-            statementOrders.setString(1, username);
-            ResultSet ordersSet = statementOrders.executeQuery();
+            ResultSet ordersSet = getSetOfOrders(connection, username);
             while (ordersSet.next()) {
-                int orderId = ordersSet.getInt(ORDERS_ORDER_ID);
-                statementProducts.setInt(1, orderId);
-                ResultSet productsSet = statementProducts.executeQuery();
-                Map<Product, Integer> products = new HashMap<>();
-                while (productsSet.next()) {
-                    products.put(createInstanceOfProduct(productsSet),
-                            productsSet.getInt(ORDERS_DETAILS_NUMBER));
-                }
-                Date orderDate = new Date(ordersSet.getDate(ORDERS_ORDER_DATE).getTime());
-                BigDecimal cost = ordersSet.getBigDecimal(ORDERS_ORDER_COST);
-                orders.add(new Order(orderId, username, orderDate, products, cost));
+                orders.add(createOrder(connection, ordersSet, username));
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
         return orders;
+    }
+
+    private ResultSet getSetOfOrders(Connection connection, String username)
+            throws SQLException {
+        String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE
+                             + WHERE + ORDERS_USERNAME + EQUALS + "?";
+        PreparedStatement statementOrders = connection.prepareStatement(queryOrders);
+        statementOrders.setString(1, username);
+        return statementOrders.executeQuery();
+    }
+
+    private ResultSet getProductsFromOrder(Connection connection, int orderId)
+            throws SQLException {
+        String queryProducts = SELECT_ALL_FROM + ORDERS_DETAILS_TABLE
+                               + " LEFT JOIN " + PRODUCTS_TABLE
+                               + " ON " + ORDERS_DETAILS_PRODUCT_ID_FULL
+                               + EQUALS + PRODUCTS_PRODUCT_ID_FULL
+                               + WHERE + ORDERS_DETAILS_ORDER_ID_FULL + EQUALS + "?";
+        PreparedStatement statementProducts = connection.prepareStatement(queryProducts);
+        statementProducts.setInt(1, orderId);
+        return statementProducts.executeQuery();
+    }
+
+    private Map<Product, Integer> createMapOfProducts(ResultSet productsSet)
+            throws SQLException {
+        Map<Product, Integer> products = new HashMap<>();
+        while (productsSet.next()) {
+            products.put(createInstanceOfProduct(productsSet),
+                    productsSet.getInt(ORDERS_DETAILS_NUMBER));
+        }
+        return products;
+    }
+
+    private Order createOrder(Connection connection, ResultSet ordersSet, String username)
+            throws SQLException {
+        int orderId = ordersSet.getInt(ORDERS_ORDER_ID);
+        ResultSet productsSet = getProductsFromOrder(connection, orderId);
+        Map<Product, Integer> products = createMapOfProducts(productsSet);
+        Date orderDate = new Date(ordersSet.getDate(ORDERS_ORDER_DATE).getTime());
+        BigDecimal cost = ordersSet.getBigDecimal(ORDERS_ORDER_COST);
+        return new Order(orderId, username, orderDate, products, cost);
     }
 }

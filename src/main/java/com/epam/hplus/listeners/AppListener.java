@@ -20,7 +20,8 @@ import static com.epam.hplus.constants.Context.APP_DB_USER;
 @WebListener
 public class AppListener implements ServletContextListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppListener.class);
-    protected static final String LOG_DB_CONNECTION_SET_UP = "DB connection has been set up as ServletContextAttribute";
+    protected static final String LOG_DB_CONNECTION_SET_UP =
+            "DB connection has been set up as ServletContextAttribute";
     protected static final String LOG_DB_CONNECTION_WAS_CLOSED = "DB connection was closed";
 
     @Override

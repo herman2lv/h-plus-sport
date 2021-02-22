@@ -34,7 +34,7 @@
                                     </c:forEach>
                                 </table>
                             </td>
-		                    <td>${order.orderCost}</td>
+		                    <td>$${order.orderCost}</td>
 		                </tr>
 		            </c:forEach>
 		        </table>
