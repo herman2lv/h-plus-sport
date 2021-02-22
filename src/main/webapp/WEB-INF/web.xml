@@ -18,4 +18,8 @@
     <param-name>dbPassword</param-name>
     <param-value>admin</param-value>
   </context-param>
+  <context-param>
+    <param-name>redirectLink</param-name>
+    <param-value>https://github.com/herman2lv/h-plus-sport</param-value>
+  </context-param>
 </web-app>
