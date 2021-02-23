@@ -21,14 +21,22 @@
 				high-quality, nutrient-rich, nutritional products that <em>enhance
 					active lifestyles</em>.
 			</p>
-			<p><span id="size">Items in Cart: ${cartSize}</span></p>
+			<p><span id="size">Items in <a href="cart">Cart<a>:
+            <c:if test="${cart != null}">
+                ${cart.size()}
+            </c:if>
+            <c:if test="${cart == null}">
+                0
+            </c:if>
+            </span></p>
 		</div>
 		<div class="productContainer">
             <c:forEach items="${products}" var="product">
 				<form method="get" action="addProduct">
 	                <div class="productContainerItem">
 	                    <img id="pic1" src="${product.productImgPath}">
-	                    <input type="text" name="product" value="${product.name}"><br/>
+	                    <input type="text" name="productInfo" value="${product.name} $${product.cost}"><br/>
+                        <input type="hidden" name="product" value="${product.productId}">
 	                    <button>Add to Cart</button>
 	                </div>
 	            </form>

@@ -84,6 +84,25 @@ public class Dao {
                 resultSet.getString(PRODUCTS_DESCRIPTION));
     }
 
+    public Product getProductById(Connection connection, int id) {
+        Product product = null;
+        try {
+            ResultSet resultSet = getSetWithProduct(connection, id);
+            if (resultSet.next()) {
+                product = createInstanceOfProduct(resultSet);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return product;
+    }
+
+    private ResultSet getSetWithProduct(Connection connection, int id) throws SQLException {
+        String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE + PRODUCTS_PRODUCT_ID + " = " + id;
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(query);
+    }
+
     public int createUser(Connection connection, User user) {
         int rowsAffected = 0;
         try {

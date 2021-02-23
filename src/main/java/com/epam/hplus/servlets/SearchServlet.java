@@ -2,7 +2,6 @@ package com.epam.hplus.servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.epam.hplus.beans.Product;
@@ -16,10 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
-import static com.epam.hplus.constants.Context.REQUEST_CART_SIZE;
 import static com.epam.hplus.constants.Context.REQUEST_PRODUCTS;
 import static com.epam.hplus.constants.Context.REQUEST_SEARCH;
-import static com.epam.hplus.constants.Context.SESSION_CART;
 import static com.epam.hplus.constants.Context.SESSION_SEARCH_STRING;
 import static com.epam.hplus.constants.JspFiles.SEARCH_JSP;
 
@@ -36,12 +33,6 @@ public class SearchServlet extends HttpServlet {
         session.setAttribute(SESSION_SEARCH_STRING, searchString);
         Connection connection = (Connection) getServletContext().getAttribute(APP_DB_CONNECTION);
         List<Product> products = new Dao().searchProducts(connection, searchString);
-        List<String> cart = (ArrayList<String>) session.getAttribute(SESSION_CART);
-        int cartSize = 0;
-        if (cart != null) {
-            cartSize = cart.size();
-        }
-        req.setAttribute(REQUEST_CART_SIZE, cartSize);
         req.setAttribute(REQUEST_PRODUCTS, products);
         req.getRequestDispatcher(SEARCH_JSP).forward(req, resp);
     }

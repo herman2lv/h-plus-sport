@@ -18,7 +18,6 @@ import static com.epam.hplus.constants.Context.LOGIN_REQUEST_PASSWORD;
 import static com.epam.hplus.constants.Context.LOGIN_REQUEST_USERNAME;
 import static com.epam.hplus.constants.Context.REQUEST_ERROR;
 import static com.epam.hplus.constants.Context.SESSION_USERNAME;
-import static com.epam.hplus.constants.JspFiles.CART_JSP;
 import static com.epam.hplus.constants.JspFiles.LOGIN_JSP;
 
 @WebServlet(urlPatterns = "/login")
@@ -27,6 +26,7 @@ public class LoginServlet extends HttpServlet {
     private static final String ERROR_MESSAGE = "Invalid credentials. Please, login again";
     protected static final String LOG_INVALID_CREDENTIALS =
             "User tried to login using invalid credentials";
+    private static final String CART_SERVLET = "/cart";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         boolean isValidUser = new Dao().validateUser(connection, username, password);
         if (isValidUser) {
             req.getSession().setAttribute(SESSION_USERNAME, username);
-            req.getRequestDispatcher(CART_JSP).forward(req, resp);
+            req.getRequestDispatcher(CART_SERVLET).forward(req, resp);
         } else {
             LOGGER.info(LOG_INVALID_CREDENTIALS);
             req.setAttribute(REQUEST_ERROR, ERROR_MESSAGE);
