@@ -19,8 +19,9 @@ import static com.epam.hplus.constants.Context.REQUEST_PRODUCTS;
 import static com.epam.hplus.constants.Context.REQUEST_SEARCH;
 import static com.epam.hplus.constants.Context.SESSION_SEARCH_STRING;
 import static com.epam.hplus.constants.JspFiles.SEARCH_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.SEARCH_SERVLET;
 
-@WebServlet(urlPatterns = "/search")
+@WebServlet(urlPatterns = SEARCH_SERVLET)
 public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

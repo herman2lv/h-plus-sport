@@ -18,8 +18,9 @@ import static com.epam.hplus.constants.Context.REQUEST_CART_TOTAL_COST;
 import static com.epam.hplus.constants.Context.REQUEST_GROUPED_PRODUCTS;
 import static com.epam.hplus.constants.Context.SESSION_CART;
 import static com.epam.hplus.constants.JspFiles.CART_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.CART_SERVLET;
 
-@WebServlet(urlPatterns = "/cart")
+@WebServlet(urlPatterns = CART_SERVLET)
 public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

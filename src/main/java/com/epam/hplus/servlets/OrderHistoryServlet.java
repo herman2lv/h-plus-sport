@@ -17,8 +17,9 @@ import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
 import static com.epam.hplus.constants.Context.REQUEST_ORDERS;
 import static com.epam.hplus.constants.Context.SESSION_USERNAME;
 import static com.epam.hplus.constants.JspFiles.HISTORY_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.HISTORY_SERVLET;
 
-@WebServlet(urlPatterns = "/orderHistory")
+@WebServlet(urlPatterns = HISTORY_SERVLET)
 public class OrderHistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

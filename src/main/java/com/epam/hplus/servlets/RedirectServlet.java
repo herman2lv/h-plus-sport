@@ -9,10 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.epam.hplus.constants.Context.APP_REDIRECT_LINK;
+import static com.epam.hplus.constants.ServletsUrlPatterns.REDIRECT_SERVLET;
 
-@WebServlet(urlPatterns = "/redirect")
+@WebServlet(urlPatterns = REDIRECT_SERVLET)
 public class RedirectServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

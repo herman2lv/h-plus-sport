@@ -21,8 +21,9 @@ import static com.epam.hplus.constants.Context.REQUEST_PRODUCT;
 import static com.epam.hplus.constants.Context.REQUEST_PRODUCTS;
 import static com.epam.hplus.constants.Context.SESSION_SEARCH_STRING;
 import static com.epam.hplus.constants.JspFiles.SEARCH_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.ADD_PRODUCT_SERVLET;
 
-@WebServlet(urlPatterns = "/addProduct")
+@WebServlet(urlPatterns = ADD_PRODUCT_SERVLET)
 public class AddProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -19,14 +19,15 @@ import static com.epam.hplus.constants.Context.LOGIN_REQUEST_USERNAME;
 import static com.epam.hplus.constants.Context.REQUEST_ERROR;
 import static com.epam.hplus.constants.Context.SESSION_USERNAME;
 import static com.epam.hplus.constants.JspFiles.LOGIN_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.CART_SERVLET;
+import static com.epam.hplus.constants.ServletsUrlPatterns.LOGIN_SERVLET;
 
-@WebServlet(urlPatterns = "/login")
+@WebServlet(urlPatterns = LOGIN_SERVLET)
 public class LoginServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
     private static final String ERROR_MESSAGE = "Invalid credentials. Please, login again";
     protected static final String LOG_INVALID_CREDENTIALS =
             "User tried to login using invalid credentials";
-    private static final String CART_SERVLET = "/cart";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

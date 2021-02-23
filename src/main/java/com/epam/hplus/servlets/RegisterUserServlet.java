@@ -25,8 +25,9 @@ import static com.epam.hplus.constants.Context.REQUEST_PASSWORD;
 import static com.epam.hplus.constants.Context.REQUEST_REGISTRATION_STATUS;
 import static com.epam.hplus.constants.Context.REQUEST_USERNAME;
 import static com.epam.hplus.constants.JspFiles.REGISTER_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.REGISTER_USER_SERVLET;
 
-@WebServlet(urlPatterns = "/register")
+@WebServlet(urlPatterns = REGISTER_USER_SERVLET)
 public class RegisterUserServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterUserServlet.class);
     private static final String SUCCESS_MESSAGE = "User registered successfully";

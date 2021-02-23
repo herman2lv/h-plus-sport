@@ -16,8 +16,9 @@ import static com.epam.hplus.constants.Context.APP_DB_CONNECTION;
 import static com.epam.hplus.constants.Context.REQUEST_USER;
 import static com.epam.hplus.constants.Context.SESSION_USERNAME;
 import static com.epam.hplus.constants.JspFiles.PROFILE_JSP;
+import static com.epam.hplus.constants.ServletsUrlPatterns.PROFILE_SERVLET;
 
-@WebServlet(urlPatterns = "/profile")
+@WebServlet(urlPatterns = PROFILE_SERVLET)
 public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
