@@ -40,8 +40,10 @@ public class AppListener implements ServletContextListener {
         try {
             ServletContext context = sce.getServletContext();
             Connection connection = (Connection) context.getAttribute(APP_DB_CONNECTION);
-            connection.close();
-            LOGGER.info(LOG_DB_CONNECTION_WAS_CLOSED);
+            if (connection != null) {
+                connection.close();
+                LOGGER.info(LOG_DB_CONNECTION_WAS_CLOSED);
+            }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
