@@ -7,6 +7,7 @@ public enum CommandEnum {
     SEARCH(new SearchCommand()),
     PROFILE(new ProfileCommand()),
     ADDPRODUCT(new AddProductCommand()),
+    CART(new CartCommand()),
     REDIRECT(new RedirectCommand());
 
     private final Command command;
