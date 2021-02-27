@@ -20,7 +20,7 @@ public class CommandFactory {
             command = CommandEnum.valueOf(action.toUpperCase()).getCommand();
         } catch (IllegalArgumentException e) {
             req.setAttribute("wrongAction", command
-                                            + MessageManager.getMessage("msg.wrongaction"));
+                                            + MessageManager.getMessage("msg.wrongAction"));
         }
         return command;
     }
