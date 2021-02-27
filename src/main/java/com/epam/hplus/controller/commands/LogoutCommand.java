@@ -7,6 +7,6 @@ public class LogoutCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         req.getSession().invalidate();
-        return ConfigurationManger.getProperty("login.index");
+        return ConfigurationManger.getProperty("page.index");
     }
 }

@@ -2,6 +2,7 @@ package com.epam.hplus.servlets;
 
 import com.epam.hplus.beans.User;
 import com.epam.hplus.dao.Dao;
+import com.epam.hplus.resources.ConfigurationManger;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,7 +25,6 @@ import static com.epam.hplus.constants.Context.REQUEST_LAST_NAME;
 import static com.epam.hplus.constants.Context.REQUEST_PASSWORD;
 import static com.epam.hplus.constants.Context.REQUEST_REGISTRATION_STATUS;
 import static com.epam.hplus.constants.Context.REQUEST_USERNAME;
-import static com.epam.hplus.constants.JspFiles.REGISTER_JSP;
 import static com.epam.hplus.constants.ServletsUrlPatterns.REGISTER_USER_SERVLET;
 
 @WebServlet(urlPatterns = REGISTER_USER_SERVLET)
@@ -39,7 +39,7 @@ public class RegisterUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
+        req.getRequestDispatcher(ConfigurationManger.getProperty("page.register")).forward(req, resp);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RegisterUserServlet extends HttpServlet {
             registrationStatus = SUCCESS_MESSAGE;
         }
         req.setAttribute(REQUEST_REGISTRATION_STATUS, registrationStatus);
-        req.getRequestDispatcher(REGISTER_JSP).forward(req, resp);
+        req.getRequestDispatcher(ConfigurationManger.getProperty("page.register")).forward(req, resp);
     }
 
     private User createInstanceOfUser(HttpServletRequest req) {

@@ -149,7 +149,14 @@ em {
 	width: 100%
 }
 
-.nav .nav-elements .navbar a {
+.nav input {
+	font-size: 1em;
+	background: rgba(0,0,0,0.0);
+	border: 0;
+}
+
+.nav .nav-elements .navbar a,
+.nav input {
 	font-weight: 600;
 	color: #fff;
 	text-decoration: none;
@@ -158,7 +165,8 @@ em {
 	transition: 1s ease-out
 }
 
-.nav .nav-elements .navbar a:after {
+.nav .nav-elements .navbar a:after,
+.nav input:after {
 	content: '';
 	display: block;
 	height: 5px;
@@ -168,11 +176,13 @@ em {
 	transition: width .3s ease-out, background-color .3s ease-out
 }
 
-.nav .nav-elements .navbar a:hover {
+.nav .nav-elements .navbar a:hover,
+.nav input:hover {
 	color: #f3d350
 }
 
-.nav .nav-elements .navbar a:hover:after {
+.nav .nav-elements .navbar a:hover:after,
+.nav input:hover:after {
 	width: 100%;
 	background: #f3d350
 }

@@ -1,10 +1,6 @@
 package com.epam.hplus.filters;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.epam.hplus.resources.ConfigurationManger;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -16,9 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.epam.hplus.constants.Context.REQUEST_ERROR;
 import static com.epam.hplus.constants.Context.SESSION_USERNAME;
-import static com.epam.hplus.constants.JspFiles.LOGIN_JSP;
 
 @WebFilter(urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
@@ -45,7 +45,7 @@ public class AuthenticationFilter implements Filter {
         if (isRestrictedResource(uri) && userIsNotAuthorized(request)) {
             LOGGER.info(LOG_UNAUTHORIZED_USER);
             req.setAttribute(REQUEST_ERROR, ERROR_MESSAGE);
-            req.getRequestDispatcher(LOGIN_JSP).forward(request, res);
+            req.getRequestDispatcher(ConfigurationManger.getProperty("page.login")).forward(request, res);
         }
         chain.doFilter(request, res);
     }

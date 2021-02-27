@@ -22,11 +22,12 @@ public class LoginCommand implements Command {
         if (Login.isValidUser(username, password)) {
             req.getSession().setAttribute(SESSION_USERNAME, username);
             return ConfigurationManger.getProperty("page.index");
-//            req.getRequestDispatcher(CART_SERVLET).forward(req, resp);
         } else {
-            LOGGER.info(MessageManager.getMessage("log.invalidCredentials"));
-            req.setAttribute(REQUEST_ERROR,
-                    MessageManager.getMessage("msg.invalidCredentials"));
+            if (username != null) {
+                LOGGER.info(MessageManager.getMessage("log.invalidCredentials"));
+                req.setAttribute(REQUEST_ERROR,
+                        MessageManager.getMessage("msg.invalidCredentials"));
+            }
             return ConfigurationManger.getProperty("page.login");
         }
     }

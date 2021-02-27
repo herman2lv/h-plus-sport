@@ -1,5 +1,5 @@
 <!doctype html>
-<%@page errorPage="error.jsp" isErrorPage="false"%>
+<%@page errorPage="jsp/error.jsp" isErrorPage="false"%>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<jsp:include page="headerForMainPage.jsp"/>
+<jsp:include page="jsp/headerForMainPage.jsp"/>
 
 <section id="history" class="section">
   <div class="container">
@@ -174,8 +174,8 @@
   </div>
 </section>
 
-<jsp:include page="searchSection.jsp"/>
-<jsp:include page="footer.jsp"/>
+<jsp:include page="jsp/searchSection.jsp"/>
+<jsp:include page="jsp/footer.jsp"/>
 
 </body>
 </html>
