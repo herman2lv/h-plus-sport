@@ -13,7 +13,7 @@
 	<section id="registration" class="section">
 	 <div class="container tagline">
 	 <em>Register User</em><br/>
-	 <em>${registrationStatus}</em>
+	 <em>${sessionScope.registrationStatus}</em>
 		<form action="controller" method="post">
 		  <input type="hidden" name="command" value="registerUser"/>
 			<label for="username">Username</label>

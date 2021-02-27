@@ -25,7 +25,7 @@ public class AddProductCommand implements Command {
         HttpSession session = req.getSession();
         addProductToCart(req, session);
         addResultOfSearchToRequest(req, session);
-        return ConfigurationManger.getProperty("page.search");
+        return ConfigurationManger.getProperty("page.searchRedirect");
     }
 
     private void addProductToCart(HttpServletRequest req, HttpSession session) {

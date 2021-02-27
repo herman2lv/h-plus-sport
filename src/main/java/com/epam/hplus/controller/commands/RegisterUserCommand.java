@@ -36,7 +36,7 @@ public class RegisterUserCommand implements Command {
             LOGGER.info(MessageManager.getMessage("log.notRegistered"));
         }
         req.setAttribute(REQUEST_REGISTRATION_STATUS, registrationStatus);
-        return ConfigurationManger.getProperty("page.register");
+        return ConfigurationManger.getProperty("page.registerRedirect");
     }
 
     private User createInstanceOfUser(HttpServletRequest req) {
