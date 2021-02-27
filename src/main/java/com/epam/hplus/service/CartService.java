@@ -11,6 +11,13 @@ public class CartService {
     private CartService() {
     }
 
+    public static boolean addProduct(List<Product> cart, Product product) {
+        if (product != null) {
+            return cart.add(product);
+        }
+        return false;
+    }
+
     public static Map<Product, Long> groupProducts(List<Product> productsList) {
         return productsList.stream()
                 .collect(Collectors.groupingBy(p -> p, Collectors.counting()));
