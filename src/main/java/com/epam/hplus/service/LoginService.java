@@ -5,8 +5,8 @@ import com.epam.hplus.dao.DbConnector;
 
 import java.sql.Connection;
 
-public class Login {
-    private Login() {
+public class LoginService {
+    private LoginService() {
     }
 
     public static boolean isValidUser(String username, String password) {

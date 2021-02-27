@@ -2,7 +2,7 @@ package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.resources.ConfigurationManger;
 import com.epam.hplus.resources.MessageManager;
-import com.epam.hplus.service.Login;
+import com.epam.hplus.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest req) {
         String username = req.getParameter(LOGIN_REQUEST_USERNAME);
         String password = req.getParameter(LOGIN_REQUEST_PASSWORD);
-        if (Login.isValidUser(username, password)) {
+        if (LoginService.isValidUser(username, password)) {
             req.getSession().setAttribute(SESSION_USERNAME, username);
             return ConfigurationManger.getProperty("page.index");
         } else {

@@ -7,8 +7,8 @@ import com.epam.hplus.dao.DbConnector;
 import java.sql.Connection;
 import java.util.List;
 
-public class Search {
-    private Search() {
+public class SearchService {
+    private SearchService() {
     }
 
     public static List<Product> search(String searchString) {

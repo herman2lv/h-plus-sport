@@ -2,7 +2,7 @@ package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.beans.Product;
 import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.service.Search;
+import com.epam.hplus.service.SearchService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -21,7 +21,7 @@ public class SearchCommand implements Command {
         }
         HttpSession session = req.getSession();
         session.setAttribute(SESSION_SEARCH_STRING, searchString);
-        List<Product> products = Search.search(searchString);
+        List<Product> products = SearchService.search(searchString);
         req.setAttribute(REQUEST_PRODUCTS, products);
         return ConfigurationManger.getProperty("page.search");
     }
