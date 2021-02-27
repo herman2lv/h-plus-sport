@@ -35,7 +35,7 @@ public class Controller extends HttpServlet {
         } else {
             page = ConfigurationManger.getProperty("page.index");
             req.getSession()
-                    .setAttribute("nullPage", MessageManager.getMessage("msg.nullpage"));
+                    .setAttribute("nullPage", MessageManager.getMessage("msg.nullPage"));
             resp.sendRedirect(req.getContextPath() + page);
         }
     }
