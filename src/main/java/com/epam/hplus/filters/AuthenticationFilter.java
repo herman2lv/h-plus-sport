@@ -1,6 +1,7 @@
 package com.epam.hplus.filters;
 
 import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.resources.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -25,34 +26,39 @@ public class AuthenticationFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFilter.class);
     private static final String ANY_CHARS_BETWEEN_SLASHES_REGEX = "/.*[^/].*/";
     private static final String ANY_CHAR_REGEX = ".*";
-    private static final String ERROR_MESSAGE = "You are not authorized. Please, login";
-    protected static final String LOG_UNAUTHORIZED_USER = "Unauthorized user tried to reach restricted resource";
 
-    private List<String> restrictedResources;
+    private List<String> restrictedActions;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        restrictedResources = new ArrayList<>(Arrays.asList(
+        restrictedActions = new ArrayList<>(Arrays.asList(
                 "profile",
-                "orderHistory"));
+                "orders"));
     }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        String uri = request.getRequestURI();
-        if (isRestrictedResource(uri) && userIsNotAuthorized(request)) {
-            LOGGER.info(LOG_UNAUTHORIZED_USER);
-            req.setAttribute(REQUEST_ERROR, ERROR_MESSAGE);
-            req.getRequestDispatcher(ConfigurationManger.getProperty("page.login")).forward(request, res);
+        String action = req.getParameter("command");
+        if (isRestrictedAction(action, request)) {
+            LOGGER.info(MessageManager.getMessage("log.unauthorized"));
+            req.setAttribute(REQUEST_ERROR, MessageManager.getMessage("msg.unauthorized"));
+            req.getRequestDispatcher(
+                    ConfigurationManger.getProperty("page.login")).forward(request, res);
         }
         chain.doFilter(request, res);
     }
 
-    private boolean isRestrictedResource(String uri) {
-        for (String restrictedUri : restrictedResources) {
-            if (uri.matches(ANY_CHARS_BETWEEN_SLASHES_REGEX + restrictedUri + ANY_CHAR_REGEX)) {
+    private boolean isRestrictedAction(String action, HttpServletRequest request) {
+        return action != null
+               && isRestrictedResource(action)
+               && userIsNotAuthorized(request);
+    }
+
+    private boolean isRestrictedResource(String action) {
+        for (String restrictedAction : restrictedActions) {
+            if (action.equalsIgnoreCase(restrictedAction)) {
                 return true;
             }
         }
