@@ -1,8 +1,9 @@
 package com.epam.hplus.service;
 
 import com.epam.hplus.beans.User;
-import com.epam.hplus.dao.Dao;
 import com.epam.hplus.dao.DbConnector;
+import com.epam.hplus.dao.UserDao;
+import com.epam.hplus.dao.UserDaoJdbc;
 
 import java.sql.Connection;
 
@@ -12,6 +13,7 @@ public class ProfileService {
 
     public static User getUserProfile(String username) {
         Connection connection = DbConnector.getConnection();
-        return new Dao().getUserProfile(connection, username);
+        UserDao userDao = new UserDaoJdbc();
+        return userDao.getUserProfile(connection, username);
     }
 }

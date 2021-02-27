@@ -14,7 +14,7 @@ public class Database {
     public static final String ORDERS_DETAILS_PRODUCT_ID = "product_id";
     public static final String ORDERS_DETAILS_PRODUCT_ID_FULL =
             ORDERS_DETAILS_TABLE + "." + ORDERS_DETAILS_PRODUCT_ID;
-    public static final String ORDERS_DETAILS_NUMBER = "number_of_products";
+    public static final String ORDERS_DETAILS_NUMBER_OF_PRODUCTS = "number_of_products";
     public static final String PRODUCTS_TABLE = "products";
     public static final String PRODUCTS_PRODUCT_ID = "product_id";
     public static final String PRODUCTS_PRODUCT_ID_FULL =
