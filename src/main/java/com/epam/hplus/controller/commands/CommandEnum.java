@@ -4,6 +4,7 @@ public enum CommandEnum {
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
     HOME(new HomeCommand()),
+    SEARCH(new SearchCommand()),
     REDIRECT(new RedirectCommand());
 
     private final Command command;
