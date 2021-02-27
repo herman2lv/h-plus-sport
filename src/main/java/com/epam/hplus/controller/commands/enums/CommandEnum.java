@@ -4,6 +4,7 @@ import com.epam.hplus.controller.commands.AddProductCommand;
 import com.epam.hplus.controller.commands.CartCommand;
 import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.controller.commands.HomeCommand;
+import com.epam.hplus.controller.commands.LanguageCommand;
 import com.epam.hplus.controller.commands.LoginCommand;
 import com.epam.hplus.controller.commands.LogoutCommand;
 import com.epam.hplus.controller.commands.OrdersCommand;
@@ -19,6 +20,7 @@ public enum CommandEnum {
     ORDERS(new OrdersCommand()),
     REGISTERUSER(new RegisterUserCommand()),
     REGISTERUSERPAGE(new RegisterUserPageCommand()),
+    LANGUAGE(new LanguageCommand()),
     HOME(new HomeCommand()),
     SEARCH(new SearchCommand()),
     PROFILE(new ProfileCommand()),

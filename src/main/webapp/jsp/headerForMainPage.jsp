@@ -1,7 +1,12 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${sessionScope.language != null}">
+  <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="ui"/>
 <header id="home" class="header">
 <jsp:include page="navbar.jsp"/>
 <div class="container tagline">
-  <h2 class="headline">Our Mission</h2>
-  <p>We support and encourage <em>active and healthy</em> lifestyles, by offering <em>ethically sourced</em> and <em>eco-friendly</em> nutritional products for the <em>performance-driven</em> athlete.</p>
+  <h2 class="headline"><fmt:message key="ui.ourMission"/></h2>
+  <p><fmt:message key="ui.ourMissionDefinition"/></p>
 </div>
 </header>
