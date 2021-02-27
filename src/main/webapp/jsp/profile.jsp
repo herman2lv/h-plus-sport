@@ -1,5 +1,9 @@
 <!DOCTYPE html >
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${sessionScope.language != null}">
+  <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="ui"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
