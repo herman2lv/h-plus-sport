@@ -51,8 +51,9 @@
             <td>${product.description}</td>
             <td>$${product.cost}</td>
             <td>
-              <form method="get" action="addProduct">
+              <form method="get" action="controller">
                 <input type="hidden" name="product" value="${product.productId}">
+                <input type="hidden" name="command" value="addProduct">
                 <button>Add to Cart</button>
               </form>
             </td>
