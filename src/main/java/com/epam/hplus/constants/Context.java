@@ -19,6 +19,7 @@ public class Context {
     public static final String LOGIN_REQUEST_USERNAME = "username";
     public static final String LOGIN_REQUEST_PASSWORD = "password";
     public static final String REQUEST_REGISTRATION_STATUS = "registrationStatus";
+    public static final String SESSION_REGISTRATION_STATUS = "registrationStatus";
     public static final String REQUEST_GROUPED_PRODUCTS = "groupedProducts";
     public static final String REQUEST_CART_TOTAL_COST = "cartTotalCost";
 
