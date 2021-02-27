@@ -22,7 +22,8 @@
 				<br/>
 			</c:if>
 			<em>LOGIN USER</em>
-			<form action="login" method="post">
+			<form action="controller" method="post">
+			  <input type="hidden" name="command" value="login">
 				<label for="username">Username</label>
 				<input type="text" name="username" id="username" required>
 				<br/>

@@ -16,7 +16,7 @@
             <c:if test="${sessionScope.username != null}">
 				<li><a href="orderHistory">my orders</a></li>
 				<li><a href="profile"><i>${sessionScope.username}</i></a></li>                          
-				<li><a href='logout'>logout</a></li>
+				<li><a href='controller' action="logout">logout</a></li>
             </c:if>
 			<li><a href="#search">search</a></li>
 			<li><a href="redirect">GitHub</a></li>
