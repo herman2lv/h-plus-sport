@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@page errorPage="error.jsp" isErrorPage="false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
@@ -34,32 +33,34 @@
           Found items in catalog: ${products.size()}
         </span>
       </p>
-      <table id="orderHistory">
-        <tr>
-          <th>No.</th>
-          <th>Product Name</th>
-          <th>Image</th>
-          <th>Description</th>
-          <th>Cost</th>
-          <th></th>
-        </tr>
-        <c:forEach items="${products}" var="product" varStatus="counter">
-          <tr>
-            <td>${counter.count}</td>
-            <td>${product.name}</td>
-            <td><img id="pic1" width="200px" height="150px" src="${product.productImgPath}"></td>
-            <td>${product.description}</td>
-            <td>$${product.cost}</td>
-            <td>
-              <form method="get" action="controller">
-                <input type="hidden" name="product" value="${product.productId}">
-                <input type="hidden" name="command" value="addProduct">
-                <button>Add to Cart</button>
-              </form>
-            </td>
-          </tr>
-        </c:forEach>
-      </table>
+        <c:if test="${products.size() > 0}">
+          <table id="orderHistory">
+            <tr>
+              <th>No.</th>
+              <th>Product Name</th>
+              <th>Image</th>
+              <th>Description</th>
+              <th>Cost</th>
+              <th></th>
+            </tr>
+            <c:forEach items="${products}" var="product" varStatus="counter">
+              <tr>
+                <td>${counter.count}</td>
+                <td>${product.name}</td>
+                <td><img id="pic1" width="200px" height="150px" src="${product.productImgPath}"></td>
+                <td>${product.description}</td>
+                <td>$${product.cost}</td>
+                <td>
+                  <form method="get" action="controller">
+                    <input type="hidden" name="product" value="${product.productId}">
+                    <input type="hidden" name="command" value="addProduct">
+                    <button>Add to Cart</button>
+                  </form>
+                </td>
+              </tr>
+            </c:forEach>
+          </table>
+        </c:if>
     </div>
 	</section>
 	<br/>
