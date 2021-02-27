@@ -14,7 +14,8 @@
 	 <div class="container tagline">
 	 <em>Register User</em><br/>
 	 <em>${registrationStatus}</em>
-		<form action="register" method="post">
+		<form action="controller" method="post">
+		  <input type="hidden" name="command" value="registerUser"/>
 			<label for="username">Username</label>
 			<input type="text" name="username" id="username" required>
 			<br/>

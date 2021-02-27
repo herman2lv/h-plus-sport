@@ -32,7 +32,7 @@
 				</li>
 				<li>
 				  <form action="controller" method="get">
-            <input type="hidden" name="command" value="register"/>
+            <input type="hidden" name="command" value="registerUserPage"/>
             <input type="submit" value="new user?"/>
           </form>
 				</li>

@@ -9,12 +9,16 @@ import com.epam.hplus.controller.commands.LogoutCommand;
 import com.epam.hplus.controller.commands.OrdersCommand;
 import com.epam.hplus.controller.commands.ProfileCommand;
 import com.epam.hplus.controller.commands.RedirectCommand;
+import com.epam.hplus.controller.commands.RegisterUserCommand;
+import com.epam.hplus.controller.commands.RegisterUserPage;
 import com.epam.hplus.controller.commands.SearchCommand;
 
 public enum CommandEnum {
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
     ORDERS(new OrdersCommand()),
+    REGISTERUSER(new RegisterUserCommand()),
+    REGISTERUSERPAGE(new RegisterUserPage()),
     HOME(new HomeCommand()),
     SEARCH(new SearchCommand()),
     PROFILE(new ProfileCommand()),
