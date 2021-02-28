@@ -1,6 +1,7 @@
 package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.beans.Product;
+import com.epam.hplus.controller.commands.util.RequestProcessor;
 import com.epam.hplus.resources.ConfigurationManger;
 import com.epam.hplus.service.CartService;
 import com.epam.hplus.service.ProductService;
@@ -29,12 +30,7 @@ public class AddProductCommand implements Command {
 
     private void addProductToCart(HttpServletRequest req, HttpSession session) {
         List<Product> cart = getCart(session);
-        int productId = 0;
-        try {
-            productId = Integer.parseInt(req.getParameter(REQUEST_PRODUCT));
-        } catch (NumberFormatException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        int productId = RequestProcessor.getIntFromRequest(req, REQUEST_PRODUCT);
         Product product = ProductService.getProduct(productId);
         CartService.addProduct(cart, product);
         session.setAttribute(SESSION_CART, cart);

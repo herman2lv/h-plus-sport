@@ -1,6 +1,7 @@
 package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.beans.Product;
+import com.epam.hplus.controller.commands.util.RequestProcessor;
 import com.epam.hplus.resources.ConfigurationManger;
 import com.epam.hplus.service.CartService;
 import com.epam.hplus.service.ProductService;
@@ -21,21 +22,11 @@ public class RemoveProductCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         HttpSession session = req.getSession();
-        int productId = getProductId(req);
+        int productId = RequestProcessor.getIntFromRequest(req, REQUEST_PRODUCT);
         Product product = ProductService.getProduct(productId);
         List<Product> cart = (ArrayList<Product>) session.getAttribute(SESSION_CART);
         CartService.removeProduct(cart, product);
         session.setAttribute(SESSION_CART, cart);
         return ConfigurationManger.getProperty("page.cartRedirect");
-    }
-
-    private int getProductId(HttpServletRequest req) {
-        int productId = 0;
-        try {
-            productId = Integer.parseInt(req.getParameter(REQUEST_PRODUCT));
-        } catch (NumberFormatException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-        return productId;
     }
 }

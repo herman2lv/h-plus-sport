@@ -13,7 +13,6 @@ import static com.epam.hplus.constants.Context.REQUEST_REGISTRATION_STATUS;
 public class RegisterUserCommand implements Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterUserCommand.class);
 
-
     @Override
     public String execute(HttpServletRequest req) {
         User user = UserService.createInstanceOfUser(req);
