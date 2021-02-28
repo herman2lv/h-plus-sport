@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>H+ Sport - My Profile</title>
+<title>H+ Sport - <fmt:message key="ui.title.myProfile"/></title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,28 +20,24 @@
 			<h2 class="headline">My Profile</h2>
 			<table id="profileTable">
 				<tr>
-					<td>Username</td>
+					<td><fmt:message key="ui.username"/></td>
 					<td>${user.username}</td>
 				</tr>
 				<tr>
-					<td>First Name</td>
+					<td><fmt:message key="ui.firsName"/></td>
 					<td>${user.firstName}</td>
 				</tr>
 				<tr>
-					<td>Last Name</td>
+					<td><fmt:message key="ui.lastName"/></td>
 					<td>${user.lastName}</td>
 				</tr>
 				<tr>
-					<td>Date of Birth</td>
-					<td><fmt:formatDate value="${user.dateOfBirth}" pattern="YYYY-MM-dd"/></td>
+					<td><fmt:message key="ui.dateOfBirth"/></td>
+					<td><fmt:formatDate value="${user.dateOfBirth}" pattern="yyyy-MM-dd"/></td>
 				</tr>
 				<tr>
-					<td>Interested in</td>
+					<td><fmt:message key="ui.activity"/></td>
 					<td>${user.activity}</td>
-				</tr>
-				<tr>
-					<td><fmt:message key="ui.userRole"/></td>
-					<td>${user.role}</td>
 				</tr>
 			</table>
 		</div>

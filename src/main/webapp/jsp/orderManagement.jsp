@@ -34,7 +34,7 @@
               <td>${counter.count}</td>
               <td>${order.username}</td>
               <td>${order.orderId}</td>
-              <td><fmt:formatDate value="${order.orderDate}" pattern="YYYY-MM-dd"/></td>
+              <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
               <td>
                 <table>
                   <c:forEach items="${order.listOfProducts}" var="product">
