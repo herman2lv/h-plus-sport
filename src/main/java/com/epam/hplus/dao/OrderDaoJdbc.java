@@ -266,7 +266,7 @@ public class OrderDaoJdbc implements OrderDao {
             statement.setBigDecimal(INSERT_ORDERS_COST_COLUMN, order.getOrderCost());
             statement.setBoolean(INSERT_ORDERS_STATUS_CONFIRM_COLUMN, order.isStatus());
             statement.setLong(INSERT_ORDERS_ID_COLUMN, order.getOrderId());
-            if (statement.executeUpdate() == 0) {
+            if (statement.executeUpdate() == 1) {
                 return true;
             }
         } catch (SQLException e) {

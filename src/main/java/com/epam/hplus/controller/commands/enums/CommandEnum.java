@@ -8,6 +8,8 @@ import com.epam.hplus.controller.commands.HomeCommand;
 import com.epam.hplus.controller.commands.LanguageCommand;
 import com.epam.hplus.controller.commands.LoginCommand;
 import com.epam.hplus.controller.commands.LogoutCommand;
+import com.epam.hplus.controller.commands.MakeCustomerCommand;
+import com.epam.hplus.controller.commands.MakeManagerCommand;
 import com.epam.hplus.controller.commands.MakeOrderCommand;
 import com.epam.hplus.controller.commands.OrderManagementCommand;
 import com.epam.hplus.controller.commands.OrdersCommand;
@@ -41,6 +43,8 @@ public enum CommandEnum {
     APPROVEORDER(new ApproveOrderCommand()),
     REJECTORDER(new RejectOrderCommand()),
     USERMANAGEMENT(new UserManagementCommand()),
+    MAKECUSTOMER(new MakeCustomerCommand()),
+    MAKEMANAGER(new MakeManagerCommand()),
     MAKEORDER(new MakeOrderCommand()),
     REDIRECT(new RedirectCommand());
 

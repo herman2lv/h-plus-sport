@@ -45,21 +45,21 @@
                 <c:if test="${user.role != 1}">
                   <form action="controller" method="post">
                     <input type="hidden" name="command" value="removeUser">
-                    <input type="hidden" name="order" value="${user.username}">
+                    <input type="hidden" name="user" value="${user.username}">
                     <input type="submit" value='<fmt:message key="ui.removeUser"/>'>
                   </form>
                 </c:if>
                 <c:if test="${user.role == 3}">
                   <form action="controller" method="post">
                     <input type="hidden" name="command" value="makeManager">
-                    <input type="hidden" name="order" value="${user.username}">
+                    <input type="hidden" name="user" value="${user.username}">
                     <input type="submit" value='<fmt:message key="ui.changeRole.manager"/>'>
                   </form>
                 </c:if>
                 <c:if test="${user.role == 2}">
                   <form action="controller" method="post">
                     <input type="hidden" name="command" value="makeCustomer">
-                    <input type="hidden" name="order" value="${user.username}">
+                    <input type="hidden" name="user" value="${user.username}">
                     <input type="submit" value='<fmt:message key="ui.changeRole.customer"/>'>
                   </form>
                 </c:if>

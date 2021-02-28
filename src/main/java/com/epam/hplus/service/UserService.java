@@ -31,6 +31,21 @@ public class UserService {
     private UserService() {
     }
 
+    public static boolean setUserCustomerRole(User user) {
+        return changeUserRole(user, User.ROLE_CUSTOMER);
+    }
+
+    public static boolean setUserManagerRole(User user) {
+        return changeUserRole(user, User.ROLE_MANAGER);
+    }
+
+    private static boolean changeUserRole(User user, int userRole) {
+        user.setRole(userRole);
+        Connection connection = DbConnector.getConnection();
+        UserDao userDao = new UserDaoJdbc();
+        return userDao.updateUser(connection, user);
+    }
+
     public static List<User> getUsers() {
         Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();

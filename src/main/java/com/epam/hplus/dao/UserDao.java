@@ -8,6 +8,7 @@ import java.util.List;
 public interface UserDao {
         int createUser(Connection connection, User user);
         User getUser(Connection connection, String username);
+        boolean updateUser(Connection connection, User user);
         List<User> getUsers(Connection connection);
         boolean validateUserCredentials(Connection connection, String username, String password);
         boolean isUsernameFree(Connection connection, String username);

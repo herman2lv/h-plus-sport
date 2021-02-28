@@ -37,6 +37,16 @@ public class UserDaoJdbc implements UserDao {
     private static final String QUESTION_MARK = "?";
     private static final String AND = " AND ";
     private static final String MAKE_QUERY_CASE_SENSITIVE = " COLLATE utf8mb4_bin";
+    private static final String UPDATE = "UPDATE ";
+    private static final String SET = " SET ";
+    private static final String COMA = ", ";
+    private static final int UPDATE_USER_PASSWORD_COLUMN = 1;
+    private static final int UPDATE_USER_FIRST_NAME_COLUMN = 2;
+    private static final int UPDATE_USER_LAST_NAME_COLUMN = 3;
+    private static final int UPDATE_USER_DOB_COLUMN = 4;
+    private static final int UPDATE_USER_ACTIVITY_COLUMN = 5;
+    private static final int UPDATE_USER_ROLE_COLUMN = 6;
+    private static final int UPDATE_USER_USERNAME_COLUMN = 7;
 
     @Override
     public int createUser(Connection connection, User user) {
@@ -134,5 +144,34 @@ public class UserDaoJdbc implements UserDao {
             LOGGER.error(e.getMessage(), e);
         }
         return users;
+    }
+
+    @Override
+    public boolean updateUser(Connection connection, User user) {
+        String query = UPDATE + USERS_TABLE + SET
+                + USERS_PASSWORD + EQUALS + QUESTION_MARK + COMA
+                + USERS_FIRST_NAME + EQUALS + QUESTION_MARK + COMA
+                + USERS_LAST_NAME + EQUALS + QUESTION_MARK + COMA
+                + USERS_DOB + EQUALS + QUESTION_MARK + COMA
+                + USERS_ACTIVITY + EQUALS + QUESTION_MARK + COMA
+                + USERS_ROLE + EQUALS + QUESTION_MARK
+                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(UPDATE_USER_PASSWORD_COLUMN, user.getPassword());
+            statement.setString(UPDATE_USER_FIRST_NAME_COLUMN, user.getFirstName());
+            statement.setString(UPDATE_USER_LAST_NAME_COLUMN, user.getLastName());
+            statement.setDate(UPDATE_USER_DOB_COLUMN,
+                    new java.sql.Date(user.getDateOfBirth().getTime()));
+            statement.setString(UPDATE_USER_ACTIVITY_COLUMN, user.getActivity());
+            statement.setInt(UPDATE_USER_ROLE_COLUMN, user.getRole());
+            statement.setString(UPDATE_USER_USERNAME_COLUMN, user.getUsername());
+            if (statement.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
+        return false;
     }
 }
