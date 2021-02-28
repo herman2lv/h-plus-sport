@@ -48,6 +48,7 @@ public class UserDaoJdbc implements UserDao {
     private static final int UPDATE_USER_ACTIVITY_COLUMN = 5;
     private static final int UPDATE_USER_ROLE_COLUMN = 6;
     private static final int UPDATE_USER_USERNAME_COLUMN = 7;
+    private static final String DELETE_FROM = "DELETE FROM ";
 
     @Override
     public int createUser(Connection connection, User user) {
@@ -175,5 +176,18 @@ public class UserDaoJdbc implements UserDao {
             return false;
         }
         return false;
+    }
+
+    @Override
+    public boolean deleteUser(Connection connection, String username) {
+        String query = DELETE_FROM + USERS_TABLE
+                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
     }
 }

@@ -31,6 +31,12 @@ public class UserService {
     private UserService() {
     }
 
+    public static boolean deleteUser(String username) {
+        Connection connection = DbConnector.getConnection();
+        UserDao userDao = new UserDaoJdbc();
+        return userDao.deleteUser(connection, username);
+    }
+
     public static boolean setUserCustomerRole(User user) {
         return changeUserRole(user, User.ROLE_CUSTOMER);
     }

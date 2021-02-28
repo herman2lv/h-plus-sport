@@ -39,14 +39,16 @@
               <td><fmt:formatDate value="${user.dateOfBirth}" pattern="yyyy-MM-dd"/></td>
               <td>${user.activity}</td>
               <td>
-                  ${user.role}
+                <c:if test="${user.role == 1}"><fmt:message key="ui.role.admin"/></c:if>
+                <c:if test="${user.role == 2}"><fmt:message key="ui.role.manager"/></c:if>
+                <c:if test="${user.role == 3}"><fmt:message key="ui.role.customer"/></c:if>
               </td>
               <td>
                 <c:if test="${user.role != 1}">
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="removeUser">
+                    <input type="hidden" name="command" value="deleteUser">
                     <input type="hidden" name="user" value="${user.username}">
-                    <input type="submit" value='<fmt:message key="ui.removeUser"/>'>
+                    <input type="submit" value='<fmt:message key="ui.deleteUser"/>'>
                   </form>
                 </c:if>
                 <c:if test="${user.role == 3}">

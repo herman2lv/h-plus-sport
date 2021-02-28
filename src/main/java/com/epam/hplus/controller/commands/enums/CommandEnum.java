@@ -4,6 +4,7 @@ import com.epam.hplus.controller.commands.AddProductCommand;
 import com.epam.hplus.controller.commands.ApproveOrderCommand;
 import com.epam.hplus.controller.commands.CartCommand;
 import com.epam.hplus.controller.commands.Command;
+import com.epam.hplus.controller.commands.DeleteUserCommand;
 import com.epam.hplus.controller.commands.HomeCommand;
 import com.epam.hplus.controller.commands.LanguageCommand;
 import com.epam.hplus.controller.commands.LoginCommand;
@@ -46,6 +47,7 @@ public enum CommandEnum {
     MAKECUSTOMER(new MakeCustomerCommand()),
     MAKEMANAGER(new MakeManagerCommand()),
     MAKEORDER(new MakeOrderCommand()),
+    DELETEUSER(new DeleteUserCommand()),
     REDIRECT(new RedirectCommand());
 
     private final Command command;
