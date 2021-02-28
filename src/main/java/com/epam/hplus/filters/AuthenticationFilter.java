@@ -24,8 +24,6 @@ import static com.epam.hplus.constants.Context.SESSION_USERNAME;
 @WebFilter(urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFilter.class);
-    private static final String ANY_CHARS_BETWEEN_SLASHES_REGEX = "/.*[^/].*/";
-    private static final String ANY_CHAR_REGEX = ".*";
 
     private List<String> restrictedActions;
 
@@ -42,7 +40,8 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String action = req.getParameter("command");
         if (isRestrictedAction(action, request)) {
-            LOGGER.info(MessageManager.getMessage("log.unauthorized"));
+            LOGGER.info(MessageManager.getMessage("log.unauthorized"),
+                    request.getRequestURI(), action);
             req.setAttribute(REQUEST_ERROR, MessageManager.getMessage("msg.unauthorized"));
             req.getRequestDispatcher(
                     ConfigurationManger.getProperty("page.login")).forward(request, res);
