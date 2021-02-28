@@ -70,7 +70,8 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean validateUser(Connection connection, String username, String password) {
+    public boolean validateUserCredentials(Connection connection, String username,
+                                           String password) {
         String query = SELECT_ALL_FROM + USERS_TABLE
                        + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK
                        + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK
@@ -97,5 +98,20 @@ public class UserDaoJdbc implements UserDao {
         String activity = resultSet.getString(USERS_ACTIVITY);
         Date dateOfBirth = resultSet.getDate(USERS_DOB);
         return new User(nameOriginalCase, password, firstName, lastName, activity, dateOfBirth);
+    }
+
+    @Override
+    public boolean isUsernameFree(Connection connection, String username) {
+        String query = SELECT_ALL_FROM + USERS_TABLE
+                       + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return !resultSet.next();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return false;
     }
 }

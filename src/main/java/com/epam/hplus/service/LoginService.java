@@ -13,6 +13,6 @@ public class LoginService {
     public static boolean isValidUser(String username, String password) {
         Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.validateUser(connection, username, password);
+        return userDao.validateUserCredentials(connection, username, password);
     }
 }

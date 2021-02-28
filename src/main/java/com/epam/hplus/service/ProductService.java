@@ -6,6 +6,7 @@ import com.epam.hplus.dao.ProductDao;
 import com.epam.hplus.dao.ProductDaoJdbc;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class ProductService {
     private ProductService() {
@@ -15,5 +16,11 @@ public class ProductService {
         Connection connection = DbConnector.getConnection();
         ProductDao productDao = new ProductDaoJdbc();
         return productDao.getProductById(connection, productId);
+    }
+
+    public static List<Product> searchProducts(String searchString) {
+        Connection connection = DbConnector.getConnection();
+        ProductDao productDao = new ProductDaoJdbc();
+        return productDao.searchProducts(connection, searchString);
     }
 }

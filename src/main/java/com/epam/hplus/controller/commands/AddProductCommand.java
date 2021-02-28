@@ -4,7 +4,6 @@ import com.epam.hplus.beans.Product;
 import com.epam.hplus.resources.ConfigurationManger;
 import com.epam.hplus.service.CartService;
 import com.epam.hplus.service.ProductService;
-import com.epam.hplus.service.SearchService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -51,7 +50,7 @@ public class AddProductCommand implements Command {
 
     private void addResultOfSearchToRequest(HttpServletRequest req, HttpSession session) {
         String searchString = (String) session.getAttribute(SESSION_SEARCH_STRING);
-        List<Product> products = SearchService.search(searchString);
+        List<Product> products = ProductService.searchProducts(searchString);
         req.setAttribute(REQUEST_PRODUCTS, products);
     }
 }
