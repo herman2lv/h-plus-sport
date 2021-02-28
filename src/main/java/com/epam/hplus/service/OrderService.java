@@ -37,11 +37,19 @@ public class OrderService {
     }
 
     public static boolean approveOrder(int orderId) {
+        return setOrderStatus(orderId, true);
+    }
+
+    private static boolean setOrderStatus(int orderId, boolean status) {
         Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
         Order order = orderDao.getOrderById(connection, orderId);
-        order.setStatus(true);
+        order.setStatus(status);
         return orderDao.updateOrder(connection, order);
+    }
+
+    public static boolean rejectOrder(int orderId) {
+        return setOrderStatus(orderId, false);
     }
 
 }

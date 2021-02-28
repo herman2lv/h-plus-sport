@@ -15,6 +15,7 @@ import com.epam.hplus.controller.commands.ProfileCommand;
 import com.epam.hplus.controller.commands.RedirectCommand;
 import com.epam.hplus.controller.commands.RegisterUserCommand;
 import com.epam.hplus.controller.commands.RegisterUserPageCommand;
+import com.epam.hplus.controller.commands.RejectOrderCommand;
 import com.epam.hplus.controller.commands.RemoveOrderByManagerCommand;
 import com.epam.hplus.controller.commands.RemoveOrderCommand;
 import com.epam.hplus.controller.commands.RemoveProductCommand;
@@ -37,6 +38,7 @@ public enum CommandEnum {
     ORDERMANAGEMENT(new OrderManagementCommand()),
     REMOVEORDERBYMANAGER(new RemoveOrderByManagerCommand()),
     APPROVEORDER(new ApproveOrderCommand()),
+    REJECTORDER(new RejectOrderCommand()),
     MAKEORDER(new MakeOrderCommand()),
     REDIRECT(new RedirectCommand());
 
