@@ -30,4 +30,10 @@ public class OrderService {
         return orderDao.removeOrder(connection, orderId);
     }
 
+    public static List<Order> getOrders() {
+        Connection connection = DbConnector.getConnection();
+        OrderDao orderDao = new OrderDaoJdbc();
+        return orderDao.getOrders(connection);
+    }
+
 }

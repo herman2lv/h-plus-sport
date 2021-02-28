@@ -62,12 +62,12 @@ public class OrderDaoJdbc implements OrderDao {
     public List<Order> getOrdersOfUser(Connection connection, String username) {
         List<Order> orders = new ArrayList<>();
         String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE
-                             + WHERE + ORDERS_USERNAME + EQUALS + QUESTION_MARK;
+                + WHERE + ORDERS_USERNAME + EQUALS + QUESTION_MARK;
         try (PreparedStatement statementOrders = connection.prepareStatement(queryOrders)) {
             statementOrders.setString(1, username);
             try (ResultSet ordersSet = statementOrders.executeQuery()) {
                 while (ordersSet.next()) {
-                    orders.add(createOrder(connection, ordersSet, username));
+                    orders.add(createOrder(connection, ordersSet));
                 }
             }
         } catch (SQLException e) {
@@ -86,18 +86,19 @@ public class OrderDaoJdbc implements OrderDao {
         return products;
     }
 
-    private Order createOrder(Connection connection, ResultSet ordersSet, String username)
+    private Order createOrder(Connection connection, ResultSet ordersSet)
             throws SQLException {
         int orderId = ordersSet.getInt(ORDERS_ORDER_ID);
         String queryProducts = SELECT_ALL_FROM + ORDERS_DETAILS_TABLE
-                               + LEFT_JOIN + PRODUCTS_TABLE
-                               + ON + ORDERS_DETAILS_PRODUCT_ID_FULL
-                               + EQUALS + PRODUCTS_PRODUCT_ID_FULL
-                               + WHERE + ORDERS_DETAILS_ORDER_ID_FULL + EQUALS + QUESTION_MARK;
+                + LEFT_JOIN + PRODUCTS_TABLE
+                + ON + ORDERS_DETAILS_PRODUCT_ID_FULL
+                + EQUALS + PRODUCTS_PRODUCT_ID_FULL
+                + WHERE + ORDERS_DETAILS_ORDER_ID_FULL + EQUALS + QUESTION_MARK;
         try (PreparedStatement statementProducts = connection.prepareStatement(queryProducts)) {
             statementProducts.setInt(1, orderId);
             try (ResultSet productsSet = statementProducts.executeQuery()) {
                 Map<Product, Long> products = createMapOfProducts(productsSet);
+                String username = ordersSet.getString(ORDERS_USERNAME);
                 Date orderDate = new Date(ordersSet.getDate(ORDERS_ORDER_DATE).getTime());
                 BigDecimal cost = ordersSet.getBigDecimal(ORDERS_ORDER_COST);
                 boolean status = ordersSet.getBoolean(ORDERS_CONFIRMATION);
@@ -169,17 +170,17 @@ public class OrderDaoJdbc implements OrderDao {
 
     @Override
     public boolean removeOrder(Connection connection, int orderId) {
-            try {
-                if (isApproved(connection, orderId)) {
-                    return false;
-                }
-                deleteOrderDetails(connection, orderId);
-                deleteOrder(connection, orderId);
-                return true;
-            } catch (SQLException e) {
-                LOGGER.error(e.getMessage(), e);
+        try {
+            if (isApproved(connection, orderId)) {
                 return false;
             }
+            deleteOrderDetails(connection, orderId);
+            deleteOrder(connection, orderId);
+            return true;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
     }
 
     private void deleteOrder(Connection connection, int orderId) throws SQLException {
@@ -212,5 +213,20 @@ public class OrderDaoJdbc implements OrderDao {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Order> getOrders(Connection connection) {
+        List<Order> orders = new ArrayList<>();
+        String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE;
+        try (Statement statement = connection.createStatement();
+             ResultSet ordersSet = statement.executeQuery(queryOrders)) {
+            while (ordersSet.next()) {
+                orders.add(createOrder(connection, ordersSet));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return orders;
     }
 }

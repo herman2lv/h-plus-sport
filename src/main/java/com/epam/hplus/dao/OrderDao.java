@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface OrderDao {
     List<Order> getOrdersOfUser(Connection connection, String username);
+    List<Order> getOrders(Connection connection);
     int createOrder(Connection connection, Order order);
     boolean removeOrder(Connection connection, int orderId);
 }

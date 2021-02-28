@@ -8,11 +8,13 @@ import com.epam.hplus.controller.commands.LanguageCommand;
 import com.epam.hplus.controller.commands.LoginCommand;
 import com.epam.hplus.controller.commands.LogoutCommand;
 import com.epam.hplus.controller.commands.MakeOrderCommand;
+import com.epam.hplus.controller.commands.OrderManagementCommand;
 import com.epam.hplus.controller.commands.OrdersCommand;
 import com.epam.hplus.controller.commands.ProfileCommand;
 import com.epam.hplus.controller.commands.RedirectCommand;
 import com.epam.hplus.controller.commands.RegisterUserCommand;
 import com.epam.hplus.controller.commands.RegisterUserPageCommand;
+import com.epam.hplus.controller.commands.RemoveOrderByManagerCommand;
 import com.epam.hplus.controller.commands.RemoveOrderCommand;
 import com.epam.hplus.controller.commands.RemoveProductCommand;
 import com.epam.hplus.controller.commands.SearchCommand;
@@ -31,6 +33,8 @@ public enum CommandEnum {
     ADDPRODUCT(new AddProductCommand()),
     CART(new CartCommand()),
     REMOVEORDER(new RemoveOrderCommand()),
+    ORDERMANAGEMENT(new OrderManagementCommand()),
+    REMOVEORDERBYMANAGER(new RemoveOrderByManagerCommand()),
     MAKEORDER(new MakeOrderCommand()),
     REDIRECT(new RedirectCommand());
 
