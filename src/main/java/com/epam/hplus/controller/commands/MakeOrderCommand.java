@@ -41,7 +41,7 @@ public class MakeOrderCommand implements Command {
         Date orderDate = new Date();
         Map<Product, Long> listOfProducts = CartService.groupProducts(cart);
         BigDecimal orderCost = CartService.countTotalCost(cart);
-        return new Order(username, orderDate, listOfProducts, orderCost);
+        return new Order(username, orderDate, listOfProducts, orderCost, false);
     }
 
     private void cleanCart(HttpSession session) {

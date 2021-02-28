@@ -96,7 +96,8 @@ public class OrderDaoJdbc implements OrderDao {
                 Map<Product, Long> products = createMapOfProducts(productsSet);
                 Date orderDate = new Date(ordersSet.getDate(ORDERS_ORDER_DATE).getTime());
                 BigDecimal cost = ordersSet.getBigDecimal(ORDERS_ORDER_COST);
-                return new Order(orderId, username, orderDate, products, cost);
+                boolean status = ordersSet.getBoolean(ORDERS_CONFIRMATION);
+                return new Order(orderId, username, orderDate, products, cost, status);
             }
         }
     }

@@ -13,22 +13,25 @@ public class Order {
     private Date orderDate;
     private Map<Product, Long> listOfProducts;
     private BigDecimal orderCost;
+    private boolean status;
 
     public Order(long orderId, String username, Date orderDate,
-                 Map<Product, Long> listOfProducts, BigDecimal orderCost) {
+                 Map<Product, Long> listOfProducts, BigDecimal orderCost, boolean status) {
         this.orderId = orderId;
         this.username = username;
         this.orderDate = orderDate;
         this.listOfProducts = listOfProducts;
         this.orderCost = orderCost;
+        this.status = status;
     }
 
     public Order(String username, Date orderDate,
-                 Map<Product, Long> listOfProducts, BigDecimal orderCost) {
+                 Map<Product, Long> listOfProducts, BigDecimal orderCost, boolean status) {
         this.username = username;
         this.orderDate = orderDate;
         this.listOfProducts = listOfProducts;
         this.orderCost = orderCost;
+        this.status = status;
     }
 
     public long getOrderId() {
@@ -69,5 +72,13 @@ public class Order {
 
     public void setOrderCost(BigDecimal orderCost) {
         this.orderCost = orderCost;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

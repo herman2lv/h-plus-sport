@@ -25,6 +25,7 @@
             <th><fmt:message key="ui.orderDate"/></th>
             <th><fmt:message key="ui.products"/></th>
             <th><fmt:message key="ui.cost"/></th>
+            <th><fmt:message key="ui.orderStatus"/></th>
           </tr>
           <c:forEach items="${orders}" var="order" varStatus="counter">
             <tr>
@@ -43,6 +44,19 @@
                   </table>
                 </td>
               <td>$${order.orderCost}</td>
+              <td>
+                <c:if test="${order.status}">
+                  <fmt:message key="ui.orderStatus.approved"/>
+                </c:if>
+                <c:if test="${!order.status}">
+                  <fmt:message key="ui.orderStatus.pending"/>
+                  <form action="controller" method="post">
+                    <input type="hidden" name="command" value="removeOrder">
+                    <input type="hidden" name="order" value="${order.orderId}">
+                    <input type="submit" value='<fmt:message key="ui.removeFromOrders"/>'>
+                  </form>
+                </c:if>
+              </td>
             </tr>
           </c:forEach>
         </table>
