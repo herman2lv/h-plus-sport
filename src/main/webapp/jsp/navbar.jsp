@@ -64,6 +64,12 @@
               <input type="submit" value='<fmt:message key="ui.header.userManagement"/>'/>
             </form>
           </li>
+          <li>
+            <form action="controller" method="get">
+              <input type="hidden" name="command" value="registerUserPage"/>
+              <input type="submit" value='<fmt:message key="ui.header.addNewUser"/>'/>
+            </form>
+          </li>
         </c:if>
 				<li>
 				  <form action="controller" method="get">

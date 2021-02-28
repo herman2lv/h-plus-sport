@@ -38,6 +38,7 @@ public class Database {
     public static final int USERS_LAST_NAME_INDEX = 4;
     public static final int USERS_DOB_INDEX = 5;
     public static final int USERS_ACTIVITY_INDEX = 6;
+    public static final int USERS_ROLE_INDEX = 7;
 
     private Database() {
     }

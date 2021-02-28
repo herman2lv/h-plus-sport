@@ -24,6 +24,7 @@ import static com.epam.hplus.constants.Database.USERS_LAST_NAME_INDEX;
 import static com.epam.hplus.constants.Database.USERS_PASSWORD;
 import static com.epam.hplus.constants.Database.USERS_PASSWORD_INDEX;
 import static com.epam.hplus.constants.Database.USERS_ROLE;
+import static com.epam.hplus.constants.Database.USERS_ROLE_INDEX;
 import static com.epam.hplus.constants.Database.USERS_TABLE;
 import static com.epam.hplus.constants.Database.USERS_USERNAME;
 import static com.epam.hplus.constants.Database.USERS_USERNAME_INDEX;
@@ -50,7 +51,7 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public int createUser(Connection connection, User user) {
-        String query = INSERT_INTO + USERS_TABLE + " values (?, ?, ?, ?, ?, ?)";
+        String query = INSERT_INTO + USERS_TABLE + " values (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(USERS_USERNAME_INDEX, user.getUsername());
             statement.setString(USERS_PASSWORD_INDEX, user.getPassword());
@@ -58,6 +59,7 @@ public class UserDaoJdbc implements UserDao {
             statement.setString(USERS_LAST_NAME_INDEX, user.getLastName());
             statement.setDate(USERS_DOB_INDEX, new java.sql.Date(user.getDateOfBirth().getTime()));
             statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
+            statement.setInt(USERS_ROLE_INDEX, user.getRole());
             return statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
