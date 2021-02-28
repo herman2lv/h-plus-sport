@@ -1,4 +1,5 @@
 <!DOCTYPE html >
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:if test="${sessionScope.language != null}">
   <fmt:setLocale value="${sessionScope.language}"/>
@@ -17,7 +18,7 @@
 	<section id="profile" class="section">
 		<div class="container">
 			<h2 class="headline">My Profile</h2>
-			<table id="profile">
+			<table id="profileTable">
 				<tr>
 					<td>Username</td>
 					<td>${user.username}</td>
@@ -32,11 +33,15 @@
 				</tr>
 				<tr>
 					<td>Date of Birth</td>
-                    <td><fmt:formatDate value="${user.dateOfBirth}" pattern="YYYY-MM-dd"/></td>
+					<td><fmt:formatDate value="${user.dateOfBirth}" pattern="YYYY-MM-dd"/></td>
 				</tr>
 				<tr>
 					<td>Interested in</td>
 					<td>${user.activity}</td>
+				</tr>
+				<tr>
+					<td><fmt:message key="ui.userRole"/></td>
+					<td>${user.role}</td>
 				</tr>
 			</table>
 		</div>

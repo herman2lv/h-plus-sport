@@ -40,7 +40,7 @@ public class UserService {
     public static User getUserProfile(String username) {
         Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.getUserProfile(connection, username);
+        return userDao.getUser(connection, username);
     }
 
     public static User createInstanceOfUser(HttpServletRequest req) {

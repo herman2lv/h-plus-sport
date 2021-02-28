@@ -41,14 +41,22 @@
             <input type="submit" value='<fmt:message key="ui.header.newUser"/>'/>
           </form>
 				</li>
-            </c:if>
-            <c:if test="${sessionScope.username != null}">
+      </c:if>
+      <c:if test="${sessionScope.username != null}">
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="orders"/>
             <input type="submit" value='<fmt:message key="ui.header.myOrders"/>'/>
           </form>
 				</li>
+        <c:if test="${sessionScope.userRole == 2}">
+          <li>
+            <form action="controller" method="get">
+              <input type="hidden" name="command" value="orderManagement"/>
+              <input type="submit" value='<fmt:message key="ui.header.orderManagement"/>'/>
+            </form>
+          </li>
+        </c:if>
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="profile"/>
@@ -61,7 +69,7 @@
             <input type="submit" value='<fmt:message key="ui.header.logout"/>'/>
           </form>
 				</li>
-            </c:if>
+      </c:if>
 			<li>
         <form action="controller" method="get">
                   <input type="hidden" name="command" value="search"/>

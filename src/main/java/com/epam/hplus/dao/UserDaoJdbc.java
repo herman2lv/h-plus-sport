@@ -53,7 +53,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public User getUserProfile(Connection connection, String username) {
+    public User getUser(Connection connection, String username) {
         User user = null;
         String query = SELECT_ALL_FROM + USERS_TABLE
                        + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
