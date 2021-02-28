@@ -7,6 +7,7 @@ public class Database {
     public static final String ORDERS_USERNAME = "username";
     public static final String ORDERS_ORDER_DATE = "order_date";
     public static final String ORDERS_ORDER_COST = "order_cost";
+    public static final String ORDERS_CONFIRMATION = "confirmation_status";
     public static final String ORDERS_DETAILS_TABLE = "orders_details";
     public static final String ORDERS_DETAILS_ORDER_ID = "order_id";
     public static final String ORDERS_DETAILS_ORDER_ID_FULL =
@@ -30,6 +31,7 @@ public class Database {
     public static final String USERS_LAST_NAME = "last_name";
     public static final String USERS_DOB = "date_of_birth";
     public static final String USERS_ACTIVITY = "activity";
+    public static final String USERS_ROLE = "user_role";
     public static final int USERS_USERNAME_INDEX = 1;
     public static final int USERS_PASSWORD_INDEX = 2;
     public static final int USERS_FIRST_NAME_INDEX = 3;

@@ -18,7 +18,8 @@ CREATE table users (
     first_name varchar(50), 
     last_name varchar(50),
     date_of_birth date,
-    activity varchar(100)
+    activity varchar(100),
+    user_role int not null
 );
      
 CREATE table orders (
@@ -26,6 +27,7 @@ CREATE table orders (
     username varchar(50) not null,
     order_date date, 
     order_cost decimal(6,2) not null,
+    confirmation_status BOOLEAN,
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
@@ -38,20 +40,20 @@ CREATE table orders_details (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-INSERT into users values('admin','admin','Andrew','Webber','1986-04-26','Exercise in Gym');
-INSERT into users values('user','user','Mark','Johnson','1991-12-30','Playing a sport');
-INSERT into users values('luka','1234','Alexander','Showshenko','1954-08-30','Playing a sport');
-INSERT into users values('herman','1234','Herman','House','1999-09-15','Exercise in Gym');
+INSERT into users values('admin','admin','Andrew','Webber','1986-04-26','Exercise in Gym', 1);
+INSERT into users values('user','user','Mark','Johnson','1991-12-30','Playing a sport', 3);
+INSERT into users values('luka','1234','Alexander','Showshenko','1954-08-30','Playing a sport', 3);
+INSERT into users values('herman','1234','Herman','House','1999-09-15','Exercise in Gym', 2);
 
-INSERT into orders (username, order_date, order_cost)
-    values('admin', '2020-03-07', 55.23),
-        ('admin', '2021-01-02', 52.23),
-        ('user', '2027-01-09', 25.01),
-        ('luka', '2021-01-12', 33.99),
-        ('herman', '2021-01-17', 82.99),
-        ('luka', '2021-02-02', 38.89),
-        ('user', '2021-02-21', 27.00),
-        ('admin', '2021-02-22', 75.00);
+INSERT into orders (username, order_date, order_cost, confirmation_status)
+    values('admin', '2020-03-07', 55.23, true),
+        ('admin', '2021-01-02', 52.23, true),
+        ('user', '2027-01-09', 25.01, true),
+        ('luka', '2021-01-12', 33.99, true),
+        ('herman', '2021-01-17', 82.99, true),
+        ('luka', '2021-02-02', 38.89, true),
+        ('user', '2021-02-21', 27.00, true),
+        ('admin', '2021-02-22', 75.00, true);
 
 INSERT into products (product_name, image_path, cost, description)
     values("Mineralwater Blueberry","images/mineralwater-blueberry.jpg", 2.14, "Freshing mineral water"),
