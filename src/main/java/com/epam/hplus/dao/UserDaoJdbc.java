@@ -20,6 +20,7 @@ import static com.epam.hplus.constants.Database.USERS_LAST_NAME;
 import static com.epam.hplus.constants.Database.USERS_LAST_NAME_INDEX;
 import static com.epam.hplus.constants.Database.USERS_PASSWORD;
 import static com.epam.hplus.constants.Database.USERS_PASSWORD_INDEX;
+import static com.epam.hplus.constants.Database.USERS_ROLE;
 import static com.epam.hplus.constants.Database.USERS_TABLE;
 import static com.epam.hplus.constants.Database.USERS_USERNAME;
 import static com.epam.hplus.constants.Database.USERS_USERNAME_INDEX;
@@ -97,7 +98,9 @@ public class UserDaoJdbc implements UserDao {
         String lastName = resultSet.getString(USERS_LAST_NAME);
         String activity = resultSet.getString(USERS_ACTIVITY);
         Date dateOfBirth = resultSet.getDate(USERS_DOB);
-        return new User(nameOriginalCase, password, firstName, lastName, activity, dateOfBirth);
+        int role = resultSet.getInt(USERS_ROLE);
+        return new User(nameOriginalCase, password, firstName, lastName,
+                activity, dateOfBirth, role);
     }
 
     @Override

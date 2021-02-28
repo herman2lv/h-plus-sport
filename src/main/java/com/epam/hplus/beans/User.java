@@ -3,21 +3,26 @@ package com.epam.hplus.beans;
 import java.util.Date;
 
 public class User {
+    public static final int ROLE_ADMIN = 1;
+    public static final int ROLE_MANAGER = 2;
+    public static final int ROLE_CUSTOMER = 3;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String activity;
     private Date dateOfBirth;
+    private int role;
 
     public User(String username, String password, String firstName, String lastName,
-            String activity, Date dateOfBirth) {
+            String activity, Date dateOfBirth, int role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.activity = activity;
         this.dateOfBirth = dateOfBirth;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -66,5 +71,13 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }

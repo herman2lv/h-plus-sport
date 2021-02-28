@@ -56,7 +56,8 @@ public class UserService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new User(username, password, firstName, lastName, activity, date);
+        return new User(username, password, firstName, lastName,
+                activity, date, User.ROLE_CUSTOMER);
     }
 
     public static boolean isValidUserData(User user, StringBuilder status) {
