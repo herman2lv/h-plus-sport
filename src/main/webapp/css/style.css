@@ -222,6 +222,10 @@ em {
 	}
 }
 
+#columnToLimit {
+	width: 35%;
+}
+
 .footer {
 	background-color: #312a10;
 	color: #fff;

@@ -39,7 +39,7 @@
               <th>No.</th>
               <th>Product Name</th>
               <th>Image</th>
-              <th>Description</th>
+              <th id="columnToLimit">Description</th>
               <th>Cost</th>
               <th></th>
             </tr>
