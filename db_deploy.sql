@@ -41,9 +41,9 @@ CREATE table orders_details (
 );
 
 INSERT into users values('admin','admin','Andrew','Webber','1986-04-26','Exercise in Gym', 1);
-INSERT into users values('user','user','Mark','Johnson','1991-12-30','Playing a sport', 3);
-INSERT into users values('luka','1234','Alexander','Showshenko','1954-08-30','Playing a sport', 3);
-INSERT into users values('herman','1234','Herman','House','1999-09-15','Exercise in Gym', 2);
+INSERT into users values('user','user','Mark','Johnson','1991-12-30','Playing a sport', 2);
+INSERT into users values('luka','1234','Alexander','Showshenko','1954-08-30','Playing a sport', 2);
+INSERT into users values('herman','1234','Herman','House','1999-09-15','Exercise in Gym', 3);
 
 INSERT into orders (username, order_date, order_cost, confirmation_status)
     values('admin', '2020-03-07', 55.23, true),
@@ -56,18 +56,18 @@ INSERT into orders (username, order_date, order_cost, confirmation_status)
         ('admin', '2021-02-22', 75.00, true);
 
 INSERT into products (product_name, image_path, cost, description)
-    values("Mineralwater Blueberry","images/mineralwater-blueberry.jpg", 2.14, "Freshing mineral water"),
-        ("Mineralwater Lemonlime","images/mineralwater-lemonlime.jpg", 2.32, "Freshing mineral water"),
-        ("Mineralwater Orange","images/mineralwater-orange.jpg", 3.14, "Freshing mineral water"),
-        ("Mineralwater Peach","images/mineralwater-peach.jpg", 1.89, "Freshing mineral water"),
-        ("Mineralwater Raspberry","images/mineralwater-raspberry.jpg", 5.22, "Freshing mineral water"),
-        ("Mineralwater Strawberry","images/mineralwater-strawberry.jpg", 4.11, "Freshing mineral water"),
-        ("Proteinbar Chocolate","images/proteinbar-chocolate.jpg", 7.39, "Nutritious protein bar"),
-        ("Proteinbar Lemon","images/proteinbar-lemon.jpg", 8.88, "Nutritious protein bar"),
-        ("Proteinbar Peanutbutter","images/proteinbar-peanutbutter.jpg", 7.99, "Nutritious protein bar"),
-        ("Vitamin A","images/vitamin-a.jpg", 22.82, "Healthy vitamins"),
-        ("Vitamin B complex","images/vitamin-bcomplex.jpg", 27.22, "Healthy vitamins"),
-        ("Vitamin Calcium","images/vitamin-c.jpg", 26.11, "Healthy vitamins");
+    values('Mineralwater Blueberry','images/mineralwater-blueberry.jpg', 2.14, 'Freshening mineral water with ultimate blueberry taste'),
+        ('Mineralwater Lemonlime','images/mineralwater-lemonlime.jpg', 2.32, 'Crazy lemon and lime! You will like it!'),
+        ('Mineralwater Orange','images/mineralwater-orange.jpg', 3.14, 'Freshening mineral water with classic orange taste. Even better than juice'),
+        ('Mineralwater Peach','images/mineralwater-peach.jpg', 1.89, 'Freshening mineral water. Now with peach'),
+        ('Mineralwater Raspberry','images/mineralwater-raspberry.jpg', 5.22, 'Freshening mineral water. Taste new raspberry and it will become your favourite!'),
+        ('Mineralwater Strawberry','images/mineralwater-strawberry.jpg', 4.11, 'Freshening mineral water'),
+        ('Proteinbar Chocolate','images/proteinbar-chocolate.jpg', 7.39, 'Nutritious protein bar balanced especially for adults'),
+        ('Proteinbar Lemon','images/proteinbar-lemon.jpg', 8.88, 'Nutritious protein bar for professional athletes'),
+        ('Proteinbar Peanutbutter','images/proteinbar-peanutbutter.jpg', 7.99, 'Nutritious protein bar for young athletes'),
+        ('Vitamin A','images/vitamin-a.jpg', 22.82, 'Healthy vitamins for men 45+'),
+        ('Vitamin B complex','images/vitamin-bcomplex.jpg', 27.22, 'Healthy vitamins. Multivitamin complex for all ages'),
+        ('Vitamin Calcium','images/vitamin-c.jpg', 26.11, 'Healthy vitamins for professional athletes');
 
 INSERT into orders_details 
     values(1, 1, 2),
@@ -85,4 +85,3 @@ INSERT into orders_details
         (8, 3, 8),
         (8, 9, 1),
         (8, 10, 1);
-
