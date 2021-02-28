@@ -13,13 +13,13 @@
 			<li>
 			  <form action="controller" method="get">
           <input type="hidden" name="command" value="home"/>
-          <input type="submit" value='<fmt:message key="ui.home"/>'/>
+          <input type="submit" value='<fmt:message key="ui.header.home"/>'/>
         </form>
 			</li>
 			<li>
 			  <form action="controller" method="get">
           <input type="hidden" name="command" value="search"/>
-          <input type="submit" value='<fmt:message key="ui.catalog"/>'/>
+          <input type="submit" value='<fmt:message key="ui.header.catalog"/>'/>
         </form>
 			</li>
 			<li>
@@ -32,13 +32,13 @@
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="login"/>
-            <input type="submit" value='<fmt:message key="ui.login"/>'/>
+            <input type="submit" value='<fmt:message key="ui.header.login"/>'/>
           </form>
 				</li>
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="registerUserPage"/>
-            <input type="submit" value='<fmt:message key="ui.newUser"/>'/>
+            <input type="submit" value='<fmt:message key="ui.header.newUser"/>'/>
           </form>
 				</li>
             </c:if>
@@ -46,32 +46,32 @@
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="orders"/>
-            <input type="submit" value='<fmt:message key="ui.myOrders"/>'/>
+            <input type="submit" value='<fmt:message key="ui.header.myOrders"/>'/>
           </form>
 				</li>
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="profile"/>
-            <input type="submit" value='<fmt:message key="ui.myProfile"/>'/>
+            <input type="submit" value='<fmt:message key="ui.header.myProfile"/>'/>
           </form>
 				</li>
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="logout"/>
-            <input type="submit" value='<fmt:message key="ui.logout"/>'/>
+            <input type="submit" value='<fmt:message key="ui.header.logout"/>'/>
           </form>
 				</li>
             </c:if>
 			<li>
         <form action="controller" method="get">
                   <input type="hidden" name="command" value="search"/>
-                  <input type="submit" value='<fmt:message key="ui.search"/>'/>
+                  <input type="submit" value='<fmt:message key="ui.header.search"/>'/>
         </form>
 			</li>
 			<li>
         <form action="controller" method="get">
           <input type="hidden" name="command" value="redirect"/>
-          <input type="submit" value='<fmt:message key="ui.gitHub"/>'/>
+          <input type="submit" value='<fmt:message key="ui.header.gitHub"/>'/>
         </form>
 			</li>
 			<li>

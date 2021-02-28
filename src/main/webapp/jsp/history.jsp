@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>H+ Sport - My Orders</title>
+<title>H+ Sport - <fmt:message key="ui.title.myOrders"/></title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,15 +16,15 @@
   <jsp:include page="header.jsp"/>
 
   <section id="orders" class="section">
-    <c:if test="${orders.size() > 0}">
-      <div class="container">
-        <h2 class="headline">Order History</h2>
+    <div class="container">
+      <h2 class="headline"><fmt:message key="ui.orderHistory"/></h2>
+      <c:if test="${orders.size() > 0}">
         <table id="orderHistory">
           <tr>
-            <th>Order No.</th>
-            <th>Order Date</th>
-            <th>Products</th>
-            <th>Cost</th>
+            <th><fmt:message key="ui.orderNo"/></th>
+            <th><fmt:message key="ui.orderDate"/></th>
+            <th><fmt:message key="ui.products"/></th>
+            <th><fmt:message key="ui.cost"/></th>
           </tr>
           <c:forEach items="${orders}" var="order" varStatus="counter">
             <tr>
@@ -47,14 +47,11 @@
           </c:forEach>
         </table>
         <br/>
-      </div>
-    </c:if>
-    <c:if test="${orders.size() == 0}">
-      <div class="container">
-        <h2 class="headline">Order History</h2>
-        <p>You haven't ordered anything yet</p>
-      </div>
-    </c:if>
+      </c:if>
+      <c:if test="${orders.size() == 0}">
+        <p><fmt:message key="ui.emptyHistory"/></p>
+      </c:if>
+    </div>
   </section>
 
   <jsp:include page="searchSection.jsp"/>
