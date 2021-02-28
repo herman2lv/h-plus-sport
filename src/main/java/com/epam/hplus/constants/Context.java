@@ -24,6 +24,7 @@ public class Context {
     public static final String LOGIN_REQUEST_USERNAME = "username";
     public static final String LOGIN_REQUEST_PASSWORD = "password";
     public static final String REQUEST_REGISTRATION_STATUS = "registrationStatus";
+    public static final String REQUEST_ORDER_STATUS = "orderStatus";
 
     private Context() {
     }

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static com.epam.hplus.constants.Context.REQUEST_CART_TOTAL_COST;
 import static com.epam.hplus.constants.Context.REQUEST_GROUPED_PRODUCTS;
+import static com.epam.hplus.constants.Context.REQUEST_ORDER_STATUS;
 import static com.epam.hplus.constants.Context.SESSION_CART;
 
 public class CartCommand implements Command {
@@ -23,6 +24,8 @@ public class CartCommand implements Command {
             req.setAttribute(REQUEST_GROUPED_PRODUCTS, new ArrayList<>(productsGrouped.entrySet()));
             BigDecimal cost = CartService.countTotalCost(products);
             req.setAttribute(REQUEST_CART_TOTAL_COST, cost.toString());
+            String orderStatus = req.getParameter(REQUEST_ORDER_STATUS);
+            req.setAttribute(REQUEST_ORDER_STATUS, orderStatus);
         }
         return ConfigurationManger.getProperty("page.cart");
     }

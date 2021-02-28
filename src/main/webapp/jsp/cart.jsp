@@ -19,6 +19,7 @@
     <c:if test="${cart.size() > 0}">
       <div class="container">
         <h2 class="headline"><fmt:message key="ui.cart"/></h2>
+        <p>${orderStatus}</p>
         <table id="orderHistory">
           <tr>
             <th><fmt:message key="ui.no"/></th>

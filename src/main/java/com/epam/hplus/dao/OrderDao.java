@@ -5,6 +5,7 @@ import com.epam.hplus.beans.Order;
 import java.sql.Connection;
 import java.util.List;
 
-public interface OrdersDao {
+public interface OrderDao {
     List<Order> getOrdersOfUser(Connection connection, String username);
+    int createOrder(Connection connection, Order order);
 }

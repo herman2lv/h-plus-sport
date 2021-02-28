@@ -11,12 +11,20 @@ public class Order {
     private long orderId;
     private String username;
     private Date orderDate;
-    private Map<Product, Integer> listOfProducts;
+    private Map<Product, Long> listOfProducts;
     private BigDecimal orderCost;
 
     public Order(long orderId, String username, Date orderDate,
-                 Map<Product, Integer> listOfProducts, BigDecimal orderCost) {
+                 Map<Product, Long> listOfProducts, BigDecimal orderCost) {
         this.orderId = orderId;
+        this.username = username;
+        this.orderDate = orderDate;
+        this.listOfProducts = listOfProducts;
+        this.orderCost = orderCost;
+    }
+
+    public Order(String username, Date orderDate,
+                 Map<Product, Long> listOfProducts, BigDecimal orderCost) {
         this.username = username;
         this.orderDate = orderDate;
         this.listOfProducts = listOfProducts;
@@ -47,11 +55,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public List<Entry<Product, Integer>> getListOfProducts() {
+    public List<Entry<Product, Long>> getListOfProducts() {
         return new ArrayList<>(listOfProducts.entrySet());
     }
 
-    public void setListOfProducts(Map<Product, Integer> listOfProducts) {
+    public void setListOfProducts(Map<Product, Long> listOfProducts) {
         this.listOfProducts = listOfProducts;
     }
 

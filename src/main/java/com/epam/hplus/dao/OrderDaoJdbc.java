@@ -10,12 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.epam.hplus.constants.Database.ORDERS_CONFIRMATION;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_NUMBER_OF_PRODUCTS;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_ORDER_ID_FULL;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_PRODUCT_ID_FULL;
@@ -33,14 +35,24 @@ import static com.epam.hplus.constants.Database.PRODUCTS_PRODUCT_ID_FULL;
 import static com.epam.hplus.constants.Database.PRODUCTS_PRODUCT_NAME;
 import static com.epam.hplus.constants.Database.PRODUCTS_TABLE;
 
-public class OrdersDaoJdbc implements OrdersDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrdersDaoJdbc.class);
+public class OrderDaoJdbc implements OrderDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDaoJdbc.class);
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String WHERE = " WHERE ";
     private static final String EQUALS = " = ";
     private static final String LEFT_JOIN = " LEFT JOIN ";
     private static final String ON = " ON ";
     private static final String QUESTION_MARK = "?";
+    private static final String INSERT_INTO = "INSERT INTO ";
+    private static final String COMA = ", ";
+    private static final int INVALID_ID = -1;
+    private static final int INSERT_ORDER_ID_COLUMN = 1;
+    private static final int INSERT_ORDER_PRODUCT_ID_COLUMN = 2;
+    private static final int INSERT_ORDERS_NUMBER_OF_PRODUCTS = 3;
+    private static final int INSERT_DETAILS_USERNAME_COLUMN = 1;
+    private static final int INSERT_DETAILS_DATE_COLUMN = 2;
+    private static final int INSERT_DETAILS_COST_COLUMN = 3;
+    private static final int INSERT_DETAILS_STATUS_CONFIRM_COLUMN = 4;
 
     @Override
     public List<Order> getOrdersOfUser(Connection connection, String username) {
@@ -60,12 +72,12 @@ public class OrdersDaoJdbc implements OrdersDao {
         return orders;
     }
 
-    private Map<Product, Integer> createMapOfProducts(ResultSet productsSet)
+    private Map<Product, Long> createMapOfProducts(ResultSet productsSet)
             throws SQLException {
-        Map<Product, Integer> products = new HashMap<>();
+        Map<Product, Long> products = new HashMap<>();
         while (productsSet.next()) {
             products.put(createInstanceOfProduct(productsSet),
-                    productsSet.getInt(ORDERS_DETAILS_NUMBER_OF_PRODUCTS));
+                    productsSet.getLong(ORDERS_DETAILS_NUMBER_OF_PRODUCTS));
         }
         return products;
     }
@@ -81,7 +93,7 @@ public class OrdersDaoJdbc implements OrdersDao {
         try (PreparedStatement statementProducts = connection.prepareStatement(queryProducts)) {
             statementProducts.setInt(1, orderId);
             try (ResultSet productsSet = statementProducts.executeQuery()) {
-                Map<Product, Integer> products = createMapOfProducts(productsSet);
+                Map<Product, Long> products = createMapOfProducts(productsSet);
                 Date orderDate = new Date(ordersSet.getDate(ORDERS_ORDER_DATE).getTime());
                 BigDecimal cost = ordersSet.getBigDecimal(ORDERS_ORDER_COST);
                 return new Order(orderId, username, orderDate, products, cost);
@@ -95,5 +107,53 @@ public class OrdersDaoJdbc implements OrdersDao {
                 resultSet.getString(PRODUCTS_IMAGE_PATH),
                 resultSet.getBigDecimal(PRODUCTS_COST),
                 resultSet.getString(PRODUCTS_DESCRIPTION));
+    }
+
+    @Override
+    public int createOrder(Connection connection, Order order) {
+        try {
+            int orderId = insertOrder(connection, order);
+            insertOrdersDetails(connection, order, orderId);
+            return orderId;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+            return INVALID_ID;
+        }
+    }
+
+    private void insertOrdersDetails(Connection connection, Order order, int orderId)
+            throws SQLException {
+        String productsQuery = INSERT_INTO + ORDERS_DETAILS_TABLE + " values (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(productsQuery)) {
+            for (Map.Entry<Product, Long> entry : order.getListOfProducts()) {
+                statement.setInt(INSERT_ORDER_ID_COLUMN, orderId);
+                statement.setLong(INSERT_ORDER_PRODUCT_ID_COLUMN, entry.getKey().getProductId());
+                statement.setLong(INSERT_ORDERS_NUMBER_OF_PRODUCTS, entry.getValue());
+                statement.executeUpdate();
+            }
+        }
+    }
+
+    private int insertOrder(Connection connection, Order order) throws SQLException {
+        String orderQuery = INSERT_INTO + ORDERS_TABLE
+                + " (" + ORDERS_USERNAME + COMA + ORDERS_ORDER_DATE + COMA
+                + ORDERS_ORDER_COST + COMA + ORDERS_CONFIRMATION + ") "
+                + " values (?, ?, ?, ?)";
+        try (PreparedStatement statement =
+                     connection.prepareStatement(orderQuery, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(INSERT_DETAILS_USERNAME_COLUMN, order.getUsername());
+            statement.setDate(INSERT_DETAILS_DATE_COLUMN,
+                    new java.sql.Date(order.getOrderDate().getTime()));
+            statement.setBigDecimal(INSERT_DETAILS_COST_COLUMN, order.getOrderCost());
+            statement.setBoolean(INSERT_DETAILS_STATUS_CONFIRM_COLUMN, false);
+            if (statement.executeUpdate() > 0) {
+                try (ResultSet keys = statement.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        return keys.getInt(1);
+                    }
+                }
+            }
+        }
+        return INVALID_ID;
     }
 }
