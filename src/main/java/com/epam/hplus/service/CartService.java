@@ -18,6 +18,10 @@ public class CartService {
         return false;
     }
 
+    public static boolean removeProduct(List<Product> cart, Product product) {
+        return cart.remove(product);
+    }
+
     public static Map<Product, Long> groupProducts(List<Product> productsList) {
         return productsList.stream()
                 .collect(Collectors.groupingBy(p -> p, Collectors.counting()));

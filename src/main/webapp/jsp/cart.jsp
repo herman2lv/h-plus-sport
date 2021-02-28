@@ -26,6 +26,7 @@
             <th><fmt:message key="ui.image"/></th>
             <th><fmt:message key="ui.cost"/></th>
             <th><fmt:message key="ui.number"/></th>
+            <th></th>
           </tr>
           <c:forEach items="${groupedProducts}" var="productEntry" varStatus="counter">
             <tr>
@@ -36,6 +37,13 @@
               </td>
               <td>$${productEntry.key.cost}</td>
               <td>${productEntry.value}</td>
+              <td>
+                <form action="controller" method="put">
+                  <input type="hidden" name="command" value="removeProduct"/>
+                  <input type="hidden" name="product" value="${productEntry.key.productId}"/>
+                  <input type="submit" value='<fmt:message key="ui.removeFromCart"/>'/>
+                </form>
+              </td>
             </tr>
           </c:forEach>
           <tr>
@@ -44,6 +52,12 @@
             <td><fmt:message key="ui.totalCost"/></td>
             <td>$${cartTotalCost}</td>
             <td></td>
+            <td>
+              <form action="controller" method="put">
+                <input type="hidden" name="command" value="makeOrder"/>
+                <input type="submit" value='<fmt:message key="ui.makeOrder"/>'/>
+              </form>
+            </td>
           </tr>
         </table>
         <br/>
