@@ -1,6 +1,7 @@
 package com.epam.hplus.controller.commands.enums;
 
 import com.epam.hplus.controller.commands.AddProductCommand;
+import com.epam.hplus.controller.commands.ApproveOrderCommand;
 import com.epam.hplus.controller.commands.CartCommand;
 import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.controller.commands.HomeCommand;
@@ -35,6 +36,7 @@ public enum CommandEnum {
     REMOVEORDER(new RemoveOrderCommand()),
     ORDERMANAGEMENT(new OrderManagementCommand()),
     REMOVEORDERBYMANAGER(new RemoveOrderByManagerCommand()),
+    APPROVEORDER(new ApproveOrderCommand()),
     MAKEORDER(new MakeOrderCommand()),
     REDIRECT(new RedirectCommand());
 

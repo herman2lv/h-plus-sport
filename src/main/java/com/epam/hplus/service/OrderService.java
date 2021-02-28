@@ -15,7 +15,7 @@ public class OrderService {
     public static List<Order> getOrdersOfUser(String username) {
         Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.getOrdersOfUser(connection, username);
+        return orderDao.getOrdersByUser(connection, username);
     }
 
     public static boolean createOrder(Order order) {
@@ -34,6 +34,14 @@ public class OrderService {
         Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
         return orderDao.getOrders(connection);
+    }
+
+    public static boolean approveOrder(int orderId) {
+        Connection connection = DbConnector.getConnection();
+        OrderDao orderDao = new OrderDaoJdbc();
+        Order order = orderDao.getOrderById(connection, orderId);
+        order.setStatus(true);
+        return orderDao.updateOrder(connection, order);
     }
 
 }

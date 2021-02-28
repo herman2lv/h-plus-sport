@@ -50,16 +50,19 @@ public class OrderDaoJdbc implements OrderDao {
     private static final int INSERT_ORDER_ID_COLUMN = 1;
     private static final int INSERT_ORDER_PRODUCT_ID_COLUMN = 2;
     private static final int INSERT_ORDERS_NUMBER_OF_PRODUCTS = 3;
-    private static final int INSERT_DETAILS_USERNAME_COLUMN = 1;
-    private static final int INSERT_DETAILS_DATE_COLUMN = 2;
-    private static final int INSERT_DETAILS_COST_COLUMN = 3;
-    private static final int INSERT_DETAILS_STATUS_CONFIRM_COLUMN = 4;
+    private static final int INSERT_ORDERS_USERNAME_COLUMN = 1;
+    private static final int INSERT_ORDERS_DATE_COLUMN = 2;
+    private static final int INSERT_ORDERS_COST_COLUMN = 3;
+    private static final int INSERT_ORDERS_STATUS_CONFIRM_COLUMN = 4;
     private static final String DELETE_FROM = "DELETE FROM ";
     private static final String SELECT = "SELECT ";
     private static final String FROM = " FROM ";
+    private static final String UPDATE = "UPDATE ";
+    private static final String SET = " SET ";
+    private static final int INSERT_ORDERS_ID_COLUMN = 5;
 
     @Override
-    public List<Order> getOrdersOfUser(Connection connection, String username) {
+    public List<Order> getOrdersByUser(Connection connection, String username) {
         List<Order> orders = new ArrayList<>();
         String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE
                 + WHERE + ORDERS_USERNAME + EQUALS + QUESTION_MARK;
@@ -67,7 +70,7 @@ public class OrderDaoJdbc implements OrderDao {
             statementOrders.setString(1, username);
             try (ResultSet ordersSet = statementOrders.executeQuery()) {
                 while (ordersSet.next()) {
-                    orders.add(createOrder(connection, ordersSet));
+                    orders.add(createInstanceOfOrder(connection, ordersSet));
                 }
             }
         } catch (SQLException e) {
@@ -86,7 +89,7 @@ public class OrderDaoJdbc implements OrderDao {
         return products;
     }
 
-    private Order createOrder(Connection connection, ResultSet ordersSet)
+    private Order createInstanceOfOrder(Connection connection, ResultSet ordersSet)
             throws SQLException {
         int orderId = ordersSet.getInt(ORDERS_ORDER_ID);
         String queryProducts = SELECT_ALL_FROM + ORDERS_DETAILS_TABLE
@@ -147,11 +150,11 @@ public class OrderDaoJdbc implements OrderDao {
                 + " values (?, ?, ?, ?)";
         try (PreparedStatement statement =
                      connection.prepareStatement(orderQuery, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(INSERT_DETAILS_USERNAME_COLUMN, order.getUsername());
-            statement.setDate(INSERT_DETAILS_DATE_COLUMN,
+            statement.setString(INSERT_ORDERS_USERNAME_COLUMN, order.getUsername());
+            statement.setDate(INSERT_ORDERS_DATE_COLUMN,
                     new java.sql.Date(order.getOrderDate().getTime()));
-            statement.setBigDecimal(INSERT_DETAILS_COST_COLUMN, order.getOrderCost());
-            statement.setBoolean(INSERT_DETAILS_STATUS_CONFIRM_COLUMN, false);
+            statement.setBigDecimal(INSERT_ORDERS_COST_COLUMN, order.getOrderCost());
+            statement.setBoolean(INSERT_ORDERS_STATUS_CONFIRM_COLUMN, false);
             if (statement.executeUpdate() > 0) {
                 return getKey(statement);
             }
@@ -222,11 +225,54 @@ public class OrderDaoJdbc implements OrderDao {
         try (Statement statement = connection.createStatement();
              ResultSet ordersSet = statement.executeQuery(queryOrders)) {
             while (ordersSet.next()) {
-                orders.add(createOrder(connection, ordersSet));
+                orders.add(createInstanceOfOrder(connection, ordersSet));
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
         return orders;
+    }
+
+    @Override
+    public Order getOrderById(Connection connection, int orderId) {
+        Order order = null;
+        String query = SELECT_ALL_FROM + ORDERS_TABLE
+                + WHERE + ORDERS_ORDER_ID + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, orderId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    order = createInstanceOfOrder(connection, resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return order;
+    }
+
+    @Override
+    public boolean updateOrder(Connection connection, Order order) {
+        String query = UPDATE + ORDERS_TABLE + SET
+                + ORDERS_USERNAME + EQUALS + QUESTION_MARK + COMA
+                + ORDERS_ORDER_DATE + EQUALS + QUESTION_MARK + COMA
+                + ORDERS_ORDER_COST + EQUALS + QUESTION_MARK + COMA
+                + ORDERS_CONFIRMATION + EQUALS + QUESTION_MARK
+                + WHERE + ORDERS_ORDER_ID + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(INSERT_ORDERS_USERNAME_COLUMN, order.getUsername());
+            statement.setDate(INSERT_ORDERS_DATE_COLUMN,
+                    new java.sql.Date(order.getOrderDate().getTime()));
+            statement.setBigDecimal(INSERT_ORDERS_COST_COLUMN, order.getOrderCost());
+            statement.setBoolean(INSERT_ORDERS_STATUS_CONFIRM_COLUMN, order.isStatus());
+            statement.setLong(INSERT_ORDERS_ID_COLUMN, order.getOrderId());
+            if (statement.executeUpdate() == 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
+        return false;
     }
 }
