@@ -39,7 +39,7 @@
               <td>$${productEntry.key.cost}</td>
               <td>${productEntry.value}</td>
               <td>
-                <form action="controller" method="put">
+                <form action="controller" method="post">
                   <input type="hidden" name="command" value="removeProduct"/>
                   <input type="hidden" name="product" value="${productEntry.key.productId}"/>
                   <input type="submit" value='<fmt:message key="ui.removeFromCart"/>'/>
@@ -54,7 +54,7 @@
             <td>$${cartTotalCost}</td>
             <td></td>
             <td>
-              <form action="controller" method="put">
+              <form action="controller" method="post">
                 <input type="hidden" name="command" value="makeOrder"/>
                 <input type="submit" value='<fmt:message key="ui.makeOrder"/>'/>
               </form>

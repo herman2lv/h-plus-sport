@@ -13,6 +13,7 @@ import com.epam.hplus.controller.commands.ProfileCommand;
 import com.epam.hplus.controller.commands.RedirectCommand;
 import com.epam.hplus.controller.commands.RegisterUserCommand;
 import com.epam.hplus.controller.commands.RegisterUserPageCommand;
+import com.epam.hplus.controller.commands.RemoveOrderCommand;
 import com.epam.hplus.controller.commands.RemoveProductCommand;
 import com.epam.hplus.controller.commands.SearchCommand;
 
@@ -29,6 +30,7 @@ public enum CommandEnum {
     PROFILE(new ProfileCommand()),
     ADDPRODUCT(new AddProductCommand()),
     CART(new CartCommand()),
+    REMOVEORDER(new RemoveOrderCommand()),
     MAKEORDER(new MakeOrderCommand()),
     REDIRECT(new RedirectCommand());
 

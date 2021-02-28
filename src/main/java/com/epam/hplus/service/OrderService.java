@@ -24,4 +24,10 @@ public class OrderService {
         return orderDao.createOrder(connection, order) > 0;
     }
 
+    public static boolean removeOrder(int orderId) {
+        Connection connection = DbConnector.getConnection();
+        OrderDao orderDao = new OrderDaoJdbc();
+        return orderDao.removeOrder(connection, orderId);
+    }
+
 }

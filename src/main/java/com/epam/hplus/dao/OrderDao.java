@@ -8,4 +8,5 @@ import java.util.List;
 public interface OrderDao {
     List<Order> getOrdersOfUser(Connection connection, String username);
     int createOrder(Connection connection, Order order);
+    boolean removeOrder(Connection connection, int orderId);
 }

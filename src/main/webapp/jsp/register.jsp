@@ -11,9 +11,9 @@
 	<jsp:include page="header.jsp"/>
 
 	<section id="registration" class="section">
-	 <div class="container tagline">
-	 <em>Register User</em><br/>
-	 <em>${sessionScope.registrationStatus}</em>
+		<div class="container tagline">
+		<em>Register User</em><br/>
+		<em>${sessionScope.registrationStatus}</em>
 		<form action="controller" method="post">
 		  <input type="hidden" name="command" value="registerUser"/>
 			<label for="username">Username</label>
@@ -31,10 +31,11 @@
 			<label for="dateOfBirth">Date of Birth</label>
 			<input type="date" name="dateOfBirth" id="dateOfBirth" required>
 			<br/>
-			<label for="activity">What do you want to do?</label> 
-			<input type="radio" name="activity" id="activity" value="Playing a sport">Play a Sport?
-			<input type="radio" name="activity" id="activity" value="Exercise in Gym">Hit the Gym?<br/>
-			<input type="submit" value="Submit" id="submit">
+			<label >What do you want to do?
+				<input type="radio" name="activity" value="Playing a sport">Play a Sport?
+				<input type="radio" name="activity" value="Exercise in Gym">Hit the Gym?<br/>
+				<input type="submit" value="Submit" id="submit">
+			</label>
 		</form>
 		</div>
 	</section>

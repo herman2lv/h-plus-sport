@@ -19,6 +19,7 @@ import java.util.Map;
 
 import static com.epam.hplus.constants.Database.ORDERS_CONFIRMATION;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_NUMBER_OF_PRODUCTS;
+import static com.epam.hplus.constants.Database.ORDERS_DETAILS_ORDER_ID;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_ORDER_ID_FULL;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_PRODUCT_ID_FULL;
 import static com.epam.hplus.constants.Database.ORDERS_DETAILS_TABLE;
@@ -53,6 +54,9 @@ public class OrderDaoJdbc implements OrderDao {
     private static final int INSERT_DETAILS_DATE_COLUMN = 2;
     private static final int INSERT_DETAILS_COST_COLUMN = 3;
     private static final int INSERT_DETAILS_STATUS_CONFIRM_COLUMN = 4;
+    private static final String DELETE_FROM = "DELETE FROM ";
+    private static final String SELECT = "SELECT ";
+    private static final String FROM = " FROM ";
 
     @Override
     public List<Order> getOrdersOfUser(Connection connection, String username) {
@@ -148,13 +152,65 @@ public class OrderDaoJdbc implements OrderDao {
             statement.setBigDecimal(INSERT_DETAILS_COST_COLUMN, order.getOrderCost());
             statement.setBoolean(INSERT_DETAILS_STATUS_CONFIRM_COLUMN, false);
             if (statement.executeUpdate() > 0) {
-                try (ResultSet keys = statement.getGeneratedKeys()) {
-                    if (keys.next()) {
-                        return keys.getInt(1);
-                    }
-                }
+                return getKey(statement);
             }
         }
         return INVALID_ID;
+    }
+
+    private int getKey(PreparedStatement statement) throws SQLException {
+        try (ResultSet keys = statement.getGeneratedKeys()) {
+            if (keys.next()) {
+                return keys.getInt(1);
+            }
+        }
+        return INVALID_ID;
+    }
+
+    @Override
+    public boolean removeOrder(Connection connection, int orderId) {
+            try {
+                if (isApproved(connection, orderId)) {
+                    return false;
+                }
+                deleteOrderDetails(connection, orderId);
+                deleteOrder(connection, orderId);
+                return true;
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage(), e);
+                return false;
+            }
+    }
+
+    private void deleteOrder(Connection connection, int orderId) throws SQLException {
+        String orderQuery = DELETE_FROM + ORDERS_TABLE
+                + WHERE + ORDERS_ORDER_ID + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(orderQuery)) {
+            statement.setInt(1, orderId);
+            statement.executeUpdate();
+        }
+    }
+
+    private void deleteOrderDetails(Connection connection, int orderId) throws SQLException {
+        String productsQuery = DELETE_FROM + ORDERS_DETAILS_TABLE
+                + WHERE + ORDERS_DETAILS_ORDER_ID + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(productsQuery)) {
+            statement.setInt(1, orderId);
+            statement.executeUpdate();
+        }
+    }
+
+    private boolean isApproved(Connection connection, int orderId) throws SQLException {
+        String query = SELECT + ORDERS_CONFIRMATION + FROM + ORDERS_TABLE
+                + WHERE + ORDERS_ORDER_ID + EQUALS + QUESTION_MARK;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, orderId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getBoolean(ORDERS_CONFIRMATION);
+                }
+            }
+        }
+        return false;
     }
 }
