@@ -20,6 +20,7 @@ import com.epam.hplus.controller.commands.RemoveOrderByManagerCommand;
 import com.epam.hplus.controller.commands.RemoveOrderCommand;
 import com.epam.hplus.controller.commands.RemoveProductCommand;
 import com.epam.hplus.controller.commands.SearchCommand;
+import com.epam.hplus.controller.commands.UserManagementCommand;
 
 public enum CommandEnum {
     LOGIN(new LoginCommand()),
@@ -39,6 +40,7 @@ public enum CommandEnum {
     REMOVEORDERBYMANAGER(new RemoveOrderByManagerCommand()),
     APPROVEORDER(new ApproveOrderCommand()),
     REJECTORDER(new RejectOrderCommand()),
+    USERMANAGEMENT(new UserManagementCommand()),
     MAKEORDER(new MakeOrderCommand()),
     REDIRECT(new RedirectCommand());
 

@@ -27,6 +27,7 @@ public class Context {
     public static final String REQUEST_ORDER_STATUS = "orderStatus";
     public static final String REQUEST_ORDER = "order";
     public static final String SESSION_USER_ROLE = "userRole";
+    public static final String REQUEST_USERS = "users";
 
     private Context() {
     }

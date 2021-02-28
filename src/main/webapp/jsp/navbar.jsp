@@ -57,6 +57,14 @@
             </form>
           </li>
         </c:if>
+        <c:if test="${sessionScope.userRole == 1}">
+          <li>
+            <form action="controller" method="get">
+              <input type="hidden" name="command" value="userManagement"/>
+              <input type="submit" value='<fmt:message key="ui.header.userManagement"/>'/>
+            </form>
+          </li>
+        </c:if>
 				<li>
 				  <form action="controller" method="get">
             <input type="hidden" name="command" value="profile"/>

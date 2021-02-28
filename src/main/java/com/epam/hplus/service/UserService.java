@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static com.epam.hplus.constants.Context.REQUEST_ACTIVITY;
 import static com.epam.hplus.constants.Context.REQUEST_DOB;
@@ -28,6 +29,12 @@ public class UserService {
     private static final Date MIN_DATE = new Date(-1577929800000L); //1920-01-01
 
     private UserService() {
+    }
+
+    public static List<User> getUsers() {
+        Connection connection = DbConnector.getConnection();
+        UserDao userDao = new UserDaoJdbc();
+        return userDao.getUsers(connection);
     }
 
     public static boolean registerNewUser(User user) {

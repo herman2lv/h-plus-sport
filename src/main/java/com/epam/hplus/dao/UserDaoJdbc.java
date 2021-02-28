@@ -8,7 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.epam.hplus.constants.Database.USERS_ACTIVITY;
 import static com.epam.hplus.constants.Database.USERS_ACTIVITY_INDEX;
@@ -116,5 +119,20 @@ public class UserDaoJdbc implements UserDao {
             LOGGER.error(e.getMessage(), e);
         }
         return false;
+    }
+
+    @Override
+    public List<User> getUsers(Connection connection) {
+        List<User> users = new ArrayList<>();
+        String query = SELECT_ALL_FROM + USERS_TABLE;
+        try (Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                users.add(createInstanceOfUser(resultSet));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return users;
     }
 }

@@ -51,5 +51,4 @@ public class OrderService {
     public static boolean rejectOrder(int orderId) {
         return setOrderStatus(orderId, false);
     }
-
 }
