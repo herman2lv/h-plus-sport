@@ -15,6 +15,7 @@ import com.epam.hplus.controller.commands.MakeManagerCommand;
 import com.epam.hplus.controller.commands.MakeOrderCommand;
 import com.epam.hplus.controller.commands.OrderManagementCommand;
 import com.epam.hplus.controller.commands.OrdersCommand;
+import com.epam.hplus.controller.commands.ProductManagementCommand;
 import com.epam.hplus.controller.commands.ProfileCommand;
 import com.epam.hplus.controller.commands.RedirectCommand;
 import com.epam.hplus.controller.commands.RegisterUserCommand;
@@ -39,6 +40,7 @@ public enum CommandEnum {
     PROFILE(new ProfileCommand()),
     ADD_PRODUCT(new AddProductCommand()),
     CART(new CartCommand()),
+    PRODUCT_MANAGEMENT(new ProductManagementCommand()),
     REMOVE_ORDER(new RemoveOrderCommand()),
     ORDER_MANAGEMENT(new OrderManagementCommand()),
     REMOVE_ORDER_BY_MANAGER(new RemoveOrderByManagerCommand()),

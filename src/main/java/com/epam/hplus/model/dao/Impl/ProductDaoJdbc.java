@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ProductDaoJdbc implements ProductDao {
     public List<Product> searchProducts(String searchString) {
         List<Product> products = new ArrayList<>();
         String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE + PRODUCTS_PRODUCT_NAME
-                       + LIKE + QUESTION_MARK;
+                + LIKE + QUESTION_MARK;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             String searchPattern = "%" + searchString + "%";
@@ -60,7 +61,7 @@ public class ProductDaoJdbc implements ProductDao {
     public Product getProductById(int id) {
         Product product = null;
         String query = SELECT_ALL_FROM + PRODUCTS_TABLE
-                       + WHERE + PRODUCTS_PRODUCT_ID + EQUALS + QUESTION_MARK;
+                + WHERE + PRODUCTS_PRODUCT_ID + EQUALS + QUESTION_MARK;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -81,5 +82,21 @@ public class ProductDaoJdbc implements ProductDao {
                 resultSet.getString(PRODUCTS_IMAGE_PATH),
                 resultSet.getBigDecimal(PRODUCTS_COST),
                 resultSet.getString(PRODUCTS_DESCRIPTION));
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        List<Product> products = new ArrayList<>();
+        String query = SELECT_ALL_FROM + PRODUCTS_TABLE;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                products.add(createInstanceOfProduct(resultSet));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return products;
     }
 }

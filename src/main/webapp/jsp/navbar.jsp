@@ -61,14 +61,14 @@
         <c:if test="${sessionScope.userRole == 1}">
           <li>
             <form action="controller" method="get">
-              <input type="hidden" name="command" value="user_management"/>
-              <input type="submit" value='<fmt:message key="ui.header.userManagement"/>'/>
+              <input type="hidden" name="command" value="product_management"/>
+              <input type="submit" value='<fmt:message key="ui.header.productManagement"/>'/>
             </form>
           </li>
           <li>
             <form action="controller" method="get">
-              <input type="hidden" name="command" value="register_user_page"/>
-              <input type="submit" value='<fmt:message key="ui.header.addNewUser"/>'/>
+              <input type="hidden" name="command" value="user_management"/>
+              <input type="submit" value='<fmt:message key="ui.header.userManagement"/>'/>
             </form>
           </li>
         </c:if>

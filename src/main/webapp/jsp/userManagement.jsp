@@ -18,6 +18,11 @@
   <section id="orders" class="section">
     <div class="container">
       <h2 class="headline"><fmt:message key="ui.listOfUsers"/></h2>
+      <br/>
+      <form action="controller" method="get">
+        <input type="hidden" name="command" value="register_user_page"/>
+        <input type="submit" value='<fmt:message key="ui.header.addNewUser"/>'/>
+      </form>
       <c:if test="${users.size() > 0}">
         <table id="orderHistory">
           <tr>

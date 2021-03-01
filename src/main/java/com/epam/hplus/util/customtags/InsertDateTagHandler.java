@@ -9,7 +9,7 @@ import jakarta.servlet.jsp.PageContext;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
 public class InsertDateTagHandler extends SimpleTagSupport {
-    private String format = "YYYY-MM-dd HH:mm";
+    private String format = "yyyy-MM-dd HH:mm";
 
     public String getFormat() {
         return format;

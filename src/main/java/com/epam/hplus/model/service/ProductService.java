@@ -19,4 +19,8 @@ public class ProductService {
     public static List<Product> searchProducts(String searchString) {
         return PRODUCT_DAO.searchProducts(searchString);
     }
+
+    public static List<Product> getProducts() {
+        return PRODUCT_DAO.getProducts();
+    }
 }
