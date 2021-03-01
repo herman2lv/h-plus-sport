@@ -1,5 +1,6 @@
-package com.epam.hplus.controller.commands;
+package com.epam.hplus.controller.commands.impl;
 
+import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.controller.commands.util.RequestProcessor;
 import com.epam.hplus.model.beans.Product;
 import com.epam.hplus.model.service.CartService;

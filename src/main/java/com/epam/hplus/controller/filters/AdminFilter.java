@@ -26,6 +26,8 @@ public class AdminFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         restrictedActions = new ArrayList<>(Arrays.asList(
                 "user_management",
+                "add_new_product",
+                "edit_product",
                 "delete_user",
                 "delete_product",
                 "make_customer",

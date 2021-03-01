@@ -1,5 +1,6 @@
-package com.epam.hplus.controller.commands;
+package com.epam.hplus.controller.commands.impl;
 
+import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.model.beans.User;
 import com.epam.hplus.model.service.PasswordEncryptor;
 import com.epam.hplus.model.service.UserService;

@@ -1,32 +1,34 @@
 package com.epam.hplus.controller.commands.enums;
 
-import com.epam.hplus.controller.commands.AddProductCommand;
-import com.epam.hplus.controller.commands.ApproveOrderCommand;
-import com.epam.hplus.controller.commands.CartCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.AddNewProductCommand;
+import com.epam.hplus.controller.commands.impl.AddProductCommand;
+import com.epam.hplus.controller.commands.impl.authorized.manager.ApproveOrderCommand;
+import com.epam.hplus.controller.commands.impl.CartCommand;
 import com.epam.hplus.controller.commands.Command;
-import com.epam.hplus.controller.commands.DeleteProductCommand;
-import com.epam.hplus.controller.commands.DeleteUserCommand;
-import com.epam.hplus.controller.commands.HomeCommand;
-import com.epam.hplus.controller.commands.LanguageCommand;
-import com.epam.hplus.controller.commands.LoginCommand;
-import com.epam.hplus.controller.commands.LoginPageCommand;
-import com.epam.hplus.controller.commands.LogoutCommand;
-import com.epam.hplus.controller.commands.MakeCustomerCommand;
-import com.epam.hplus.controller.commands.MakeManagerCommand;
-import com.epam.hplus.controller.commands.MakeOrderCommand;
-import com.epam.hplus.controller.commands.OrderManagementCommand;
-import com.epam.hplus.controller.commands.OrdersCommand;
-import com.epam.hplus.controller.commands.ProductManagementCommand;
-import com.epam.hplus.controller.commands.ProfileCommand;
-import com.epam.hplus.controller.commands.RedirectCommand;
-import com.epam.hplus.controller.commands.RegisterUserCommand;
-import com.epam.hplus.controller.commands.RegisterUserPageCommand;
-import com.epam.hplus.controller.commands.RejectOrderCommand;
-import com.epam.hplus.controller.commands.RemoveOrderByManagerCommand;
-import com.epam.hplus.controller.commands.RemoveOrderCommand;
-import com.epam.hplus.controller.commands.RemoveProductCommand;
-import com.epam.hplus.controller.commands.SearchCommand;
-import com.epam.hplus.controller.commands.UserManagementCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.DeleteProductCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.DeleteUserCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.EditProductCommand;
+import com.epam.hplus.controller.commands.impl.HomeCommand;
+import com.epam.hplus.controller.commands.impl.LanguageCommand;
+import com.epam.hplus.controller.commands.impl.LoginCommand;
+import com.epam.hplus.controller.commands.impl.LoginPageCommand;
+import com.epam.hplus.controller.commands.impl.LogoutCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.MakeCustomerCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.MakeManagerCommand;
+import com.epam.hplus.controller.commands.impl.MakeOrderCommand;
+import com.epam.hplus.controller.commands.impl.authorized.manager.OrderManagementCommand;
+import com.epam.hplus.controller.commands.impl.authorized.OrdersCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.ProductManagementCommand;
+import com.epam.hplus.controller.commands.impl.authorized.ProfileCommand;
+import com.epam.hplus.controller.commands.impl.RedirectCommand;
+import com.epam.hplus.controller.commands.impl.RegisterUserCommand;
+import com.epam.hplus.controller.commands.impl.RegisterUserPageCommand;
+import com.epam.hplus.controller.commands.impl.authorized.manager.RejectOrderCommand;
+import com.epam.hplus.controller.commands.impl.authorized.manager.RemoveOrderByManagerCommand;
+import com.epam.hplus.controller.commands.impl.authorized.RemoveOrderCommand;
+import com.epam.hplus.controller.commands.impl.RemoveProductCommand;
+import com.epam.hplus.controller.commands.impl.SearchCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.UserManagementCommand;
 
 public enum CommandEnum {
     LOGIN(new LoginCommand()),
@@ -39,6 +41,8 @@ public enum CommandEnum {
     HOME(new HomeCommand()),
     SEARCH(new SearchCommand()),
     PROFILE(new ProfileCommand()),
+    ADD_NEW_PRODUCT(new AddNewProductCommand()),
+    EDIT_PRODUCT(new EditProductCommand()),
     ADD_PRODUCT(new AddProductCommand()),
     CART(new CartCommand()),
     PRODUCT_MANAGEMENT(new ProductManagementCommand()),
