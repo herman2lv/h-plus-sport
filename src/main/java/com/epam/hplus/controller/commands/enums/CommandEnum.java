@@ -4,6 +4,7 @@ import com.epam.hplus.controller.commands.AddProductCommand;
 import com.epam.hplus.controller.commands.ApproveOrderCommand;
 import com.epam.hplus.controller.commands.CartCommand;
 import com.epam.hplus.controller.commands.Command;
+import com.epam.hplus.controller.commands.DeleteProductCommand;
 import com.epam.hplus.controller.commands.DeleteUserCommand;
 import com.epam.hplus.controller.commands.HomeCommand;
 import com.epam.hplus.controller.commands.LanguageCommand;
@@ -41,6 +42,7 @@ public enum CommandEnum {
     ADD_PRODUCT(new AddProductCommand()),
     CART(new CartCommand()),
     PRODUCT_MANAGEMENT(new ProductManagementCommand()),
+    DELETE_PRODUCT(new DeleteProductCommand()),
     REMOVE_ORDER(new RemoveOrderCommand()),
     ORDER_MANAGEMENT(new OrderManagementCommand()),
     REMOVE_ORDER_BY_MANAGER(new RemoveOrderByManagerCommand()),

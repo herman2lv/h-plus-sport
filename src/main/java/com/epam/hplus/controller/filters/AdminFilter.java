@@ -27,6 +27,7 @@ public class AdminFilter implements Filter {
         restrictedActions = new ArrayList<>(Arrays.asList(
                 "user_management",
                 "delete_user",
+                "delete_product",
                 "make_customer",
                 "make_manager",
                 "product_management"));

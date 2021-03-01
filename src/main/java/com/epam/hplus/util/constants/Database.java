@@ -23,6 +23,7 @@ public class Database {
     public static final String PRODUCTS_IMAGE_PATH = "image_path";
     public static final String PRODUCTS_COST = "cost";
     public static final String PRODUCTS_DESCRIPTION = "description";
+    public static final String PRODUCTS_ACTIVE = "active";
     public static final String USERS_TABLE = "users";
     public static final String USERS_USERNAME = "username";
     public static final String USERS_PASSWORD = "password";
@@ -30,6 +31,7 @@ public class Database {
     public static final String USERS_LAST_NAME = "last_name";
     public static final String USERS_DOB = "date_of_birth";
     public static final String USERS_ACTIVITY = "activity";
+    public static final String USERS_ACTIVE = "active";
     public static final String USERS_ROLE = "user_role";
     public static final int USERS_USERNAME_INDEX = 1;
     public static final int USERS_PASSWORD_INDEX = 2;
@@ -38,6 +40,7 @@ public class Database {
     public static final int USERS_DOB_INDEX = 5;
     public static final int USERS_ACTIVITY_INDEX = 6;
     public static final int USERS_ROLE_INDEX = 7;
+    public static final int USERS_ACTIVE_INDEX = 8;
 
     private Database() {
     }

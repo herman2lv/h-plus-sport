@@ -30,6 +30,7 @@ import static com.epam.hplus.util.constants.Database.ORDERS_ORDER_DATE;
 import static com.epam.hplus.util.constants.Database.ORDERS_ORDER_ID;
 import static com.epam.hplus.util.constants.Database.ORDERS_TABLE;
 import static com.epam.hplus.util.constants.Database.ORDERS_USERNAME;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_ACTIVE;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_COST;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_DESCRIPTION;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_IMAGE_PATH;
@@ -122,11 +123,14 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     private Product createInstanceOfProduct(ResultSet resultSet) throws SQLException {
-        return new Product(resultSet.getLong(PRODUCTS_PRODUCT_ID),
-                resultSet.getString(PRODUCTS_PRODUCT_NAME),
-                resultSet.getString(PRODUCTS_IMAGE_PATH),
-                resultSet.getBigDecimal(PRODUCTS_COST),
-                resultSet.getString(PRODUCTS_DESCRIPTION));
+        Product product = new Product();
+        product.setProductId(resultSet.getLong(PRODUCTS_PRODUCT_ID));
+        product.setName(resultSet.getString(PRODUCTS_PRODUCT_NAME));
+        product.setProductImgPath(resultSet.getString(PRODUCTS_IMAGE_PATH));
+        product.setCost(resultSet.getBigDecimal(PRODUCTS_COST));
+        product.setDescription(resultSet.getString(PRODUCTS_DESCRIPTION));
+        product.setActive(resultSet.getBoolean(PRODUCTS_ACTIVE));
+        return product;
     }
 
     @Override

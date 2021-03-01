@@ -12,9 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import static com.epam.hplus.util.constants.Database.USERS_ACTIVE;
+import static com.epam.hplus.util.constants.Database.USERS_ACTIVE_INDEX;
 import static com.epam.hplus.util.constants.Database.USERS_ACTIVITY;
 import static com.epam.hplus.util.constants.Database.USERS_ACTIVITY_INDEX;
 import static com.epam.hplus.util.constants.Database.USERS_DOB;
@@ -49,8 +50,9 @@ public class UserDaoJdbc implements UserDao {
     private static final int UPDATE_USER_DOB_COLUMN = 4;
     private static final int UPDATE_USER_ACTIVITY_COLUMN = 5;
     private static final int UPDATE_USER_ROLE_COLUMN = 6;
-    private static final int UPDATE_USER_USERNAME_COLUMN = 7;
-    private static final String DELETE_FROM = "DELETE FROM ";
+    private static final int UPDATE_USER_ACTIVE_COLUMN = 7;
+    private static final int UPDATE_USER_USERNAME_COLUMN = 8;
+    private static final String TRUE = "TRUE";
 
     private UserDaoJdbc() {
     }
@@ -61,7 +63,7 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public int createUser(User user) {
-        String query = INSERT_INTO + USERS_TABLE + " values (?, ?, ?, ?, ?, ?, ?)";
+        String query = INSERT_INTO + USERS_TABLE + " values (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(USERS_USERNAME_INDEX, user.getUsername());
@@ -71,6 +73,7 @@ public class UserDaoJdbc implements UserDao {
             statement.setDate(USERS_DOB_INDEX, new java.sql.Date(user.getDateOfBirth().getTime()));
             statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
             statement.setInt(USERS_ROLE_INDEX, user.getRole());
+            statement.setBoolean(USERS_ACTIVE_INDEX, user.isActive());
             return statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
@@ -82,7 +85,8 @@ public class UserDaoJdbc implements UserDao {
     public User getUser(String username) {
         User user = null;
         String query = SELECT_ALL_FROM + USERS_TABLE
-                       + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
+                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK + AND
+                + USERS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
@@ -101,8 +105,9 @@ public class UserDaoJdbc implements UserDao {
     public boolean validateUserCredentials(String username,
                                            String password) {
         String query = SELECT_ALL_FROM + USERS_TABLE
-                       + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK
-                       + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK;
+                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK
+                + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK
+                + AND + USERS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
@@ -119,24 +124,25 @@ public class UserDaoJdbc implements UserDao {
     }
 
     private User createInstanceOfUser(ResultSet resultSet) throws SQLException {
-        String nameOriginalCase = resultSet.getString(USERS_USERNAME);
-        String password = resultSet.getString(USERS_PASSWORD);
-        String firstName = resultSet.getString(USERS_FIRST_NAME);
-        String lastName = resultSet.getString(USERS_LAST_NAME);
-        String activity = resultSet.getString(USERS_ACTIVITY);
-        Date dateOfBirth = resultSet.getDate(USERS_DOB);
-        int role = resultSet.getInt(USERS_ROLE);
-        return new User(nameOriginalCase, password, firstName, lastName,
-                activity, dateOfBirth, role);
+        User user = new User();
+        user.setUsername(resultSet.getString(USERS_USERNAME));
+        user.setPassword(resultSet.getString(USERS_PASSWORD));
+        user.setFirstName(resultSet.getString(USERS_FIRST_NAME));
+        user.setLastName(resultSet.getString(USERS_LAST_NAME));
+        user.setActivity(resultSet.getString(USERS_ACTIVITY));
+        user.setDateOfBirth(resultSet.getDate(USERS_DOB));
+        user.setRole(resultSet.getInt(USERS_ROLE));
+        user.setActive(resultSet.getBoolean(USERS_ACTIVE));
+        return user;
     }
 
     @Override
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        String query = SELECT_ALL_FROM + USERS_TABLE;
+        String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query)) {
+             ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
                 users.add(createInstanceOfUser(resultSet));
             }
@@ -154,7 +160,8 @@ public class UserDaoJdbc implements UserDao {
                 + USERS_LAST_NAME + EQUALS + QUESTION_MARK + COMA
                 + USERS_DOB + EQUALS + QUESTION_MARK + COMA
                 + USERS_ACTIVITY + EQUALS + QUESTION_MARK + COMA
-                + USERS_ROLE + EQUALS + QUESTION_MARK
+                + USERS_ROLE + EQUALS + QUESTION_MARK + COMA
+                + USERS_ACTIVE + EQUALS + QUESTION_MARK
                 + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -165,28 +172,14 @@ public class UserDaoJdbc implements UserDao {
                     new java.sql.Date(user.getDateOfBirth().getTime()));
             statement.setString(UPDATE_USER_ACTIVITY_COLUMN, user.getActivity());
             statement.setInt(UPDATE_USER_ROLE_COLUMN, user.getRole());
+            statement.setBoolean(UPDATE_USER_ACTIVE_COLUMN, user.isActive());
             statement.setString(UPDATE_USER_USERNAME_COLUMN, user.getUsername());
             if (statement.executeUpdate() == 1) {
                 return true;
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
-            return false;
         }
         return false;
-    }
-
-    @Override
-    public boolean deleteUser(String username) {
-        String query = DELETE_FROM + USERS_TABLE
-                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, username);
-            return statement.executeUpdate() == 1;
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-            return false;
-        }
     }
 }

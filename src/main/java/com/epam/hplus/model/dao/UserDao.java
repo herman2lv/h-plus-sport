@@ -8,7 +8,6 @@ public interface UserDao {
         int createUser(User user);
         User getUser(String username);
         boolean updateUser(User user);
-        boolean deleteUser(String username);
         List<User> getUsers();
         boolean validateUserCredentials(String username, String password);
 }

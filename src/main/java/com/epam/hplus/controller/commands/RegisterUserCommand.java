@@ -38,9 +38,16 @@ public class RegisterUserCommand implements Command {
         StringBuilder validationStatus = new StringBuilder();
         String registrationStatus;
         if (isValidUserData(username, password, firstName, lastName, date, validationStatus)) {
+            User user = new User();
+            user.setUsername(username);
             String encryptedPassword = PasswordEncryptor.encryptPassword(password);
-            User user = new User(
-                    username, encryptedPassword, firstName, lastName, activity, date, role);
+            user.setPassword(encryptedPassword);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setDateOfBirth(date);
+            user.setActivity(activity);
+            user.setRole(role);
+            user.setActive(true);
             if (UserService.registerNewUser(user)) {
                 registrationStatus = MessageManager.getMessage("msg.registeredSuccess");
                 LOGGER.info(MessageManager.getMessage("log.registeredSuccess"));

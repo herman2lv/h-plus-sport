@@ -37,11 +37,18 @@
 			<label for="dateOfBirth"><fmt:message key="ui.dateOfBirth"/></label>
 			<input type="date" name="dateOfBirth" id="dateOfBirth" required>
 			<br/>
-			<label ><fmt:message key="ui.activity"/>
-				<input type="radio" name="activity" value='<fmt:message key="ui.login.playSport"/>'>
-				<input type="radio" name="activity" value='<fmt:message key="ui.login.exerciseInGym"/>'><br/>
-				<input type="submit" value='<fmt:message key="ui.login.button.submit"/>' id="submit">
+			<label><fmt:message key="ui.activity"/>
+				<label>
+					<input type="radio" name="activity" value="Playing a sport">
+					<fmt:message key="ui.login.playSport"/>
+				</label>
+				<label>
+					<input type="radio" name="activity" value="Exercise in Gym">
+					<fmt:message key="ui.login.exerciseInGym"/>
+				</label>
+				<br/>
 			</label>
+			<input type="submit" value='<fmt:message key="ui.login.button.submit"/>' id="submit">
 		</form>
 		</div>
 	</section>

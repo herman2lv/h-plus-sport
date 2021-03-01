@@ -13,16 +13,9 @@ public class User {
     private String activity;
     private Date dateOfBirth;
     private int role;
+    private boolean active;
 
-    public User(String username, String password, String firstName, String lastName,
-            String activity, Date dateOfBirth, int role) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.activity = activity;
-        this.dateOfBirth = dateOfBirth;
-        this.role = role;
+    public User() {
     }
 
     public String getUsername() {
@@ -79,5 +72,13 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

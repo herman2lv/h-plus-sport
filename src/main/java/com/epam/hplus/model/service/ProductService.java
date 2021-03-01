@@ -23,4 +23,10 @@ public class ProductService {
     public static List<Product> getProducts() {
         return PRODUCT_DAO.getProducts();
     }
+
+    public static boolean deleteProduct(int productId) {
+        Product product = PRODUCT_DAO.getProductById(productId);
+        product.setActive(false);
+        return PRODUCT_DAO.updateProduct(product);
+    }
 }

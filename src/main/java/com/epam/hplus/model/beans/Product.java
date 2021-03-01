@@ -9,14 +9,9 @@ public class Product {
     private String productImgPath;
     private BigDecimal cost;
     private String description;
+    private boolean active;
 
-    public Product(long productId, String name, String productImgPath, BigDecimal cost,
-                   String description) {
-        this.productId = productId;
-        this.name = name;
-        this.productImgPath = productImgPath;
-        this.cost = cost;
-        this.description = description;
+    public Product() {
     }
 
     public long getProductId() {
@@ -57,6 +52,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

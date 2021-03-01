@@ -14,7 +14,9 @@ public class UserService {
     }
 
     public static boolean deleteUser(String username) {
-        return USER_DAO.deleteUser(username);
+        User user = USER_DAO.getUser(username);
+        user.setActive(false);
+        return USER_DAO.updateUser(user);
     }
 
     public static boolean setUserCustomerRole(User user) {
