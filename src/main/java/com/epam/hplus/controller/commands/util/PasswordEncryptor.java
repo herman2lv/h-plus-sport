@@ -1,4 +1,4 @@
-package com.epam.hplus.model.service;
+package com.epam.hplus.controller.commands.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

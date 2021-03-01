@@ -29,4 +29,8 @@ public class ProductService {
         product.setActive(false);
         return PRODUCT_DAO.updateProduct(product);
     }
+
+    public static boolean updateProduct(Product product) {
+        return PRODUCT_DAO.updateProduct(product);
+    }
 }

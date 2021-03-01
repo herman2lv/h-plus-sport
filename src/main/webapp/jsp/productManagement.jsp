@@ -21,7 +21,7 @@
       <br/>
       <form method="get" action="controller">
         <input type="hidden" name="product" value="${product.productId}">
-        <input type="hidden" name="command" value="add_new_product">
+        <input type="hidden" name="command" value="add_new_product_page">
         <button><fmt:message key="ui.addNewProduct"/></button>
       </form>
       <c:if test="${products.size() > 0}">
@@ -51,7 +51,7 @@
                 </form>
                 <form method="get" action="controller">
                   <input type="hidden" name="product" value="${product.productId}">
-                  <input type="hidden" name="command" value="edit_product">
+                  <input type="hidden" name="command" value="edit_product_page">
                   <button><fmt:message key="ui.editProduct"/></button>
                 </form>
               </td>

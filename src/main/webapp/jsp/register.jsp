@@ -23,19 +23,19 @@
 		<form action="controller" method="post">
 		  <input type="hidden" name="command" value="register_user"/>
 			<label for="username"><fmt:message key="ui.username"/></label>
-			<input type="text" name="username" id="username" required>
+			<input type="text" minlength="4" maxlength="30" name="username" id="username" required>
 			<br/>
 			<label for="password"><fmt:message key="ui.label.password"/></label>
-			<input type="password" name="password" id="password" required>
+			<input type="password" minlength="8" maxlength="40" name="password" id="password" required>
 			<br/>
 			<label for="fname"><fmt:message key="ui.firsName"/></label>
-			<input type="text" name="fname" id="fname" required>
+			<input type="text" minlength="2" name="fname" id="fname" required>
 			<br/>
 			<label for="lname"><fmt:message key="ui.lastName"/></label>
-			<input type="text" name="lname" id="lname" required>
+			<input type="text" minlength="2" name="lname" id="lname" required>
 			<br/>
 			<label for="dateOfBirth"><fmt:message key="ui.dateOfBirth"/></label>
-			<input type="date" name="dateOfBirth" id="dateOfBirth" required>
+			<input type="date" min="1920-01-01" max="2010-01-01" name="dateOfBirth" id="dateOfBirth" required>
 			<br/>
 			<label><fmt:message key="ui.activity"/>
 				<label>

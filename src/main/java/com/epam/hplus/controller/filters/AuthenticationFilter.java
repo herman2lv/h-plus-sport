@@ -33,6 +33,8 @@ public class AuthenticationFilter implements Filter {
                 "orders",
                 "order_management",
                 "user_management",
+                "add_new_product_page",
+                "edit_product_page",
                 "product_management"));
     }
 

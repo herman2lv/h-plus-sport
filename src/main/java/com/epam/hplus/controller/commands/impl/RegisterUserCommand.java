@@ -2,7 +2,7 @@ package com.epam.hplus.controller.commands.impl;
 
 import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.model.beans.User;
-import com.epam.hplus.model.service.PasswordEncryptor;
+import com.epam.hplus.controller.commands.util.PasswordEncryptor;
 import com.epam.hplus.model.service.UserService;
 import com.epam.hplus.model.validators.UserValidator;
 import com.epam.hplus.util.resources.ConfigurationManger;

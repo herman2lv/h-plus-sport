@@ -1,6 +1,7 @@
 package com.epam.hplus.controller.commands.impl;
 
 import com.epam.hplus.controller.commands.Command;
+import com.epam.hplus.controller.commands.util.PasswordEncryptor;
 import com.epam.hplus.model.beans.User;
 import com.epam.hplus.util.resources.ConfigurationManger;
 import com.epam.hplus.util.resources.MessageManager;
@@ -24,7 +25,8 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest req) {
         String username = req.getParameter(LOGIN_REQUEST_USERNAME);
         String password = req.getParameter(LOGIN_REQUEST_PASSWORD);
-        if (LoginService.isValidUser(username, password)) {
+        String encryptedPassword = PasswordEncryptor.encryptPassword(password);
+        if (LoginService.isValidUser(username, encryptedPassword)) {
             HttpSession session = req.getSession();
             User user = UserService.getUser(username);
             session.setAttribute(SESSION_USERNAME, user.getUsername());

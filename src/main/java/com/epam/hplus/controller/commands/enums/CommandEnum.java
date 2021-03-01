@@ -1,13 +1,15 @@
 package com.epam.hplus.controller.commands.enums;
 
 import com.epam.hplus.controller.commands.impl.authorized.admin.AddNewProductCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.AddNewProductPageCommand;
 import com.epam.hplus.controller.commands.impl.AddProductCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.EditProductCommand;
 import com.epam.hplus.controller.commands.impl.authorized.manager.ApproveOrderCommand;
 import com.epam.hplus.controller.commands.impl.CartCommand;
 import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.controller.commands.impl.authorized.admin.DeleteProductCommand;
 import com.epam.hplus.controller.commands.impl.authorized.admin.DeleteUserCommand;
-import com.epam.hplus.controller.commands.impl.authorized.admin.EditProductCommand;
+import com.epam.hplus.controller.commands.impl.authorized.admin.EditProductPageCommand;
 import com.epam.hplus.controller.commands.impl.HomeCommand;
 import com.epam.hplus.controller.commands.impl.LanguageCommand;
 import com.epam.hplus.controller.commands.impl.LoginCommand;
@@ -43,6 +45,8 @@ public enum CommandEnum {
     PROFILE(new ProfileCommand()),
     ADD_NEW_PRODUCT(new AddNewProductCommand()),
     EDIT_PRODUCT(new EditProductCommand()),
+    ADD_NEW_PRODUCT_PAGE(new AddNewProductPageCommand()),
+    EDIT_PRODUCT_PAGE(new EditProductPageCommand()),
     ADD_PRODUCT(new AddProductCommand()),
     CART(new CartCommand()),
     PRODUCT_MANAGEMENT(new ProductManagementCommand()),

@@ -45,11 +45,11 @@ CREATE table orders_details (
 INSERT into users values('admin','d033e22ae348aeb5660fc2140aec35850c4da997',
                          'Andrew','Webber','1986-04-26','Exercise in Gym', 1, true);
 INSERT into users values('user','12dea96fec20593566ab75692c9949596833adc9',
-                         'Mark','Johnson','1991-12-30','Playing a sport', 2, true);
+                         'Mark','Johnson','1991-12-30','Playing a sport', 3, true);
 INSERT into users values('luka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
                          'Alexander','Showshenko','1954-08-30','Playing a sport', 2, true);
 INSERT into users values('herman','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
-                         'Herman','House','1999-09-15','Exercise in Gym', 3, true);
+                         'Herman','House','1999-09-15','Exercise in Gym', 2, true);
 
 INSERT into orders (username, order_date, order_cost, confirmation_status)
     values('admin', '2020-03-07', 55.23, true),
