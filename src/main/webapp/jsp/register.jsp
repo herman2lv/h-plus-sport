@@ -1,8 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${sessionScope.language != null}">
+	<fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="ui"/>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>H+ Sport - Register</title>
+<title>H+ Sport - <fmt:message key="ui.title.register"/></title>
 <link rel="stylesheet" href="css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -12,29 +18,29 @@
 
 	<section id="registration" class="section">
 		<div class="container tagline">
-		<em>Register User</em><br/>
+		<em><fmt:message key="ui.header.registerUser"/></em><br/>
 		<em>${sessionScope.registrationStatus}</em>
 		<form action="controller" method="post">
 		  <input type="hidden" name="command" value="register_user"/>
-			<label for="username">Username</label>
+			<label for="username"><fmt:message key="ui.username"/></label>
 			<input type="text" name="username" id="username" required>
 			<br/>
-			<label for="password">Password</label>
+			<label for="password"><fmt:message key="ui.label.password"/></label>
 			<input type="password" name="password" id="password" required>
 			<br/>
-			<label for="fname">First Name</label>
+			<label for="fname"><fmt:message key="ui.firsName"/></label>
 			<input type="text" name="fname" id="fname" required>
 			<br/>
-			<label for="lname">Last Name</label>
+			<label for="lname"><fmt:message key="ui.lastName"/></label>
 			<input type="text" name="lname" id="lname" required>
 			<br/>
-			<label for="dateOfBirth">Date of Birth</label>
+			<label for="dateOfBirth"><fmt:message key="ui.dateOfBirth"/></label>
 			<input type="date" name="dateOfBirth" id="dateOfBirth" required>
 			<br/>
-			<label >What do you want to do?
-				<input type="radio" name="activity" value="Playing a sport">Play a Sport?
-				<input type="radio" name="activity" value="Exercise in Gym">Hit the Gym?<br/>
-				<input type="submit" value="Submit" id="submit">
+			<label ><fmt:message key="ui.activity"/>
+				<input type="radio" name="activity" value='<fmt:message key="ui.login.playSport"/>'>
+				<input type="radio" name="activity" value='<fmt:message key="ui.login.exerciseInGym"/>'><br/>
+				<input type="submit" value='<fmt:message key="ui.login.button.submit"/>' id="submit">
 			</label>
 		</form>
 		</div>

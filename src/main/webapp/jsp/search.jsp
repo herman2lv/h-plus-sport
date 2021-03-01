@@ -1,9 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${sessionScope.language != null}">
+  <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="ui"/>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>H+ Sport - Search</title>
+  <title>H+ Sport - <fmt:message key="ui.title.search"/></title>
   <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -14,15 +19,11 @@
     
 	<section id="orders" class="section">
 		<div class="container">
-			<h2 class="headline">Products</h2>
-			<p>
-				H+ Sport is <em>dedicated to creating</em> eco-friendly,
-				high-quality, nutrient-rich, nutritional products that <em>enhance
-					active lifestyles</em>.
-			</p>
+			<h2 class="headline"><fmt:message key="ui.headline.products"/></h2>
+			<p><fmt:message key="ui.search.aboutCatalog"/></p>
 			<p>
         <span id="size">
-          Items in <a href="cart">Cart<a>:
+          <fmt:message key="ui.itemsInCart"/>
           <c:if test="${cart != null}">
             ${cart.size()}
           </c:if>
@@ -30,17 +31,18 @@
             0
           </c:if>
           <br/>
-          Found items in catalog: ${products.size()}
+          <fmt:message key="ui.search.foundItems"/>
+          ${products.size()}
         </span>
       </p>
         <c:if test="${products.size() > 0}">
           <table id="orderHistory">
             <tr>
-              <th>No.</th>
-              <th>Product Name</th>
-              <th>Image</th>
-              <th id="columnToLimit">Description</th>
-              <th>Cost</th>
+              <th><fmt:message key="ui.no"/></th>
+              <th><fmt:message key="ui.productName"/></th>
+              <th><fmt:message key="ui.image"/></th>
+              <th id="columnToLimit"><fmt:message key="ui.description"/></th>
+              <th><fmt:message key="ui.cost"/></th>
               <th></th>
             </tr>
             <c:forEach items="${products}" var="product" varStatus="counter">
@@ -54,7 +56,7 @@
                   <form method="get" action="controller">
                     <input type="hidden" name="product" value="${product.productId}">
                     <input type="hidden" name="command" value="add_product">
-                    <button>Add to Cart</button>
+                    <button><fmt:message key="ui.addToCart"/></button>
                   </form>
                 </td>
               </tr>

@@ -1,9 +1,16 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"
+         errorPage="jsp/error.jsp" isErrorPage="false"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.language != null}">
+  <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="ui"/>
 <!doctype html>
-<%@page errorPage="jsp/error.jsp" isErrorPage="false"%>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>H+ Sport - Main</title>
+  <title>H+ Sport - <fmt:message key="ui.title.main"/></title>
   <link rel="stylesheet" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -14,10 +21,10 @@
 <section id="history" class="section">
   <div class="container">
     <div class="text-content">
-      <h2 class="headline">Company History</h2>
-      <p>In 2006, H+ Sport founder <a href="#people">Henry Twill</a> set out to create supplements and nutritional products made from the <em>purest ingredients</em> and backed by scientific and <em>performance data</em> are to provide a strong basis of <em>trust and accountability</em>.</p>
-      <p>His quest began while training for his <em>first 5K marathon</em>, after recovering from a <em>lengthy injury</em> that left him with residual aches, pains, and decreased athletic performance. He yearned for <em>simple and natural ingredients</em>, in their purest form, instead of labels with <em>lengthy chemical names</em> and disclaimers. When no products lived up to his strict requirements, Henry set his sights on <em>creating products</em> that catered to his own vision.</p>
-      <p>Today that vision has become H+ Sport offering a variety of <a href="#products">supplements, energy bars and rehydration solutions</a>. At the foundation of H+ Sports are products backed by scientific and performance data.</p>
+      <h2 class="headline"><fmt:message key="ui.headline.companyHistory"/></h2>
+      <p><fmt:message key="ui.history.firstPart"/></p>
+      <p><fmt:message key="ui.history.secondPart"/></p>
+      <p><fmt:message key="ui.history.thirdPart"/></p>
     </div>
   </div>
 </section>
@@ -25,8 +32,8 @@
 <section id="products" class="section">
   <header class="imageheader"></header>
   <div class="container">
-    <h2 class="headline">Products</h2>
-    <p>H+ Sport is <em>dedicated to creating</em> eco-friendly, high-quality, nutrient-rich, nutritional products that <em>enhance active lifestyles</em>. We <a href="#guarantee">guarantee</a> it. Take a look at some of our products.</p>
+    <h2 class="headline"><fmt:message key="ui.products"/></h2>
+    <p><fmt:message key="ui.productsDescription"/> </p>
   </div>
   <ul class="product-list">
     <li class="product-item">
@@ -107,70 +114,71 @@
 <section id="guarantee" class="section">
   <header class="imageheader"></header>
   <div class="container">
-    <h2 class="headline">Our Guarantee &amp; Ideals</h2>
-    <p>We are committed to creating products that <em>defy convention</em>, and inspire our customers with pride and trust. In fact, we guarantee <a href="#products">every product</a> we sell. If you are not 100 percent happy with your purchase, you can return it during the first 60 days, <em>no questions asked</em>.</p>
-    <p>Philanthropy is extremely important to us. In fact, <em>each employee volunteers</em> for organization of his or her choice, on the clock, for two hours each week. We know that doing good, breeds more doing good, and we are happy to <em>promote a cycle</em> of volunteerism that just keeps on giving.</p>
+    <h2 class="headline"><fmt:message key="ui.headline.guarantee"/></h2>
+    <p><fmt:message key="ui.guarantee.firstPart"/></p>
+    <p><fmt:message key="ui.guarantee.secondPart"/></p>
   </div>
 </section>
 
 <section id="people" class="section">
   <header class="imageheader"></header>
   <div class="container">
-    <h2 class="headline">People</h2>
+    <h2 class="headline"><fmt:message key="ui.people"/></h2>
     <div class="people-cards">
       <div class="person-card">
         <img src="images/employees/HenryTwill.jpg" alt="HenryTwill Photo">
         <div class="card-info">
-          <h3 class="card-name">Henry Twill, Jr</h3>
-          <h4 class="card-title">CEO</h4>
+          <h3 class="card-name"><fmt:message key="ui.people.henryTeill"/></h3>
+          <h4 class="card-title"><fmt:message key="ui.people.henryTeill.position"/></h4>
         </div>
-        <p class="card-text">Henry Twill Jr. is the <em>founder</em> and CEO of H+ Sports. Previously he was an <em>athletic trainer</em> working with several top athletes, making sure that they had the direction and proper coaching to keep them at the <em>top of their game</em>. Henry's passion for finding natural alternatives led him to developing H+ Sport Multivitamins. The supplements <em>became a success</em> with his clients and led to the creation of H+ Sports.</p>
+        <p class="card-text"><fmt:message key="ui.people.henryTeill.about"/></p>
       </div>
 
       <div class="person-card">
         <img src="images/employees/JessicaNewton.jpg" alt="JessicaNewton Photo">
         <div class="card-info">
-          <h3 class="card-name">Jessica Newton-Smith, MBA</h3>
-          <h4 class="card-title">CFO</h4>
+          <h3 class="card-name"><fmt:message key="ui.people.jessicaNewton"/></h3>
+          <h4 class="card-title"><fmt:message key="ui.people.jessicaNewton.position"/></h4>
         </div>
-        <p class="card-text">Jessica Newton-Smith joined us in 2012 and brings more than <em>10 years</em> of financial management experience to H+ Sports, spanning a variety of companies and industries ranging from <em> Fortune 500 agencies</em> to start-ups. She has extensive experience working in <em>emerging markets</em> and in the consumer and retail sectors.</p>
+        <p class="card-text"><fmt:message key="ui.people.jessicaNewton.about"/></p>
       </div>
 
       <div class="person-card">
         <img src="images/employees/PhiTang.jpg" alt="PhiTang Photo">
         <div class="card-info">
-          <h3 class="card-name">Phi Tang, MBA</h3>
-          <h4 class="card-title">Director of Product Development</h4>
+          <h3 class="card-name"><fmt:message key="ui.people.phiTang"/></h3>
+          <h4 class="card-title"><fmt:message key="ui.people.phiTang.position"/></h4>
         </div>
-        <p class="card-text">Phi Tang joined H+ Sports in <em>2007</em> as Manager of Marketing Research. He was promoted to Director of Product Development in 2011. He has made <em>major contributions</em> to the discovery, development, and implementation of the H+ Sport product lines. Before joining the company he worked as a <em>scientific expert</em> and brings vast knowledge of ingredients and <em>new technologies</em>.</p>
+        <p class="card-text"><fmt:message key="ui.people.phiTang.about"/></p>
       </div>
 
       <div class="person-card">
         <img src="images/employees/MariaSontas.jpg" alt="MariaSontas Photo">
         <div class="card-info">
-          <h3 class="card-name">Maria Sontas</h3>
-          <h4 class="card-title">Director of Marketing</h4>
+          <h3 class="card-name"><fmt:message key="ui.people.mariaSontas"/></h3>
+          <h4 class="card-title"><fmt:message key="ui.people.mariaSontas.position"/></h4>
         </div>
-        <p class="card-text">Maria Sontas has been with H+ Sport since 2010. She oversees the company’s <em>marketing strategy</em> are ensuring advertising campaigns, social media initiatives, and events are planned to <em>position the company</em> strongly in a competitive marketplace. Maria is a <em>competing triathlete</em> and her passion for our products shows in her unique ability to drive awareness and <em>increase our presence</em> around the world.</p>
+        <p class="card-text"><fmt:message key="ui.people.mariaSontas.about"/></p>
       </div>
 
       <div class="person-card">
         <img src="images/employees/AngelaHaston.jpg" alt="AngelaHaston Photo">
         <div class="card-info">
-          <h3 class="card-name">Angela Hashton</h3>
-          <h4 class="card-title">Director of Sales</h4>
+          <h3 class="card-name"><fmt:message key="ui.people.angelaHashton"/></h3>
+          <h4 class="card-title"><fmt:message key="ui.people.angelaHashton.position"/></h4>
         </div>
-        <p class="card-text">Angela Hashton joined the company in 2009, to <em>initiate new relationships</em> for our growing line of H+ Sports active apparel. After being with the company for a year, she was promoted to Director of Sales. Angela is the drive behind the H+ Sport <em>ACTIVE product line</em> and has an uncanny ability to formulate strategies that have helped build our unified sales force. <em>Educating people</em> about health and nutrition is something that Angela holds dear.</p>
+        <p class="card-text"><fmt:message key="ui.people.angelaHashton.about"/></p>
       </div>
 
       <div class="person-card">
         <img src="images/employees/MichaelLewiston.jpg" alt="MichaelLewiston Photo">
         <div class="card-info">
-          <h3 class="card-name">Michael Lewiston</h3>
-          <h4 class="card-title">MFA, Creative Director</h4>
+          <h3 class="card-name"><fmt:message key="ui.people.michaelLewiston"/></h3>
+          <h4 class="card-title"><fmt:message key="ui.people.michaelLewiston.position"/></h4>
         </div>
-        <p class="card-text">Michael Lewiston is a multi-faceted <em>creative person</em> who began his career as a designer for a small business firm, while also working as an independent <em>painter and sculptor</em>. In 2007, Henry Twill was impressed by Michael's creative work in a national ad campaign for a high profile sports apparel company. Henry approached Michael, and asked him to <em>manage creative direction</em> for the H+ Sport ACTIVE apparel line.</p>
+        <p class="card-text"><fmt:message key="ui.people.michaelLewiston.about"/></p>
       </div>
+    </div>
   </div>
 </section>
 

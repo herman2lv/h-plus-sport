@@ -1,3 +1,9 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${sessionScope.language != null}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="ui"/>
 <footer class="footer">
     <div class="container">
         <nav class="nav" role="navigation">
@@ -6,17 +12,13 @@
                     <a href="#home"><img src="images/hpluslogo.svg"
                         alt="Logo - H Plus Sports"></a>
                     <p class="address">
-                        100 Main Street<br> Seattle, WA 98144
+                        <fmt:message key="ui.streetAddress"/>
+                        <br>
+                        <fmt:message key="ui.cityAddress"/>
                     </p>
                 </div>
             </div>
         </nav>
-        <p class="legal">H+ Sport is a fictitious brand created by
-            lynda.com solely for the purpose of training. All products and
-            people associated with H+ Sport are also fictitious. Any resemblance
-            to real brands, products, or people is purely coincidental.
-            Information provided about the product is also fictitious and should
-            not be construed to be representative of actual products on the
-            market in a similar product category.</p>
+        <p class="legal"><fmt:message key="ui.footer.legalNote"/></p>
     </div>
 </footer>

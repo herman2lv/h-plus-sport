@@ -17,7 +17,7 @@
 	
 	<section id="profile" class="section">
 		<div class="container">
-			<h2 class="headline">My Profile</h2>
+			<h2 class="headline"><fmt:message key="ui.headline.myProfile"/></h2>
 			<table id="profileTable">
 				<tr>
 					<td><fmt:message key="ui.username"/></td>
