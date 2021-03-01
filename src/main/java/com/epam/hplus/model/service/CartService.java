@@ -1,6 +1,6 @@
-package com.epam.hplus.service;
+package com.epam.hplus.model.service;
 
-import com.epam.hplus.beans.Product;
+import com.epam.hplus.model.beans.Product;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.epam.hplus.beans;
+package com.epam.hplus.model.beans;
 
 import java.util.Date;
 

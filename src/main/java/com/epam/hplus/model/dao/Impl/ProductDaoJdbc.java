@@ -1,6 +1,8 @@
-package com.epam.hplus.dao;
+package com.epam.hplus.model.dao.Impl;
 
-import com.epam.hplus.beans.Product;
+import com.epam.hplus.model.beans.Product;
+import com.epam.hplus.model.dao.ProductDao;
+import com.epam.hplus.model.pool.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,11 +29,12 @@ public class ProductDaoJdbc implements ProductDao {
     private static final String LIKE = " like ";
 
     @Override
-    public List<Product> searchProducts(Connection connection, String searchString) {
+    public List<Product> searchProducts(String searchString) {
         List<Product> products = new ArrayList<>();
         String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE + PRODUCTS_PRODUCT_NAME
                        + LIKE + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             String searchPattern = "%" + searchString + "%";
             statement.setString(1, searchPattern);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -46,11 +49,12 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     @Override
-    public Product getProductById(Connection connection, int id) {
+    public Product getProductById(int id) {
         Product product = null;
         String query = SELECT_ALL_FROM + PRODUCTS_TABLE
                        + WHERE + PRODUCTS_PRODUCT_ID + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

@@ -1,4 +1,4 @@
-package com.epam.hplus.beans;
+package com.epam.hplus.model.beans;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

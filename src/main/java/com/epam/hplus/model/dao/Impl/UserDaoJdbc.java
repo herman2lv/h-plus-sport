@@ -1,6 +1,8 @@
-package com.epam.hplus.dao;
+package com.epam.hplus.model.dao.Impl;
 
-import com.epam.hplus.beans.User;
+import com.epam.hplus.model.beans.User;
+import com.epam.hplus.model.dao.UserDao;
+import com.epam.hplus.model.pool.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +53,10 @@ public class UserDaoJdbc implements UserDao {
     private static final String DELETE_FROM = "DELETE FROM ";
 
     @Override
-    public int createUser(Connection connection, User user) {
+    public int createUser(User user) {
         String query = INSERT_INTO + USERS_TABLE + " values (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(USERS_USERNAME_INDEX, user.getUsername());
             statement.setString(USERS_PASSWORD_INDEX, user.getPassword());
             statement.setString(USERS_FIRST_NAME_INDEX, user.getFirstName());
@@ -69,11 +72,12 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public User getUser(Connection connection, String username) {
+    public User getUser(String username) {
         User user = null;
         String query = SELECT_ALL_FROM + USERS_TABLE
                        + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -87,13 +91,14 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean validateUserCredentials(Connection connection, String username,
+    public boolean validateUserCredentials(String username,
                                            String password) {
         String query = SELECT_ALL_FROM + USERS_TABLE
                        + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK
                        + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK
                        + MAKE_QUERY_CASE_SENSITIVE;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             statement.setString(2, password);
             try (ResultSet set = statement.executeQuery()) {
@@ -120,10 +125,11 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean isUsernameFree(Connection connection, String username) {
+    public boolean isUsernameFree(String username) {
         String query = SELECT_ALL_FROM + USERS_TABLE
                        + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 return !resultSet.next();
@@ -135,10 +141,11 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public List<User> getUsers(Connection connection) {
+    public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         String query = SELECT_ALL_FROM + USERS_TABLE;
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
                 users.add(createInstanceOfUser(resultSet));
@@ -150,7 +157,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean updateUser(Connection connection, User user) {
+    public boolean updateUser(User user) {
         String query = UPDATE + USERS_TABLE + SET
                 + USERS_PASSWORD + EQUALS + QUESTION_MARK + COMA
                 + USERS_FIRST_NAME + EQUALS + QUESTION_MARK + COMA
@@ -159,7 +166,8 @@ public class UserDaoJdbc implements UserDao {
                 + USERS_ACTIVITY + EQUALS + QUESTION_MARK + COMA
                 + USERS_ROLE + EQUALS + QUESTION_MARK
                 + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(UPDATE_USER_PASSWORD_COLUMN, user.getPassword());
             statement.setString(UPDATE_USER_FIRST_NAME_COLUMN, user.getFirstName());
             statement.setString(UPDATE_USER_LAST_NAME_COLUMN, user.getLastName());
@@ -179,10 +187,11 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean deleteUser(Connection connection, String username) {
+    public boolean deleteUser(String username) {
         String query = DELETE_FROM + USERS_TABLE
                 + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             return statement.executeUpdate() == 1;
         } catch (SQLException e) {

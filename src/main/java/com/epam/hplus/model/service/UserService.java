@@ -1,13 +1,11 @@
-package com.epam.hplus.service;
+package com.epam.hplus.model.service;
 
-import com.epam.hplus.beans.User;
-import com.epam.hplus.dao.DbConnector;
-import com.epam.hplus.dao.UserDao;
-import com.epam.hplus.dao.UserDaoJdbc;
+import com.epam.hplus.model.beans.User;
+import com.epam.hplus.model.dao.Impl.UserDaoJdbc;
+import com.epam.hplus.model.dao.UserDao;
 import com.epam.hplus.resources.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,9 +30,8 @@ public class UserService {
     }
 
     public static boolean deleteUser(String username) {
-        Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.deleteUser(connection, username);
+        return userDao.deleteUser(username);
     }
 
     public static boolean setUserCustomerRole(User user) {
@@ -47,28 +44,24 @@ public class UserService {
 
     private static boolean changeUserRole(User user, int userRole) {
         user.setRole(userRole);
-        Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.updateUser(connection, user);
+        return userDao.updateUser(user);
     }
 
     public static List<User> getUsers() {
-        Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.getUsers(connection);
+        return userDao.getUsers();
     }
 
     public static boolean registerNewUser(User user) {
-        Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        int rowsAffected = userDao.createUser(connection, user);
+        int rowsAffected = userDao.createUser(user);
         return rowsAffected == 1;
     }
 
     public static User getUserProfile(String username) {
-        Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.getUser(connection, username);
+        return userDao.getUser(username);
     }
 
     public static User createInstanceOfUser(HttpServletRequest req) {
@@ -121,9 +114,8 @@ public class UserService {
     }
 
     private static boolean isUsernameFree(String username) {
-        Connection connection = DbConnector.getConnection();
         UserDao userDao = new UserDaoJdbc();
-        return userDao.isUsernameFree(connection, username);
+        return userDao.isUsernameFree(username);
     }
 
     private static boolean isUsernameNotFree(String username) {

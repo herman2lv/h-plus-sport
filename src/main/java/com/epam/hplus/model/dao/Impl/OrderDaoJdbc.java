@@ -1,7 +1,9 @@
-package com.epam.hplus.dao;
+package com.epam.hplus.model.dao.Impl;
 
-import com.epam.hplus.beans.Order;
-import com.epam.hplus.beans.Product;
+import com.epam.hplus.model.beans.Order;
+import com.epam.hplus.model.beans.Product;
+import com.epam.hplus.model.dao.OrderDao;
+import com.epam.hplus.model.pool.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,11 +64,12 @@ public class OrderDaoJdbc implements OrderDao {
     private static final int INSERT_ORDERS_ID_COLUMN = 5;
 
     @Override
-    public List<Order> getOrdersByUser(Connection connection, String username) {
+    public List<Order> getOrdersByUser(String username) {
         List<Order> orders = new ArrayList<>();
         String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE
                 + WHERE + ORDERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statementOrders = connection.prepareStatement(queryOrders)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statementOrders = connection.prepareStatement(queryOrders)) {
             statementOrders.setString(1, username);
             try (ResultSet ordersSet = statementOrders.executeQuery()) {
                 while (ordersSet.next()) {
@@ -119,8 +122,8 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public int createOrder(Connection connection, Order order) {
-        try {
+    public int createOrder(Order order) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection()) {
             int orderId = insertOrder(connection, order);
             insertOrdersDetails(connection, order, orderId);
             return orderId;
@@ -172,8 +175,8 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public boolean removeOrder(Connection connection, int orderId) {
-        try {
+    public boolean removeOrder(int orderId) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection()) {
             if (isApproved(connection, orderId)) {
                 return false;
             }
@@ -219,10 +222,11 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public List<Order> getOrders(Connection connection) {
+    public List<Order> getOrders() {
         List<Order> orders = new ArrayList<>();
         String queryOrders = SELECT_ALL_FROM + ORDERS_TABLE;
-        try (Statement statement = connection.createStatement();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement();
              ResultSet ordersSet = statement.executeQuery(queryOrders)) {
             while (ordersSet.next()) {
                 orders.add(createInstanceOfOrder(connection, ordersSet));
@@ -234,11 +238,12 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public Order getOrderById(Connection connection, int orderId) {
+    public Order getOrderById(int orderId) {
         Order order = null;
         String query = SELECT_ALL_FROM + ORDERS_TABLE
                 + WHERE + ORDERS_ORDER_ID + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, orderId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -252,14 +257,15 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public boolean updateOrder(Connection connection, Order order) {
+    public boolean updateOrder(Order order) {
         String query = UPDATE + ORDERS_TABLE + SET
                 + ORDERS_USERNAME + EQUALS + QUESTION_MARK + COMA
                 + ORDERS_ORDER_DATE + EQUALS + QUESTION_MARK + COMA
                 + ORDERS_ORDER_COST + EQUALS + QUESTION_MARK + COMA
                 + ORDERS_CONFIRMATION + EQUALS + QUESTION_MARK
                 + WHERE + ORDERS_ORDER_ID + EQUALS + QUESTION_MARK;
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(INSERT_ORDERS_USERNAME_COLUMN, order.getUsername());
             statement.setDate(INSERT_ORDERS_DATE_COLUMN,
                     new java.sql.Date(order.getOrderDate().getTime()));

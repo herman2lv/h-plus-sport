@@ -1,7 +1,6 @@
 package com.epam.hplus.constants;
 
 public class Database {
-    public static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String ORDERS_TABLE = "orders";
     public static final String ORDERS_ORDER_ID = "order_id";
     public static final String ORDERS_USERNAME = "username";

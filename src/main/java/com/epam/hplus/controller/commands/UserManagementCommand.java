@@ -1,8 +1,8 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.beans.User;
+import com.epam.hplus.model.beans.User;
 import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.service.UserService;
+import com.epam.hplus.model.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

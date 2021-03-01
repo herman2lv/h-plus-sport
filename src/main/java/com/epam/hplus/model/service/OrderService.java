@@ -1,11 +1,9 @@
-package com.epam.hplus.service;
+package com.epam.hplus.model.service;
 
-import com.epam.hplus.beans.Order;
-import com.epam.hplus.dao.DbConnector;
-import com.epam.hplus.dao.OrderDao;
-import com.epam.hplus.dao.OrderDaoJdbc;
+import com.epam.hplus.model.beans.Order;
+import com.epam.hplus.model.dao.Impl.OrderDaoJdbc;
+import com.epam.hplus.model.dao.OrderDao;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class OrderService {
@@ -13,27 +11,23 @@ public class OrderService {
     }
 
     public static List<Order> getOrdersOfUser(String username) {
-        Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.getOrdersByUser(connection, username);
+        return orderDao.getOrdersByUser(username);
     }
 
     public static boolean createOrder(Order order) {
-        Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.createOrder(connection, order) > 0;
+        return orderDao.createOrder(order) > 0;
     }
 
     public static boolean removeOrder(int orderId) {
-        Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.removeOrder(connection, orderId);
+        return orderDao.removeOrder(orderId);
     }
 
     public static List<Order> getOrders() {
-        Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.getOrders(connection);
+        return orderDao.getOrders();
     }
 
     public static boolean approveOrder(int orderId) {
@@ -41,11 +35,10 @@ public class OrderService {
     }
 
     private static boolean setOrderStatus(int orderId, boolean status) {
-        Connection connection = DbConnector.getConnection();
         OrderDao orderDao = new OrderDaoJdbc();
-        Order order = orderDao.getOrderById(connection, orderId);
+        Order order = orderDao.getOrderById(orderId);
         order.setStatus(status);
-        return orderDao.updateOrder(connection, order);
+        return orderDao.updateOrder(order);
     }
 
     public static boolean rejectOrder(int orderId) {

@@ -1,10 +1,10 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.beans.Product;
+import com.epam.hplus.model.beans.Product;
 import com.epam.hplus.controller.commands.util.RequestProcessor;
 import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.service.CartService;
-import com.epam.hplus.service.ProductService;
+import com.epam.hplus.model.service.CartService;
+import com.epam.hplus.model.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;

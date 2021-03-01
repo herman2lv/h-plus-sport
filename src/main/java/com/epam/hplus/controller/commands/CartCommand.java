@@ -1,8 +1,8 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.beans.Product;
+import com.epam.hplus.model.beans.Product;
 import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.service.CartService;
+import com.epam.hplus.model.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.math.BigDecimal;

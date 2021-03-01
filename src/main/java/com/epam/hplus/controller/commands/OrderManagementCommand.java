@@ -1,8 +1,8 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.beans.Order;
+import com.epam.hplus.model.beans.Order;
 import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.service.OrderService;
+import com.epam.hplus.model.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.epam.hplus.filters;
+package com.epam.hplus.controller.filters;
 
-import com.epam.hplus.beans.User;
 import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.resources.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -10,25 +10,30 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.epam.hplus.constants.Context.SESSION_USER_ROLE;
+import static com.epam.hplus.constants.Context.REQUEST_ERROR;
+import static com.epam.hplus.constants.Context.SESSION_USERNAME;
 
-@WebFilter("/controller")
-public class ManagerFilter implements Filter {
+@WebFilter(urlPatterns = "/*")
+public class AuthenticationFilter implements Filter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFilter.class);
     private List<String> restrictedActions;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         restrictedActions = new ArrayList<>(Arrays.asList(
+                "profile",
+                "orders",
                 "orderManagement",
-                "removeOrderByManager",
-                "rejectOrder",
-                "approveOrder"));
+                "userManagement",
+                "productManagement"));
     }
 
     @Override
@@ -37,8 +42,11 @@ public class ManagerFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String action = req.getParameter("command");
         if (isRestrictedAction(action, request)) {
-            req.getRequestDispatcher(ConfigurationManger.getProperty("page.index"))
-                    .forward(request, res);
+            LOGGER.info(MessageManager.getMessage("log.unauthorized"),
+                    request.getRequestURI(), action);
+            req.setAttribute(REQUEST_ERROR, MessageManager.getMessage("msg.unauthorized"));
+            req.getRequestDispatcher(
+                    ConfigurationManger.getProperty("page.login")).forward(request, res);
             return;
         }
         chain.doFilter(request, res);
@@ -46,8 +54,8 @@ public class ManagerFilter implements Filter {
 
     private boolean isRestrictedAction(String action, HttpServletRequest request) {
         return action != null
-                && isRestrictedResource(action)
-                && userIsNotManager(request);
+               && isRestrictedResource(action)
+               && userIsNotAuthorized(request);
     }
 
     private boolean isRestrictedResource(String action) {
@@ -59,7 +67,7 @@ public class ManagerFilter implements Filter {
         return false;
     }
 
-    private boolean userIsNotManager(HttpServletRequest request) {
-        return (int) request.getSession().getAttribute(SESSION_USER_ROLE) != User.ROLE_MANAGER;
+    private boolean userIsNotAuthorized(HttpServletRequest request) {
+        return request.getSession().getAttribute(SESSION_USERNAME) == null;
     }
 }

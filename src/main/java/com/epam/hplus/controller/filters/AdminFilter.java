@@ -1,6 +1,6 @@
-package com.epam.hplus.filters;
+package com.epam.hplus.controller.filters;
 
-import com.epam.hplus.beans.User;
+import com.epam.hplus.model.beans.User;
 import com.epam.hplus.resources.ConfigurationManger;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;

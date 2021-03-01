@@ -2,7 +2,7 @@ package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.controller.commands.util.RequestProcessor;
 import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.service.OrderService;
+import com.epam.hplus.model.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import static com.epam.hplus.constants.Context.REQUEST_ORDER;
