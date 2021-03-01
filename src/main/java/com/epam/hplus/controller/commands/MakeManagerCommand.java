@@ -11,7 +11,7 @@ public class MakeManagerCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         String username = req.getParameter(REQUEST_USER);
-        User user = UserService.getUserProfile(username);
+        User user = UserService.getUser(username);
         UserService.setUserManagerRole(user);
         return ConfigurationManger.getProperty("page.userManagementRedirect");
     }

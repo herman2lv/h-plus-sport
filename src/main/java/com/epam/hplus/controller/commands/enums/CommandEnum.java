@@ -8,6 +8,7 @@ import com.epam.hplus.controller.commands.DeleteUserCommand;
 import com.epam.hplus.controller.commands.HomeCommand;
 import com.epam.hplus.controller.commands.LanguageCommand;
 import com.epam.hplus.controller.commands.LoginCommand;
+import com.epam.hplus.controller.commands.LoginPageCommand;
 import com.epam.hplus.controller.commands.LogoutCommand;
 import com.epam.hplus.controller.commands.MakeCustomerCommand;
 import com.epam.hplus.controller.commands.MakeManagerCommand;
@@ -48,6 +49,7 @@ public enum CommandEnum {
     MAKEMANAGER(new MakeManagerCommand()),
     MAKEORDER(new MakeOrderCommand()),
     DELETEUSER(new DeleteUserCommand()),
+    LOGINPAGE(new LoginPageCommand()),
     REDIRECT(new RedirectCommand());
 
     private final Command command;

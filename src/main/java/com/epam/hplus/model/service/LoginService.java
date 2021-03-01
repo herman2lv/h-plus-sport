@@ -9,6 +9,7 @@ public class LoginService {
     }
 
     public static boolean isValidUser(String username, String password) {
-        return USER_DAO.validateUserCredentials(username, password);
+        String encryptedPassword = PasswordEncryptor.encryptPassword(password);
+        return USER_DAO.validateUserCredentials(username, encryptedPassword);
     }
 }

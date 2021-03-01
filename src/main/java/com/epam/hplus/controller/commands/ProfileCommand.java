@@ -12,7 +12,7 @@ public class ProfileCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         String username = (String) req.getSession().getAttribute(SESSION_USERNAME);
-        User user = UserService.getUserProfile(username);
+        User user = UserService.getUser(username);
         req.setAttribute(REQUEST_USER, user);
         return ConfigurationManger.getProperty("page.profile");
     }

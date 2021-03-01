@@ -11,5 +11,4 @@ public interface UserDao {
         boolean deleteUser(String username);
         List<User> getUsers();
         boolean validateUserCredentials(String username, String password);
-        boolean isUsernameFree(String username);
 }

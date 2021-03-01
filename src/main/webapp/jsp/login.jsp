@@ -12,7 +12,7 @@
 	<jsp:include page="header.jsp"/>
 
 	<section>
-	<app:insertDate/>
+		<app:insertDate/>
 	</section>
 	
 	<section id="login" class="section">

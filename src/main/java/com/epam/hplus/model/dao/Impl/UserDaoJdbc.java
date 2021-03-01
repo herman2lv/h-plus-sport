@@ -40,7 +40,6 @@ public class UserDaoJdbc implements UserDao {
     private static final String INSERT_INTO = "INSERT into ";
     private static final String QUESTION_MARK = "?";
     private static final String AND = " AND ";
-    private static final String MAKE_QUERY_CASE_SENSITIVE = " COLLATE utf8mb4_bin";
     private static final String UPDATE = "UPDATE ";
     private static final String SET = " SET ";
     private static final String COMA = ", ";
@@ -103,8 +102,7 @@ public class UserDaoJdbc implements UserDao {
                                            String password) {
         String query = SELECT_ALL_FROM + USERS_TABLE
                        + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK
-                       + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK
-                       + MAKE_QUERY_CASE_SENSITIVE;
+                       + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
@@ -130,22 +128,6 @@ public class UserDaoJdbc implements UserDao {
         int role = resultSet.getInt(USERS_ROLE);
         return new User(nameOriginalCase, password, firstName, lastName,
                 activity, dateOfBirth, role);
-    }
-
-    @Override
-    public boolean isUsernameFree(String username) {
-        String query = SELECT_ALL_FROM + USERS_TABLE
-                       + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, username);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                return !resultSet.next();
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-        return false;
     }
 
     @Override

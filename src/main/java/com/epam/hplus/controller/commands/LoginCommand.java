@@ -25,7 +25,7 @@ public class LoginCommand implements Command {
         String password = req.getParameter(LOGIN_REQUEST_PASSWORD);
         if (LoginService.isValidUser(username, password)) {
             HttpSession session = req.getSession();
-            User user = UserService.getUserProfile(username);
+            User user = UserService.getUser(username);
             session.setAttribute(SESSION_USERNAME, user.getUsername());
             session.setAttribute(SESSION_USER_ROLE, user.getRole());
             return ConfigurationManger.getProperty("page.index");
