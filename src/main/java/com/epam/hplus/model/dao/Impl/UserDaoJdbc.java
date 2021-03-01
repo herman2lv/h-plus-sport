@@ -33,6 +33,7 @@ import static com.epam.hplus.constants.Database.USERS_USERNAME_INDEX;
 
 public class UserDaoJdbc implements UserDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoJdbc.class);
+    private static final UserDaoJdbc INSTANCE = new UserDaoJdbc();
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String WHERE = " WHERE ";
     private static final String EQUALS = " = ";
@@ -51,6 +52,13 @@ public class UserDaoJdbc implements UserDao {
     private static final int UPDATE_USER_ROLE_COLUMN = 6;
     private static final int UPDATE_USER_USERNAME_COLUMN = 7;
     private static final String DELETE_FROM = "DELETE FROM ";
+
+    private UserDaoJdbc() {
+    }
+
+    public static UserDaoJdbc getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public int createUser(User user) {

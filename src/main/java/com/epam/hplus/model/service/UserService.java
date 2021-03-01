@@ -19,6 +19,7 @@ import static com.epam.hplus.constants.Context.REQUEST_PASSWORD;
 import static com.epam.hplus.constants.Context.REQUEST_USERNAME;
 
 public class UserService {
+    private static final UserDao USER_DAO = UserDaoJdbc.getInstance();
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9_\\-]{4,30}";
     private static final String PASSWORD_REGEX = "[a-zA-Z0-9_\\-\\p{Punct}]{8,30}";
@@ -30,8 +31,7 @@ public class UserService {
     }
 
     public static boolean deleteUser(String username) {
-        UserDao userDao = new UserDaoJdbc();
-        return userDao.deleteUser(username);
+        return USER_DAO.deleteUser(username);
     }
 
     public static boolean setUserCustomerRole(User user) {
@@ -44,24 +44,20 @@ public class UserService {
 
     private static boolean changeUserRole(User user, int userRole) {
         user.setRole(userRole);
-        UserDao userDao = new UserDaoJdbc();
-        return userDao.updateUser(user);
+        return USER_DAO.updateUser(user);
     }
 
     public static List<User> getUsers() {
-        UserDao userDao = new UserDaoJdbc();
-        return userDao.getUsers();
+        return USER_DAO.getUsers();
     }
 
     public static boolean registerNewUser(User user) {
-        UserDao userDao = new UserDaoJdbc();
-        int rowsAffected = userDao.createUser(user);
+        int rowsAffected = USER_DAO.createUser(user);
         return rowsAffected == 1;
     }
 
     public static User getUserProfile(String username) {
-        UserDao userDao = new UserDaoJdbc();
-        return userDao.getUser(username);
+        return USER_DAO.getUser(username);
     }
 
     public static User createInstanceOfUser(HttpServletRequest req) {
@@ -114,15 +110,14 @@ public class UserService {
     }
 
     private static boolean isUsernameFree(String username) {
-        UserDao userDao = new UserDaoJdbc();
-        return userDao.isUsernameFree(username);
+        return USER_DAO.isUsernameFree(username);
     }
 
     private static boolean isUsernameNotFree(String username) {
         return !isUsernameFree(username);
     }
 
-        private static boolean isValidPassword(String password) {
+    private static boolean isValidPassword(String password) {
         return password.matches(PASSWORD_REGEX);
     }
 

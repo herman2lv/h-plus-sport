@@ -7,27 +7,25 @@ import com.epam.hplus.model.dao.OrderDao;
 import java.util.List;
 
 public class OrderService {
+    private static final OrderDao ORDER_DAO = OrderDaoJdbc.getInstance();
+
     private OrderService() {
     }
 
     public static List<Order> getOrdersOfUser(String username) {
-        OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.getOrdersByUser(username);
+        return ORDER_DAO.getOrdersByUser(username);
     }
 
     public static boolean createOrder(Order order) {
-        OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.createOrder(order) > 0;
+        return ORDER_DAO.createOrder(order) > 0;
     }
 
     public static boolean removeOrder(int orderId) {
-        OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.removeOrder(orderId);
+        return ORDER_DAO.removeOrder(orderId);
     }
 
     public static List<Order> getOrders() {
-        OrderDao orderDao = new OrderDaoJdbc();
-        return orderDao.getOrders();
+        return ORDER_DAO.getOrders();
     }
 
     public static boolean approveOrder(int orderId) {
@@ -35,10 +33,9 @@ public class OrderService {
     }
 
     private static boolean setOrderStatus(int orderId, boolean status) {
-        OrderDao orderDao = new OrderDaoJdbc();
-        Order order = orderDao.getOrderById(orderId);
+        Order order = ORDER_DAO.getOrderById(orderId);
         order.setStatus(status);
-        return orderDao.updateOrder(order);
+        return ORDER_DAO.updateOrder(order);
     }
 
     public static boolean rejectOrder(int orderId) {

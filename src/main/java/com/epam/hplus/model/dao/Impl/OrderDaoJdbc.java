@@ -40,6 +40,7 @@ import static com.epam.hplus.constants.Database.PRODUCTS_TABLE;
 
 public class OrderDaoJdbc implements OrderDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderDaoJdbc.class);
+    private static final OrderDaoJdbc INSTANCE = new OrderDaoJdbc();
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String WHERE = " WHERE ";
     private static final String EQUALS = " = ";
@@ -62,6 +63,13 @@ public class OrderDaoJdbc implements OrderDao {
     private static final String UPDATE = "UPDATE ";
     private static final String SET = " SET ";
     private static final int INSERT_ORDERS_ID_COLUMN = 5;
+
+    private OrderDaoJdbc() {
+    }
+
+    public static OrderDaoJdbc getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public List<Order> getOrdersByUser(String username) {

@@ -7,16 +7,16 @@ import com.epam.hplus.model.dao.ProductDao;
 import java.util.List;
 
 public class ProductService {
+    private static final ProductDao PRODUCT_DAO = ProductDaoJdbc.getInstance();
+
     private ProductService() {
     }
 
     public static Product getProduct(int productId) {
-        ProductDao productDao = new ProductDaoJdbc();
-        return productDao.getProductById(productId);
+        return PRODUCT_DAO.getProductById(productId);
     }
 
     public static List<Product> searchProducts(String searchString) {
-        ProductDao productDao = new ProductDaoJdbc();
-        return productDao.searchProducts(searchString);
+        return PRODUCT_DAO.searchProducts(searchString);
     }
 }

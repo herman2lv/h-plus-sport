@@ -22,11 +22,19 @@ import static com.epam.hplus.constants.Database.PRODUCTS_TABLE;
 
 public class ProductDaoJdbc implements ProductDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductDaoJdbc.class);
+    private static final ProductDaoJdbc INSTANCE = new ProductDaoJdbc();
     private static final String SELECT_ALL_FROM = "SELECT * FROM ";
     private static final String WHERE = " WHERE ";
     private static final String EQUALS = " = ";
     private static final String QUESTION_MARK = "?";
     private static final String LIKE = " like ";
+
+    private ProductDaoJdbc() {
+    }
+
+    public static ProductDaoJdbc getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public List<Product> searchProducts(String searchString) {
