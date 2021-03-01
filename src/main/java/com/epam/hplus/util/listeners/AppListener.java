@@ -1,7 +1,7 @@
-package com.epam.hplus.listeners;
+package com.epam.hplus.util.listeners;
 
 import com.epam.hplus.model.pool.ConnectionPool;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;

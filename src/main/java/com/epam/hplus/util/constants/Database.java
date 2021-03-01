@@ -1,4 +1,4 @@
-package com.epam.hplus.constants;
+package com.epam.hplus.util.constants;
 
 public class Database {
     public static final String ORDERS_TABLE = "orders";

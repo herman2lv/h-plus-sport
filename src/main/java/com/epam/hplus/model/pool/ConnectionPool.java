@@ -1,7 +1,7 @@
 package com.epam.hplus.model.pool;
 
-import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

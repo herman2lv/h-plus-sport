@@ -2,8 +2,8 @@ package com.epam.hplus.controller;
 
 import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.controller.commands.factory.CommandFactory;
-import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

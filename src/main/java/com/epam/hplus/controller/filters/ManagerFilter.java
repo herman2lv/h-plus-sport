@@ -1,7 +1,7 @@
 package com.epam.hplus.controller.filters;
 
 import com.epam.hplus.model.beans.User;
-import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.ConfigurationManger;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.epam.hplus.constants.Context.SESSION_USER_ROLE;
+import static com.epam.hplus.util.constants.Context.SESSION_USER_ROLE;
 
 @WebFilter("/controller")
 public class ManagerFilter implements Filter {
@@ -25,10 +25,10 @@ public class ManagerFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         restrictedActions = new ArrayList<>(Arrays.asList(
-                "orderManagement",
-                "removeOrderByManager",
-                "rejectOrder",
-                "approveOrder"));
+                "order_management",
+                "remove_order_by_manager",
+                "reject_order",
+                "approve_order"));
     }
 
     @Override

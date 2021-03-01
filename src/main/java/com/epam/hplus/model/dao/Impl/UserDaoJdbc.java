@@ -15,21 +15,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.epam.hplus.constants.Database.USERS_ACTIVITY;
-import static com.epam.hplus.constants.Database.USERS_ACTIVITY_INDEX;
-import static com.epam.hplus.constants.Database.USERS_DOB;
-import static com.epam.hplus.constants.Database.USERS_DOB_INDEX;
-import static com.epam.hplus.constants.Database.USERS_FIRST_NAME;
-import static com.epam.hplus.constants.Database.USERS_FIRST_NAME_INDEX;
-import static com.epam.hplus.constants.Database.USERS_LAST_NAME;
-import static com.epam.hplus.constants.Database.USERS_LAST_NAME_INDEX;
-import static com.epam.hplus.constants.Database.USERS_PASSWORD;
-import static com.epam.hplus.constants.Database.USERS_PASSWORD_INDEX;
-import static com.epam.hplus.constants.Database.USERS_ROLE;
-import static com.epam.hplus.constants.Database.USERS_ROLE_INDEX;
-import static com.epam.hplus.constants.Database.USERS_TABLE;
-import static com.epam.hplus.constants.Database.USERS_USERNAME;
-import static com.epam.hplus.constants.Database.USERS_USERNAME_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_ACTIVITY;
+import static com.epam.hplus.util.constants.Database.USERS_ACTIVITY_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_DOB;
+import static com.epam.hplus.util.constants.Database.USERS_DOB_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_FIRST_NAME;
+import static com.epam.hplus.util.constants.Database.USERS_FIRST_NAME_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_LAST_NAME;
+import static com.epam.hplus.util.constants.Database.USERS_LAST_NAME_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_PASSWORD;
+import static com.epam.hplus.util.constants.Database.USERS_PASSWORD_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_ROLE;
+import static com.epam.hplus.util.constants.Database.USERS_ROLE_INDEX;
+import static com.epam.hplus.util.constants.Database.USERS_TABLE;
+import static com.epam.hplus.util.constants.Database.USERS_USERNAME;
+import static com.epam.hplus.util.constants.Database.USERS_USERNAME_INDEX;
 
 public class UserDaoJdbc implements UserDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoJdbc.class);

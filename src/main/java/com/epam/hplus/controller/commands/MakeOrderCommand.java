@@ -2,8 +2,8 @@ package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.model.beans.Order;
 import com.epam.hplus.model.beans.Product;
-import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import com.epam.hplus.model.service.CartService;
 import com.epam.hplus.model.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +15,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.epam.hplus.constants.Context.REQUEST_ORDER_STATUS;
-import static com.epam.hplus.constants.Context.SESSION_CART;
-import static com.epam.hplus.constants.Context.SESSION_USERNAME;
+import static com.epam.hplus.util.constants.Context.REQUEST_ORDER_STATUS;
+import static com.epam.hplus.util.constants.Context.SESSION_CART;
+import static com.epam.hplus.util.constants.Context.SESSION_USERNAME;
 
 public class MakeOrderCommand implements Command {
     @Override

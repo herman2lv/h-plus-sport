@@ -2,7 +2,7 @@ package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.model.beans.Product;
 import com.epam.hplus.controller.commands.util.RequestProcessor;
-import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.ConfigurationManger;
 import com.epam.hplus.model.service.CartService;
 import com.epam.hplus.model.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.hplus.constants.Context.REQUEST_PRODUCT;
-import static com.epam.hplus.constants.Context.SESSION_CART;
+import static com.epam.hplus.util.constants.Context.REQUEST_PRODUCT;
+import static com.epam.hplus.util.constants.Context.SESSION_CART;
 
 public class RemoveProductCommand implements Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(RemoveProductCommand.class);

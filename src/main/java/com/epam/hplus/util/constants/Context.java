@@ -1,4 +1,4 @@
-package com.epam.hplus.constants;
+package com.epam.hplus.util.constants;
 
 public class Context {
     public static final String SESSION_USERNAME = "username";

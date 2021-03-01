@@ -46,21 +46,21 @@
               <td>
                 <c:if test="${user.role != 1}">
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="deleteUser">
+                    <input type="hidden" name="command" value="delete_user">
                     <input type="hidden" name="user" value="${user.username}">
                     <input type="submit" value='<fmt:message key="ui.deleteUser"/>'>
                   </form>
                 </c:if>
                 <c:if test="${user.role == 3}">
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="makeManager">
+                    <input type="hidden" name="command" value="make_manager">
                     <input type="hidden" name="user" value="${user.username}">
                     <input type="submit" value='<fmt:message key="ui.changeRole.manager"/>'>
                   </form>
                 </c:if>
                 <c:if test="${user.role == 2}">
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="makeCustomer">
+                    <input type="hidden" name="command" value="make_customer">
                     <input type="hidden" name="user" value="${user.username}">
                     <input type="submit" value='<fmt:message key="ui.changeRole.customer"/>'>
                   </form>

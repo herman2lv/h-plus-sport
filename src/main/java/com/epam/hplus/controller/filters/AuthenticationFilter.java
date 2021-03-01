@@ -1,7 +1,7 @@
 package com.epam.hplus.controller.filters;
 
-import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.epam.hplus.constants.Context.REQUEST_ERROR;
-import static com.epam.hplus.constants.Context.SESSION_USERNAME;
+import static com.epam.hplus.util.constants.Context.REQUEST_ERROR;
+import static com.epam.hplus.util.constants.Context.SESSION_USERNAME;
 
 @WebFilter(urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
@@ -31,9 +31,9 @@ public class AuthenticationFilter implements Filter {
         restrictedActions = new ArrayList<>(Arrays.asList(
                 "profile",
                 "orders",
-                "orderManagement",
-                "userManagement",
-                "productManagement"));
+                "order_management",
+                "user_management",
+                "product_management"));
     }
 
     @Override

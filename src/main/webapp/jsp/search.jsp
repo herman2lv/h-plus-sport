@@ -53,7 +53,7 @@
                 <td>
                   <form method="get" action="controller">
                     <input type="hidden" name="product" value="${product.productId}">
-                    <input type="hidden" name="command" value="addProduct">
+                    <input type="hidden" name="command" value="add_product">
                     <button>Add to Cart</button>
                   </form>
                 </td>

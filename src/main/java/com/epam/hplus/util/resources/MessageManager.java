@@ -1,4 +1,4 @@
-package com.epam.hplus.resources;
+package com.epam.hplus.util.resources;
 
 import java.util.ResourceBundle;
 

@@ -1,6 +1,6 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.ConfigurationManger;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class LoginPageCommand implements Command {

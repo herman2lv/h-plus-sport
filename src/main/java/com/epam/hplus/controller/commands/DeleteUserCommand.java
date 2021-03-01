@@ -1,10 +1,10 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.ConfigurationManger;
 import com.epam.hplus.model.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
-import static com.epam.hplus.constants.Context.REQUEST_USER;
+import static com.epam.hplus.util.constants.Context.REQUEST_USER;
 
 public class DeleteUserCommand implements Command {
     @Override

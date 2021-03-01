@@ -1,8 +1,8 @@
 package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.model.beans.User;
-import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import com.epam.hplus.model.service.LoginService;
 import com.epam.hplus.model.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,11 +10,11 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.epam.hplus.constants.Context.LOGIN_REQUEST_PASSWORD;
-import static com.epam.hplus.constants.Context.LOGIN_REQUEST_USERNAME;
-import static com.epam.hplus.constants.Context.REQUEST_ERROR;
-import static com.epam.hplus.constants.Context.SESSION_USERNAME;
-import static com.epam.hplus.constants.Context.SESSION_USER_ROLE;
+import static com.epam.hplus.util.constants.Context.LOGIN_REQUEST_PASSWORD;
+import static com.epam.hplus.util.constants.Context.LOGIN_REQUEST_USERNAME;
+import static com.epam.hplus.util.constants.Context.REQUEST_ERROR;
+import static com.epam.hplus.util.constants.Context.SESSION_USERNAME;
+import static com.epam.hplus.util.constants.Context.SESSION_USER_ROLE;
 
 public class LoginCommand implements Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginCommand.class);

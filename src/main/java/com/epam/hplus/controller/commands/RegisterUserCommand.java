@@ -4,8 +4,8 @@ import com.epam.hplus.model.beans.User;
 import com.epam.hplus.model.service.PasswordEncryptor;
 import com.epam.hplus.model.service.UserService;
 import com.epam.hplus.model.validators.UserValidator;
-import com.epam.hplus.resources.ConfigurationManger;
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +14,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.epam.hplus.constants.Context.REQUEST_ACTIVITY;
-import static com.epam.hplus.constants.Context.REQUEST_DOB;
-import static com.epam.hplus.constants.Context.REQUEST_FIRST_NAME;
-import static com.epam.hplus.constants.Context.REQUEST_LAST_NAME;
-import static com.epam.hplus.constants.Context.REQUEST_PASSWORD;
-import static com.epam.hplus.constants.Context.REQUEST_REGISTRATION_STATUS;
-import static com.epam.hplus.constants.Context.REQUEST_USERNAME;
+import static com.epam.hplus.util.constants.Context.REQUEST_ACTIVITY;
+import static com.epam.hplus.util.constants.Context.REQUEST_DOB;
+import static com.epam.hplus.util.constants.Context.REQUEST_FIRST_NAME;
+import static com.epam.hplus.util.constants.Context.REQUEST_LAST_NAME;
+import static com.epam.hplus.util.constants.Context.REQUEST_PASSWORD;
+import static com.epam.hplus.util.constants.Context.REQUEST_REGISTRATION_STATUS;
+import static com.epam.hplus.util.constants.Context.REQUEST_USERNAME;
 
 public class RegisterUserCommand implements Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterUserCommand.class);

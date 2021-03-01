@@ -1,6 +1,6 @@
 package com.epam.hplus.controller.filters;
 
-import com.epam.hplus.resources.MessageManager;
+import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

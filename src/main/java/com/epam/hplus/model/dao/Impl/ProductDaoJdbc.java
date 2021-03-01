@@ -13,12 +13,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.hplus.constants.Database.PRODUCTS_COST;
-import static com.epam.hplus.constants.Database.PRODUCTS_DESCRIPTION;
-import static com.epam.hplus.constants.Database.PRODUCTS_IMAGE_PATH;
-import static com.epam.hplus.constants.Database.PRODUCTS_PRODUCT_ID;
-import static com.epam.hplus.constants.Database.PRODUCTS_PRODUCT_NAME;
-import static com.epam.hplus.constants.Database.PRODUCTS_TABLE;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_COST;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_DESCRIPTION;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_IMAGE_PATH;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_PRODUCT_ID;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_PRODUCT_NAME;
+import static com.epam.hplus.util.constants.Database.PRODUCTS_TABLE;
 
 public class ProductDaoJdbc implements ProductDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductDaoJdbc.class);

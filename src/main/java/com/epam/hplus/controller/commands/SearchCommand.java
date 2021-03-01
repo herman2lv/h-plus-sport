@@ -1,16 +1,16 @@
 package com.epam.hplus.controller.commands;
 
 import com.epam.hplus.model.beans.Product;
-import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.ConfigurationManger;
 import com.epam.hplus.model.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
-import static com.epam.hplus.constants.Context.REQUEST_PRODUCTS;
-import static com.epam.hplus.constants.Context.REQUEST_SEARCH;
-import static com.epam.hplus.constants.Context.SESSION_SEARCH_STRING;
+import static com.epam.hplus.util.constants.Context.REQUEST_PRODUCTS;
+import static com.epam.hplus.util.constants.Context.REQUEST_SEARCH;
+import static com.epam.hplus.util.constants.Context.SESSION_SEARCH_STRING;
 
 public class SearchCommand implements Command {
     @Override

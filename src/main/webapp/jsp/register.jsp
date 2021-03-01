@@ -15,7 +15,7 @@
 		<em>Register User</em><br/>
 		<em>${sessionScope.registrationStatus}</em>
 		<form action="controller" method="post">
-		  <input type="hidden" name="command" value="registerUser"/>
+		  <input type="hidden" name="command" value="register_user"/>
 			<label for="username">Username</label>
 			<input type="text" name="username" id="username" required>
 			<br/>

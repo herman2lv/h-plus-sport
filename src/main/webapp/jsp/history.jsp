@@ -51,7 +51,7 @@
                 <c:if test="${!order.status}">
                   <fmt:message key="ui.orderStatus.pending"/>
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="removeOrder">
+                    <input type="hidden" name="command" value="remove_order">
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.removeFromOrders"/>'>
                   </form>

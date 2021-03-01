@@ -32,13 +32,13 @@
 			<c:if test="${sessionScope.username == null}">
 				<li>
 				  <form action="controller" method="get">
-            <input type="hidden" name="command" value="loginPage"/>
+            <input type="hidden" name="command" value="login_page"/>
             <input type="submit" value='<fmt:message key="ui.header.login"/>'/>
           </form>
 				</li>
 				<li>
 				  <form action="controller" method="get">
-            <input type="hidden" name="command" value="registerUserPage"/>
+            <input type="hidden" name="command" value="register_user_page"/>
             <input type="submit" value='<fmt:message key="ui.header.newUser"/>'/>
           </form>
 				</li>
@@ -53,7 +53,7 @@
         <c:if test="${sessionScope.userRole == 2}">
           <li>
             <form action="controller" method="get">
-              <input type="hidden" name="command" value="orderManagement"/>
+              <input type="hidden" name="command" value="order_management"/>
               <input type="submit" value='<fmt:message key="ui.header.orderManagement"/>'/>
             </form>
           </li>
@@ -61,13 +61,13 @@
         <c:if test="${sessionScope.userRole == 1}">
           <li>
             <form action="controller" method="get">
-              <input type="hidden" name="command" value="userManagement"/>
+              <input type="hidden" name="command" value="user_management"/>
               <input type="submit" value='<fmt:message key="ui.header.userManagement"/>'/>
             </form>
           </li>
           <li>
             <form action="controller" method="get">
-              <input type="hidden" name="command" value="registerUserPage"/>
+              <input type="hidden" name="command" value="register_user_page"/>
               <input type="submit" value='<fmt:message key="ui.header.addNewUser"/>'/>
             </form>
           </li>

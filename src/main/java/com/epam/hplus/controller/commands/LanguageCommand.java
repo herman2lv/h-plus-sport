@@ -1,10 +1,10 @@
 package com.epam.hplus.controller.commands;
 
-import com.epam.hplus.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.ConfigurationManger;
 import jakarta.servlet.http.HttpServletRequest;
 
-import static com.epam.hplus.constants.Context.REQUEST_LANGUAGE;
-import static com.epam.hplus.constants.Context.SESSION_LANGUAGE;
+import static com.epam.hplus.util.constants.Context.REQUEST_LANGUAGE;
+import static com.epam.hplus.util.constants.Context.SESSION_LANGUAGE;
 
 public class LanguageCommand implements Command {
     @Override

@@ -50,7 +50,7 @@
                 <c:if test="${order.status}">
                   <fmt:message key="ui.orderStatus.approved"/>
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="rejectOrder">
+                    <input type="hidden" name="command" value="reject_order">
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.reject"/>'>
                   </form>
@@ -58,12 +58,12 @@
                 <c:if test="${!order.status}">
                   <fmt:message key="ui.orderStatus.pending"/>
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="removeOrderByManager">
+                    <input type="hidden" name="command" value="remove_order_by_manager">
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.removeFromOrders"/>'>
                   </form>
                   <form action="controller" method="post">
-                    <input type="hidden" name="command" value="approveOrder">
+                    <input type="hidden" name="command" value="approve_order">
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.approve"/>'>
                   </form>
