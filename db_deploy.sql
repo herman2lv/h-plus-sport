@@ -50,16 +50,60 @@ INSERT into users values('luka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
                          'Alexander','Showshenko','1954-08-30','Playing a sport', 2, true);
 INSERT into users values('herman','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
                          'Herman','House','1999-09-15','Exercise in Gym', 2, true);
+INSERT into users values('boris','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'June','Swift','1979-08-06','Exercise in Gym', 2, true);
+INSERT into users values('kitty','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Ann','Cruise','1978-11-14','Playing a sport', 3, true);
+INSERT into users values('maroon','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Tom','Hornet','1969-12-22','Exercise in Gym', 3, true);
+INSERT into users values('wissenbad','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Karen','Jakobson','1982-06-26','Playing a sport', 3, true);
+INSERT into users values('bechebe','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Elizabeth','Horeing','1984-06-23','Exercise in Gym', 3, true);
+INSERT into users values('candibober','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Manilla','Windsdor','1998-04-08','Playing a sport', 3, true);
+INSERT into users values('kandibober','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Cameron','Canterberry','1991-09-05','Exercise in Gym', 3, true);
+INSERT into users values('lolka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Johanna','Fairystin','1992-10-05','Playing a sport', 3, true);
+INSERT into users values('native','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Rebekka','Kimanno','1989-12-02','Exercise in Gym', 3, true);
+INSERT into users values('youmotherfriend','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Camilla','Schwarzkopf','1972-11-11','Exercise in Gym', 3, true);
+INSERT into users values('letsdoit','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Bernard','Totenbrom','1976-01-10','Playing a sport', 3, true);
+INSERT into users values('camelcompact','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Nissan','Burstenster','1965-05-12','Exercise in Gym', 3, true);
+INSERT into users values('nairobi','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Lima','Hopkins','1974-03-17','Exercise in Gym', 3, true);
+INSERT into users values('yamaha','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Mandy','West','1998-07-18','Playing a sport', 3, true);
+INSERT into users values('mariupol','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'John','Black','1949-08-17','Exercise in Gym', 3, true);
+INSERT into users values('lengsington','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Carrol','Miranst','1978-11-12','Playing a sport', 2, true);
+INSERT into users values('remarka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+                         'Andrew','Lloyd','1955-06-11','Exercise in Gym', 2, true);
 
 INSERT into orders (username, order_date, order_cost, confirmation_status)
-    values('admin', '2020-03-07', 55.23, true),
+    values('admin', '2021-01-01', 45.23, true),
         ('admin', '2021-01-02', 52.23, true),
         ('user', '2027-01-09', 25.01, true),
         ('luka', '2021-01-12', 33.99, true),
         ('herman', '2021-01-17', 82.99, true),
-        ('luka', '2021-02-02', 38.89, true),
-        ('user', '2021-02-21', 27.00, true),
-        ('admin', '2021-02-22', 75.00, true);
+        ('luka', '2021-02-02', 27.89, true),
+        ('user', '2021-02-06', 55.35, true),
+        ('boris', '2021-02-08', 103.67, true),
+        ('lengsington', '2021-02-11', 75.72, true),
+        ('remarka', '2021-02-12', 72.98, true),
+        ('nairobi', '2021-02-13', 57.43, true),
+        ('letsdoit', '2021-02-15', 54.67, true),
+        ('boris', '2021-02-16', 46.32, true),
+        ('user', '2021-02-17', 37.09, true),
+        ('user', '2021-02-18', 17.04, true),
+        ('candibober', '2021-02-18', 28.48, false),
+        ('kandibober', '2021-02-19', 14.27, false),
+        ('lolka', '2021-02-20', 35.99, false);
 
 INSERT into products (product_name, image_path, cost, description, active)
     values('Mineralwater Blueberry','images/mineralwater-blueberry.jpg', 2.14,
@@ -102,4 +146,33 @@ INSERT into orders_details
         (8, 7, 3),
         (8, 3, 8),
         (8, 9, 1),
-        (8, 10, 1);
+        (9, 9, 1),
+        (9, 6, 2),
+        (9, 1, 2),
+        (10, 12, 1),
+        (10, 9, 4),
+        (11, 2, 4),
+        (11, 3, 4),
+        (11, 5, 1),
+        (11, 9, 1),
+        (12, 8, 1),
+        (12, 2, 2),
+        (12, 1, 3),
+        (13, 4, 4),
+        (14, 6, 1),
+        (14, 7, 2),
+        (14, 11, 1),
+        (15, 10, 3),
+        (15, 8, 1),
+        (15, 8, 2),
+        (15, 7, 1),
+        (16, 4, 2),
+        (16, 3, 1),
+        (17, 2, 6),
+        (17, 11, 6),
+        (18, 10, 1),
+        (18, 7, 3),
+        (18, 12, 1),
+        (18, 11, 2),
+        (18, 6, 3),
+        (18, 4, 1);
