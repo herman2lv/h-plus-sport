@@ -25,7 +25,7 @@
         <input type="hidden" name="page" value="${page}"/>
         <button><fmt:message key="ui.addNewProduct"/></button>
       </form>
-      <c:if test="${products.size() > 0}">
+      <c:if test="${numberOfItems > 0}">
 
         <fmt:message key="ui.totalProducts"/> ${numberOfItems}
         <jsp:include page="paginator.jsp"/>
@@ -70,7 +70,7 @@
 
         <br/>
       </c:if>
-      <c:if test="${products.size() == 0}">
+      <c:if test="${numberOfItems == 0}">
         <p><fmt:message key="ui.emptyProductList"/></p>
       </c:if>
     </div>

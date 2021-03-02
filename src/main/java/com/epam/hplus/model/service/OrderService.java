@@ -12,8 +12,12 @@ public class OrderService {
     private OrderService() {
     }
 
-    public static List<Order> getOrdersOfUser(String username) {
-        return ORDER_DAO.getOrdersByUser(username);
+    public static List<Order> getOrdersOfUser(String username, int currentIndex, int itemsOnPage) {
+        return ORDER_DAO.getOrdersByUser(username, currentIndex, itemsOnPage);
+    }
+
+    public static int countOrdersOfUser(String username) {
+        return ORDER_DAO.countOrdersOfUser(username);
     }
 
     public static boolean createOrder(Order order) {

@@ -35,7 +35,11 @@ import static com.epam.hplus.util.constants.Database.PRODUCTS_PRODUCT_NAME;
 public class OrderDaoJdbc implements OrderDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderDaoJdbc.class);
     private static final OrderDaoJdbc INSTANCE = new OrderDaoJdbc();
-    private static final String SELECT_ORDERS_BY_USER = "SELECT * FROM orders WHERE username = ?";
+    private static final String SELECT_ORDERS_BY_USER =
+            "SELECT * FROM orders WHERE username = ? LIMIT ?, ?";
+    private static final int SELECT_BY_USER_USERNAME_INDEX = 1;
+    private static final int SELECT_BY_USER_LIMIT_CURRENT_INDEX = 2;
+    private static final int SELECT_BY_USER_LIMIT_ON_PAGE_INDEX = 3;
     private static final String SELECT_ORDERS_DETAILS = "SELECT * FROM orders_details "
             + "LEFT JOIN products ON orders_details.product_id = products.product_id "
             + "WHERE orders_details.order_id = ?";
@@ -57,8 +61,8 @@ public class OrderDaoJdbc implements OrderDao {
     private static final String SELECT_IS_APPROVED =
             "SELECT confirmation_status FROM orders WHERE order_id = ?";
     private static final String SELECT_ALL_ORDERS = "SELECT * FROM orders LIMIT ?, ?";
-    private static final int LIMIT_CURRENT_INDEX = 1;
-    private static final int LIMIT_ON_PAGE_INDEX = 2;
+    private static final int SELECT_ALL_LIMIT_CURRENT_INDEX = 1;
+    private static final int SELECT_ALL_LIMIT_ON_PAGE_INDEX = 2;
     private static final String SELECT_ORDER_BY_ID = "SELECT * FROM orders WHERE order_id = ?";
     private static final String UPDATE_ORDER =
             "UPDATE orders SET username = ?, order_date = ?, order_cost = ?, "
@@ -67,6 +71,8 @@ public class OrderDaoJdbc implements OrderDao {
     private static final int INVALID_ID = -1;
     protected static final int INVALID_COUNT = -1;
     protected static final String COUNT_ORDERS = "SELECT COUNT(*) FROM orders";
+    protected static final String COUNT_ORDERS_BY_USER =
+            "SELECT COUNT(*) FROM orders WHERE username = ?";
 
     private OrderDaoJdbc() {
     }
@@ -76,13 +82,15 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public List<Order> getOrdersByUser(String username) {
+    public List<Order> getOrdersByUser(String username, int currentIndex, int itemsOnPage) {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statementOrders =
+             PreparedStatement statement =
                      connection.prepareStatement(SELECT_ORDERS_BY_USER)) {
-            statementOrders.setString(1, username);
-            try (ResultSet ordersSet = statementOrders.executeQuery()) {
+            statement.setString(SELECT_BY_USER_USERNAME_INDEX, username);
+            statement.setInt(SELECT_BY_USER_LIMIT_CURRENT_INDEX, currentIndex);
+            statement.setInt(SELECT_BY_USER_LIMIT_ON_PAGE_INDEX, itemsOnPage);
+            try (ResultSet ordersSet = statement.executeQuery()) {
                 while (ordersSet.next()) {
                     orders.add(createInstanceOfOrder(connection, ordersSet));
                 }
@@ -91,6 +99,36 @@ public class OrderDaoJdbc implements OrderDao {
             LOGGER.error(e.getMessage(), e);
         }
         return orders;
+    }
+
+    @Override
+    public int countOrdersOfUser(String username) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_ORDERS_BY_USER)) {
+            statement.setString(1, username);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return INVALID_COUNT;
+    }
+
+    @Override
+    public int countOrders() {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(COUNT_ORDERS)) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return INVALID_COUNT;
     }
 
     private Map<Product, Long> createMapOfProducts(ResultSet productsSet)
@@ -224,8 +262,8 @@ public class OrderDaoJdbc implements OrderDao {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_ORDERS)) {
-            statement.setInt(LIMIT_CURRENT_INDEX, currentIndex);
-            statement.setInt(LIMIT_ON_PAGE_INDEX, itemsOnPage);
+            statement.setInt(SELECT_ALL_LIMIT_CURRENT_INDEX, currentIndex);
+            statement.setInt(SELECT_ALL_LIMIT_ON_PAGE_INDEX, itemsOnPage);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     orders.add(createInstanceOfOrder(connection, resultSet));
@@ -235,20 +273,6 @@ public class OrderDaoJdbc implements OrderDao {
             LOGGER.error(e.getMessage(), e);
         }
         return orders;
-    }
-
-    @Override
-    public int countOrders() {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(COUNT_ORDERS)) {
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-        return INVALID_COUNT;
     }
 
     @Override

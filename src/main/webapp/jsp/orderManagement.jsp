@@ -18,7 +18,7 @@
   <section id="orders" class="section">
     <div class="container">
       <h2 class="headline"><fmt:message key="ui.listOfOrders"/></h2>
-      <c:if test="${orders.size() > 0}">
+      <c:if test="${numberOfItems > 0}">
         <fmt:message key="ui.totalOrders"/> ${numberOfItems}
 
         <jsp:include page="paginator.jsp"/>
@@ -84,7 +84,7 @@
 
         <br/>
       </c:if>
-      <c:if test="${orders.size() == 0}">
+      <c:if test="${numberOfItems == 0}">
         <p><fmt:message key="ui.emptyOrderList"/></p>
       </c:if>
     </div>

@@ -23,7 +23,7 @@
       <input type="hidden" name="command" value="register_user_page"/>
       <input type="submit" value='<fmt:message key="ui.header.addNewUser"/>'/>
     </form>
-    <c:if test="${users.size() > 0}">
+    <c:if test="${numberOfItems > 0}">
       <fmt:message key="ui.totalUsers"/> ${numberOfItems}
 
       <jsp:include page="paginator.jsp"/>
@@ -86,7 +86,7 @@
     <jsp:include page="paginator.jsp"/>
 
     </c:if>
-    <c:if test="${users.size() == 0}">
+    <c:if test="${numberOfItems == 0}">
       <p><fmt:message key="ui.emptyUserList"/></p>
     </c:if>
   </div>
