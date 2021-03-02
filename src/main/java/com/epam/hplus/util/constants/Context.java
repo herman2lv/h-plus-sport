@@ -28,6 +28,10 @@ public class Context {
     public static final String REQUEST_ORDER = "order";
     public static final String SESSION_USER_ROLE = "userRole";
     public static final String REQUEST_USERS = "users";
+    public static final String REQUEST_PAGE = "page";
+    public static final String REQUEST_NUMBER_OF_ITEMS = "numberOfItems";
+    public static final String REQUEST_NUMBER_OF_PAGES = "numberOfPages";
+    public static final String REQUEST_CURRENT_INDEX = "index";
 
     private Context() {
     }

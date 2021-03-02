@@ -28,22 +28,13 @@ import static com.epam.hplus.util.constants.Database.USERS_PASSWORD;
 import static com.epam.hplus.util.constants.Database.USERS_PASSWORD_INDEX;
 import static com.epam.hplus.util.constants.Database.USERS_ROLE;
 import static com.epam.hplus.util.constants.Database.USERS_ROLE_INDEX;
-import static com.epam.hplus.util.constants.Database.USERS_TABLE;
 import static com.epam.hplus.util.constants.Database.USERS_USERNAME;
 import static com.epam.hplus.util.constants.Database.USERS_USERNAME_INDEX;
 
 public class UserDaoJdbc implements UserDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoJdbc.class);
     private static final UserDaoJdbc INSTANCE = new UserDaoJdbc();
-    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
-    private static final String WHERE = " WHERE ";
-    private static final String EQUALS = " = ";
-    private static final String INSERT_INTO = "INSERT into ";
-    private static final String QUESTION_MARK = "?";
-    private static final String AND = " AND ";
-    private static final String UPDATE = "UPDATE ";
-    private static final String SET = " SET ";
-    private static final String COMA = ", ";
+    private static final String INSERT_USER = "INSERT into users values (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final int UPDATE_USER_PASSWORD_COLUMN = 1;
     private static final int UPDATE_USER_FIRST_NAME_COLUMN = 2;
     private static final int UPDATE_USER_LAST_NAME_COLUMN = 3;
@@ -52,7 +43,19 @@ public class UserDaoJdbc implements UserDao {
     private static final int UPDATE_USER_ROLE_COLUMN = 6;
     private static final int UPDATE_USER_ACTIVE_COLUMN = 7;
     private static final int UPDATE_USER_USERNAME_COLUMN = 8;
-    private static final String TRUE = "TRUE";
+    private static final String SELECT_USER_BY_USERNAME =
+            "SELECT * FROM users WHERE username = ? AND active = TRUE";
+    private static final String SELECT_USER_BY_CREDENTIALS =
+            "SELECT * FROM users WHERE username = ? AND password = ? AND active = TRUE";
+    private static final String SELECT_ALL_USERS =
+            "SELECT * FROM users WHERE active = TRUE LIMIT ?, ?";
+    private static final int LIMIT_CURRENT_INDEX = 1;
+    private static final int LIMIT_ON_PAGE_INDEX = 2;
+    private static final String COUNT_USERS = "SELECT COUNT(*) FROM users WHERE active = TRUE";
+    protected static final int INVALID_COUNT = -1;
+    private static final String UPDATE_USER = "UPDATE users SET password = ?, "
+            + "first_name = ?, last_name = ?, date_of_birth = ?, activity = ?, "
+            + "user_role = ?, active = ? WHERE username = ?";
 
     private UserDaoJdbc() {
     }
@@ -63,9 +66,8 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public int createUser(User user) {
-        String query = INSERT_INTO + USERS_TABLE + " values (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(INSERT_USER)) {
             statement.setString(USERS_USERNAME_INDEX, user.getUsername());
             statement.setString(USERS_PASSWORD_INDEX, user.getPassword());
             statement.setString(USERS_FIRST_NAME_INDEX, user.getFirstName());
@@ -84,11 +86,8 @@ public class UserDaoJdbc implements UserDao {
     @Override
     public User getUser(String username) {
         User user = null;
-        String query = SELECT_ALL_FROM + USERS_TABLE
-                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK + AND
-                + USERS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(SELECT_USER_BY_USERNAME)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -102,14 +101,10 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean validateUserCredentials(String username,
-                                           String password) {
-        String query = SELECT_ALL_FROM + USERS_TABLE
-                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK
-                + AND + USERS_PASSWORD + EQUALS + QUESTION_MARK
-                + AND + USERS_ACTIVE + EQUALS + TRUE;
+    public boolean validateUserCredentials(String username, String password) {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement =
+                     connection.prepareStatement(SELECT_USER_BY_CREDENTIALS)) {
             statement.setString(1, username);
             statement.setString(2, password);
             try (ResultSet set = statement.executeQuery()) {
@@ -137,14 +132,16 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> getUsers(int currentIndex, int itemsOnPage) {
         List<User> users = new ArrayList<>();
-        String query = SELECT_ALL_FROM + USERS_TABLE + WHERE + USERS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
-                users.add(createInstanceOfUser(resultSet));
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS)) {
+            statement.setInt(LIMIT_CURRENT_INDEX, currentIndex);
+            statement.setInt(LIMIT_ON_PAGE_INDEX, itemsOnPage);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    users.add(createInstanceOfUser(resultSet));
+                }
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
@@ -153,18 +150,23 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public boolean updateUser(User user) {
-        String query = UPDATE + USERS_TABLE + SET
-                + USERS_PASSWORD + EQUALS + QUESTION_MARK + COMA
-                + USERS_FIRST_NAME + EQUALS + QUESTION_MARK + COMA
-                + USERS_LAST_NAME + EQUALS + QUESTION_MARK + COMA
-                + USERS_DOB + EQUALS + QUESTION_MARK + COMA
-                + USERS_ACTIVITY + EQUALS + QUESTION_MARK + COMA
-                + USERS_ROLE + EQUALS + QUESTION_MARK + COMA
-                + USERS_ACTIVE + EQUALS + QUESTION_MARK
-                + WHERE + USERS_USERNAME + EQUALS + QUESTION_MARK;
+    public int countUsers() {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(COUNT_USERS)) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return INVALID_COUNT;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USER)) {
             statement.setString(UPDATE_USER_PASSWORD_COLUMN, user.getPassword());
             statement.setString(UPDATE_USER_FIRST_NAME_COLUMN, user.getFirstName());
             statement.setString(UPDATE_USER_LAST_NAME_COLUMN, user.getLastName());

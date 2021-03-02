@@ -8,6 +8,7 @@ public interface UserDao {
         int createUser(User user);
         User getUser(String username);
         boolean updateUser(User user);
-        List<User> getUsers();
+        List<User> getUsers(int currentIndex, int itemsOnPage);
+        int countUsers();
         boolean validateUserCredentials(String username, String password);
 }

@@ -32,8 +32,12 @@ public class UserService {
         return USER_DAO.updateUser(user);
     }
 
-    public static List<User> getUsers() {
-        return USER_DAO.getUsers();
+    public static List<User> getUsers(int currentIndex, int itemsOnPage) {
+        return USER_DAO.getUsers(currentIndex, itemsOnPage);
+    }
+
+    public static int countUsers() {
+        return USER_DAO.countUsers();
     }
 
     public static boolean registerNewUser(User user) {
