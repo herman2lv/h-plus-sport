@@ -8,7 +8,7 @@ import static com.epam.hplus.util.constants.Context.REQUEST_PAGE;
 
 public class Paginator {
     private static final Logger LOGGER = LoggerFactory.getLogger(Paginator.class);
-    public static final int ITEMS_ON_PAGE = 2;
+    public static final int ITEMS_ON_PAGE = 5;
 
     private Paginator() {
     }

@@ -19,6 +19,10 @@
     <div class="container">
       <h2 class="headline"><fmt:message key="ui.listOfOrders"/></h2>
       <c:if test="${orders.size() > 0}">
+        <fmt:message key="ui.totalOrders"/> ${numberOfItems}
+
+        <jsp:include page="paginator.jsp"/>
+
         <table id="orderHistory">
           <tr>
             <th><fmt:message key="ui.orderNo"/></th>
@@ -31,7 +35,7 @@
           </tr>
           <c:forEach items="${orders}" var="order" varStatus="counter">
             <tr>
-              <td>${counter.count}</td>
+              <td>${counter.count + index}</td>
               <td>${order.username}</td>
               <td>${order.orderId}</td>
               <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
@@ -51,6 +55,7 @@
                   <fmt:message key="ui.orderStatus.approved"/>
                   <form action="controller" method="post">
                     <input type="hidden" name="command" value="reject_order">
+                    <input type="hidden" name="page" value="${page}"/>
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.reject"/>'>
                   </form>
@@ -59,11 +64,13 @@
                   <fmt:message key="ui.orderStatus.pending"/>
                   <form action="controller" method="post">
                     <input type="hidden" name="command" value="remove_order_by_manager">
+                    <input type="hidden" name="page" value="${page}"/>
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.removeFromOrders"/>'>
                   </form>
                   <form action="controller" method="post">
                     <input type="hidden" name="command" value="approve_order">
+                    <input type="hidden" name="page" value="${page}"/>
                     <input type="hidden" name="order" value="${order.orderId}">
                     <input type="submit" value='<fmt:message key="ui.approve"/>'>
                   </form>
@@ -72,6 +79,9 @@
             </tr>
           </c:forEach>
         </table>
+
+        <jsp:include page="paginator.jsp"/>
+
         <br/>
       </c:if>
       <c:if test="${orders.size() == 0}">

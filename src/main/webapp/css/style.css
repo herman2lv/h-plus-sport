@@ -691,3 +691,9 @@ section#login {
 		width: 50%;
 }
 
+.paginator td {
+	width: 100px;
+	padding: 10px;
+	text-align: center;
+}
+

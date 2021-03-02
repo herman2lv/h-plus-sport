@@ -24,8 +24,12 @@ public class OrderService {
         return ORDER_DAO.removeOrder(orderId);
     }
 
-    public static List<Order> getOrders() {
-        return ORDER_DAO.getOrders();
+    public static List<Order> getOrders(int currentIndex, int itemsOnPage) {
+        return ORDER_DAO.getOrders(currentIndex, itemsOnPage);
+    }
+
+    public static int countOrders() {
+        return ORDER_DAO.countOrders();
     }
 
     public static boolean approveOrder(int orderId) {
