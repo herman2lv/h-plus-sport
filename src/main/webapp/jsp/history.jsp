@@ -39,15 +39,15 @@
               <table>
                 <c:forEach items="${order.listOfProducts}" var="product">
                   <tr>
-                    <td>${product.key.name}</td>
+                    <td><c:out value="${product.key.name}"/></td>
                     <td><img width="100px" height="75px"
-                             src="${product.key.productImgPath}"></td>
+                             src="<c:out value="${product.key.productImgPath}"/>"></td>
                     <td> x ${product.value}</td>
                   </tr>
                 </c:forEach>
               </table>
             </td>
-            <td>$${order.orderCost}</td>
+            <td>$<c:out value="${order.orderCost}"/></td>
             <td>
               <c:if test="${order.status}">
                 <fmt:message key="ui.orderStatus.approved"/>

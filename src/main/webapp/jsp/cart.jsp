@@ -32,12 +32,12 @@
         <c:forEach items="${groupedProducts}" var="productEntry" varStatus="counter">
           <tr>
             <td>${counter.count}</td>
-            <td>${productEntry.key.name}</td>
+            <td><c:out value="${productEntry.key.name}"/></td>
             <td>
-              <img width="100px" height="75px" src="${productEntry.key.productImgPath}">
+              <img width="100px" height="75px" src="<c:out value="${productEntry.key.productImgPath}"/>">
             </td>
-            <td>$${productEntry.key.cost}</td>
-            <td>${productEntry.value}</td>
+            <td>$<c:out value="${productEntry.key.cost}"/></td>
+            <td><c:out value="${productEntry.value}"/></td>
             <td>
               <form action="controller" method="post">
                 <input type="hidden" name="command" value="remove_product"/>

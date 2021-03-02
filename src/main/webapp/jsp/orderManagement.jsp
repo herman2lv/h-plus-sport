@@ -36,20 +36,20 @@
         <c:forEach items="${orders}" var="order" varStatus="counter">
           <tr>
             <td>${counter.count + index}</td>
-            <td>${order.username}</td>
+            <td><c:out value="${order.username}"/></td>
             <td>${order.orderId}</td>
             <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
             <td>
               <table>
                 <c:forEach items="${order.listOfProducts}" var="product">
                   <tr>
-                    <td>${product.key.name}</td>
+                    <td><c:out value="${product.key.name}"/></td>
                     <td> x ${product.value}</td>
                   </tr>
                 </c:forEach>
               </table>
             </td>
-            <td>$${order.orderCost}</td>
+            <td>$<c:out value="${order.orderCost}"/></td>
             <td>
               <c:if test="${order.status}">
                 <fmt:message key="ui.orderStatus.approved"/>

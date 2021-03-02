@@ -21,15 +21,15 @@
     <table id="profileTable">
       <tr>
         <td><fmt:message key="ui.username"/></td>
-        <td>${user.username}</td>
+        <td><c:out value="${user.username}"/></td>
       </tr>
       <tr>
         <td><fmt:message key="ui.firsName"/></td>
-        <td>${user.firstName}</td>
+        <td><c:out value="${user.firstName}"/></td>
       </tr>
       <tr>
         <td><fmt:message key="ui.lastName"/></td>
-        <td>${user.lastName}</td>
+        <td><c:out value="${user.lastName}"/></td>
       </tr>
       <tr>
         <td><fmt:message key="ui.dateOfBirth"/></td>
@@ -37,7 +37,7 @@
       </tr>
       <tr>
         <td><fmt:message key="ui.activity"/></td>
-        <td>${user.activity}</td>
+        <td><c:out value="${user.activity}"/></td>
       </tr>
     </table>
   </div>

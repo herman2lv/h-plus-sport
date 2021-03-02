@@ -42,11 +42,11 @@
         <c:forEach items="${users}" var="user" varStatus="counter">
           <tr>
             <td>${counter.count + index}</td>
-            <td>${user.username}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
+            <td><c:out value="${user.username}"/></td>
+            <td><c:out value="${user.firstName}"/></td>
+            <td><c:out value="${user.lastName}"/></td>
             <td><fmt:formatDate value="${user.dateOfBirth}" pattern="yyyy-MM-dd"/></td>
-            <td>${user.activity}</td>
+            <td><c:out value="${user.activity}"/></td>
             <td>
               <c:if test="${user.role == 1}"><fmt:message key="ui.role.admin"/></c:if>
               <c:if test="${user.role == 2}"><fmt:message key="ui.role.manager"/></c:if>

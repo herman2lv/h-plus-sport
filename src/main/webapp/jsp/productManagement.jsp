@@ -43,11 +43,11 @@
         <c:forEach items="${products}" var="product" varStatus="counter">
           <tr>
             <td>${counter.count + index}</td>
-            <td>${product.name}</td>
-            <td><img id="pic1" width="80px" height="60px" src="${product.productImgPath}"></td>
-            <td>${product.productImgPath}</td>
-            <td>${product.description}</td>
-            <td>$${product.cost}</td>
+            <td><c:out value="${product.name}"/></td>
+            <td><img id="pic1" width="80px" height="60px" src="<c:out value="${product.productImgPath}"/>"></td>
+            <td><c:out value="${product.productImgPath}"/></td>
+            <td><c:out value="${product.description}"/></td>
+            <td>$<c:out value="${product.cost}"/></td>
             <td>
               <form method="get" action="controller">
                 <input type="hidden" name="product" value="${product.productId}">
