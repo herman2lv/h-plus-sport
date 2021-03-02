@@ -1,7 +1,7 @@
 package com.epam.hplus.model.pool;
 
 import com.epam.hplus.util.resources.ConfigurationManger;
-import com.epam.hplus.util.resources.MessageManager;
+import com.epam.hplus.util.resources.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +30,11 @@ public enum ConnectionPool {
         String password = ConfigurationManger.getProperty("db.password");
         try {
             Class.forName(driverName);
-            logger.info(MessageManager.getMessage("log.driverLoaded"));
+            logger.info(LogManager.getMessage("log.driverLoaded"));
             for (int i = 0; i < POOL_SIZE; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 freeConnections.offer(new ProxyConnection(connection));
-                logger.info(MessageManager.getMessage("log.connectionCreated"));
+                logger.info(LogManager.getMessage("log.connectionCreated"));
             }
         } catch (SQLException | ClassNotFoundException e) {
             logger.error(e.getMessage(), e);
@@ -56,7 +56,7 @@ public enum ConnectionPool {
         if (connection instanceof ProxyConnection && givenConnections.remove(connection)) {
             freeConnections.offer((ProxyConnection) connection);
         } else {
-            logger.warn(MessageManager.getMessage("msg.notProxyConnection"));
+            logger.warn(LogManager.getMessage("log.notProxyConnection"));
         }
     }
 
@@ -64,7 +64,7 @@ public enum ConnectionPool {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
                 freeConnections.take().reallyClose();
-                logger.info(MessageManager.getMessage("log.connectionClosed"));
+                logger.info(LogManager.getMessage("log.connectionClosed"));
             } catch (SQLException | InterruptedException e) {
                 logger.error(e.getMessage(), e);
             }
@@ -76,7 +76,7 @@ public enum ConnectionPool {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {
                 DriverManager.deregisterDriver(driver);
-                logger.info(MessageManager.getMessage("log.driverDeregistered"));
+                logger.info(LogManager.getMessage("log.driverDeregistered"));
             } catch (SQLException e) {
                 logger.error(e.getMessage(), e);
             }

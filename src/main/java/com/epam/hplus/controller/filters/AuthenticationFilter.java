@@ -1,6 +1,7 @@
 package com.epam.hplus.controller.filters;
 
 import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.LogManager;
 import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -44,7 +45,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String action = req.getParameter("command");
         if (isRestrictedAction(action, request)) {
-            LOGGER.info(MessageManager.getMessage("log.unauthorized"),
+            LOGGER.info(LogManager.getMessage("log.unauthorized"),
                     request.getRequestURI(), action);
             req.setAttribute(REQUEST_ERROR, MessageManager.getMessage("msg.unauthorized"));
             req.getRequestDispatcher(

@@ -6,6 +6,7 @@ import com.epam.hplus.controller.commands.util.PasswordEncryptor;
 import com.epam.hplus.model.service.UserService;
 import com.epam.hplus.model.validators.UserValidator;
 import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.LogManager;
 import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -51,10 +52,10 @@ public class RegisterUserCommand implements Command {
             user.setActive(true);
             if (UserService.registerNewUser(user)) {
                 registrationStatus = MessageManager.getMessage("msg.registeredSuccess");
-                LOGGER.info(MessageManager.getMessage("log.registeredSuccess"));
+                LOGGER.info(LogManager.getMessage("log.registeredSuccess"));
             } else {
                 registrationStatus = MessageManager.getMessage("msg.notRegistered");
-                LOGGER.info(MessageManager.getMessage("log.notRegistered"));
+                LOGGER.info(LogManager.getMessage("log.notRegistered"));
             }
         } else {
             registrationStatus = validationStatus.toString();

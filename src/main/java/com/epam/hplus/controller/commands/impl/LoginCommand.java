@@ -4,6 +4,7 @@ import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.controller.commands.util.PasswordEncryptor;
 import com.epam.hplus.model.beans.User;
 import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.LogManager;
 import com.epam.hplus.util.resources.MessageManager;
 import com.epam.hplus.model.service.LoginService;
 import com.epam.hplus.model.service.UserService;
@@ -34,7 +35,7 @@ public class LoginCommand implements Command {
             return ConfigurationManger.getProperty("page.index");
         } else {
             if (username != null) {
-                LOGGER.info(MessageManager.getMessage("log.invalidCredentials"));
+                LOGGER.info(LogManager.getMessage("log.invalidCredentials"));
                 req.setAttribute(REQUEST_ERROR,
                         MessageManager.getMessage("msg.invalidCredentials"));
             }

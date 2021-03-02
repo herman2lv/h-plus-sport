@@ -1,6 +1,6 @@
 package com.epam.hplus.controller.filters;
 
-import com.epam.hplus.util.resources.MessageManager;
+import com.epam.hplus.util.resources.LogManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,7 +23,7 @@ public class DirectAccessSecurityFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        LOGGER.info(MessageManager.getMessage("log.directAccess"), req.getRequestURI());
+        LOGGER.info(LogManager.getMessage("log.directAccess"), req.getRequestURI());
         resp.sendRedirect(req.getContextPath());
     }
 }
