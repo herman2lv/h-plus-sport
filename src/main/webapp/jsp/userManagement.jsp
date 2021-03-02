@@ -83,7 +83,7 @@
       </table>
       <br/>
 
-    <jsp:include page="paginator.jsp"/>
+      <jsp:include page="paginator.jsp"/>
 
     </c:if>
     <c:if test="${numberOfItems == 0}">

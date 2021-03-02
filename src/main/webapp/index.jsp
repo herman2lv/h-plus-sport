@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
-         errorPage="jsp/error.jsp" isErrorPage="false"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+         errorPage="jsp/error.jsp" isErrorPage="false" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${sessionScope.language != null}">
   <fmt:setLocale value="${sessionScope.language}"/>
@@ -33,7 +33,7 @@
   <header class="imageheader"></header>
   <div class="container">
     <h2 class="headline"><fmt:message key="ui.products"/></h2>
-    <p><fmt:message key="ui.productsDescription"/> </p>
+    <p><fmt:message key="ui.productsDescription"/></p>
   </div>
   <ul class="product-list">
     <li class="product-item">
@@ -85,11 +85,13 @@
       <h2 class="product-name">Multi-vitamin</h2>
     </li>
     <li class="product-item">
-      <img class="product-image" src="images/proteinbar-peanutbutter.jpg" alt="Vitamin Protein Bar Peanut Butter - Product Photo">
+      <img class="product-image" src="images/proteinbar-peanutbutter.jpg"
+           alt="Vitamin Protein Bar Peanut Butter - Product Photo">
       <h2 class="product-name">Peanut Butter Protein Bar</h2>
     </li>
     <li class="product-item">
-      <img class="product-image" src="images/mineralwater-strawberry.jpg" alt="Mineral Water Strawberry - Product Photo">
+      <img class="product-image" src="images/mineralwater-strawberry.jpg"
+           alt="Mineral Water Strawberry - Product Photo">
       <h2 class="product-name">Strawberry Mineral Water</h2>
     </li>
     <li class="product-item">
