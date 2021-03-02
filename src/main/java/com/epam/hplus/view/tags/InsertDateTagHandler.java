@@ -1,4 +1,4 @@
-package com.epam.hplus.util.customtags;
+package com.epam.hplus.view.tags;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

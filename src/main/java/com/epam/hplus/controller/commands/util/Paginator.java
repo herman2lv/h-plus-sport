@@ -14,10 +14,16 @@ public class Paginator {
     }
 
     public static int countCurrentIndex(int currentPage) {
+        if (currentPage < 1) {
+            return 0;
+        }
         return (currentPage - 1) * ITEMS_ON_PAGE;
     }
 
     public static int countNumberOfPages(int numberOfItems) {
+        if (numberOfItems < 0) {
+            return 0;
+        }
         int lastPage = numberOfItems % ITEMS_ON_PAGE > 0 ? 1 : 0;
         return numberOfItems / ITEMS_ON_PAGE + lastPage;
     }
