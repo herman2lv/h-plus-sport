@@ -1,4 +1,4 @@
-package com.epam.hplus.model.dao.Impl;
+package com.epam.hplus.model.dao.impl;
 
 import com.epam.hplus.model.beans.Product;
 import com.epam.hplus.model.dao.ProductDao;
@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.hplus.model.dao.Impl.UserDaoJdbc.INVALID_COUNT;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_ACTIVE;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_COST;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_DESCRIPTION;
@@ -49,6 +48,7 @@ public class ProductDaoJdbc implements ProductDao {
     private static final int UPDATE_PRODUCT_ACTIVE_INDEX = 5;
     private static final int UPDATE_PRODUCT_ID_INDEX = 6;
     protected static final String ANY_CHAR = "%";
+    protected static final int INVALID_COUNT = -1;
 
     private ProductDaoJdbc() {
     }

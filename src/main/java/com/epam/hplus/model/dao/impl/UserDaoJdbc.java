@@ -1,4 +1,4 @@
-package com.epam.hplus.model.dao.Impl;
+package com.epam.hplus.model.dao.impl;
 
 import com.epam.hplus.model.beans.User;
 import com.epam.hplus.model.dao.UserDao;
@@ -152,8 +152,8 @@ public class UserDaoJdbc implements UserDao {
     @Override
     public int countUsers() {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(COUNT_USERS)) {
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(COUNT_USERS)) {
             if (resultSet.next()) {
                 return resultSet.getInt(1);
             }

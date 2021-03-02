@@ -1,4 +1,4 @@
-package com.epam.hplus.model.dao.Impl;
+package com.epam.hplus.model.dao.impl;
 
 import com.epam.hplus.model.beans.Order;
 import com.epam.hplus.model.beans.Product;

@@ -1,7 +1,7 @@
 package com.epam.hplus.model.service;
 
 import com.epam.hplus.model.beans.User;
-import com.epam.hplus.model.dao.Impl.UserDaoJdbc;
+import com.epam.hplus.model.dao.impl.UserDaoJdbc;
 import com.epam.hplus.model.dao.UserDao;
 
 import java.util.List;
