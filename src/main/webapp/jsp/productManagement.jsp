@@ -27,6 +27,7 @@
       </form>
       <c:if test="${products.size() > 0}">
 
+        <fmt:message key="ui.totalProducts"/> ${numberOfItems}
         <jsp:include page="paginator.jsp"/>
 
         <table id="orderHistory">
