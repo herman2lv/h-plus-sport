@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:if test="${sessionScope.language != null}">
   <fmt:setLocale value="${sessionScope.language}"/>
 </c:if>
@@ -14,14 +14,14 @@
 </head>
 <body>
 
-  <jsp:include page="header.jsp"/>
-  <jsp:include page="searchSection.jsp"/>
-    
-	<section id="orders" class="section">
-		<div class="container">
-			<h2 class="headline"><fmt:message key="ui.headline.products"/></h2>
-			<p><fmt:message key="ui.search.aboutCatalog"/></p>
-			<p>
+<jsp:include page="header.jsp"/>
+<jsp:include page="searchSection.jsp"/>
+
+<section id="orders" class="section">
+  <div class="container">
+    <h2 class="headline"><fmt:message key="ui.headline.products"/></h2>
+    <p><fmt:message key="ui.search.aboutCatalog"/></p>
+    <p>
         <span id="size">
           <fmt:message key="ui.itemsInCart"/>
           <c:if test="${cart != null}">
@@ -31,43 +31,49 @@
             0
           </c:if>
           <br/>
-          <fmt:message key="ui.search.foundItems"/>
-          ${products.size()}
         </span>
-      </p>
-        <c:if test="${products.size() > 0}">
-          <table id="orderHistory">
-            <tr>
-              <th><fmt:message key="ui.no"/></th>
-              <th><fmt:message key="ui.productName"/></th>
-              <th><fmt:message key="ui.image"/></th>
-              <th id="columnToLimit"><fmt:message key="ui.description"/></th>
-              <th><fmt:message key="ui.cost"/></th>
-              <th></th>
-            </tr>
-            <c:forEach items="${products}" var="product" varStatus="counter">
-              <tr>
-                <td>${counter.count}</td>
-                <td>${product.name}</td>
-                <td><img id="pic1" width="200px" height="150px" src="${product.productImgPath}"></td>
-                <td>${product.description}</td>
-                <td>$${product.cost}</td>
-                <td>
-                  <form method="get" action="controller">
-                    <input type="hidden" name="product" value="${product.productId}">
-                    <input type="hidden" name="command" value="add_product">
-                    <button><fmt:message key="ui.addToCart"/></button>
-                  </form>
-                </td>
-              </tr>
-            </c:forEach>
-          </table>
-        </c:if>
-    </div>
-	</section>
-	<br/>
+    </p>
+    <c:if test="${numberOfItems > 0}">
+      <fmt:message key="ui.search.foundItems"/> ${numberOfItems}
 
-  <jsp:include page="footer.jsp"/>
+      <jsp:include page="paginator.jsp"/>
+
+      <table id="orderHistory">
+        <tr>
+          <th><fmt:message key="ui.no"/></th>
+          <th><fmt:message key="ui.productName"/></th>
+          <th><fmt:message key="ui.image"/></th>
+          <th id="columnToLimit"><fmt:message key="ui.description"/></th>
+          <th><fmt:message key="ui.cost"/></th>
+          <th></th>
+        </tr>
+        <c:forEach items="${products}" var="product" varStatus="counter">
+          <tr>
+            <td>${counter.count + index}</td>
+            <td>${product.name}</td>
+            <td><img id="pic1" width="200px" height="150px" src="${product.productImgPath}"></td>
+            <td>${product.description}</td>
+            <td>$${product.cost}</td>
+            <td>
+              <form method="get" action="controller">
+                <input type="hidden" name="product" value="${product.productId}">
+                <input type="hidden" name="page" value="${page}"/>
+                <input type="hidden" name="command" value="add_product">
+                <button><fmt:message key="ui.addToCart"/></button>
+              </form>
+            </td>
+          </tr>
+        </c:forEach>
+      </table>
+
+      <jsp:include page="paginator.jsp"/>
+
+    </c:if>
+  </div>
+</section>
+<br/>
+
+<jsp:include page="footer.jsp"/>
 
 </body>
 </html>

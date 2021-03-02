@@ -27,14 +27,19 @@ public class ProductDaoJdbc implements ProductDao {
     private static final ProductDaoJdbc INSTANCE = new ProductDaoJdbc();
     private static final String SELECT_ALL_PRODUCTS =
             "SELECT * FROM products WHERE active = TRUE LIMIT ?, ?";
-    private static final int LIMIT_CURRENT_INDEX = 1;
-    private static final int LIMIT_ON_PAGE_INDEX = 2;
+    private static final int SELECT_ALL_LIMIT_CURRENT_INDEX = 1;
+    private static final int SELECT_ALL_LIMIT_ON_PAGE_INDEX = 2;
     private static final String COUNT_PRODUCTS =
             "SELECT COUNT(*) FROM products WHERE active = TRUE";
+    private static final String COUNT_SEARCH_RESULTS =
+            "SELECT COUNT(*) FROM products WHERE product_name LIKE ? AND active = TRUE";
     private static final String SELECT_PRODUCT_BY_ID =
             "SELECT * FROM products WHERE product_id = ?";
     private static final String SELECT_PRODUCTS_LIKE =
-            "SELECT * FROM products WHERE product_name LIKE ? AND active = TRUE";
+            "SELECT * FROM products WHERE product_name LIKE ? AND active = TRUE LIMIT ?, ?";
+    private static final int SEARCH_PATTERN_INDEX = 1;
+    private static final int SELECT_SEARCH_LIMIT_CURRENT_INDEX = 2;
+    private static final int SELECT_SEARCH_LIMIT_ON_PAGE_INDEX = 3;
     private static final String UPDATE_PRODUCT = "UPDATE products SET product_name = ?, "
             + "image_path = ?, cost = ?, description = ?, active = ? WHERE product_id = ?";
     private static final int UPDATE_PRODUCT_NAME_INDEX = 1;
@@ -43,6 +48,7 @@ public class ProductDaoJdbc implements ProductDao {
     private static final int UPDATE_PRODUCT_DESCRIPTION_INDEX = 4;
     private static final int UPDATE_PRODUCT_ACTIVE_INDEX = 5;
     private static final int UPDATE_PRODUCT_ID_INDEX = 6;
+    protected static final String ANY_CHAR = "%";
 
     private ProductDaoJdbc() {
     }
@@ -71,12 +77,14 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     @Override
-    public List<Product> searchProducts(String searchString) {
+    public List<Product> searchProducts(String searchString, int currentIndex, int itemsOnPage) {
         List<Product> products = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_PRODUCTS_LIKE)) {
-            String searchPattern = "%" + searchString + "%";
-            statement.setString(1, searchPattern);
+            String searchPattern = ANY_CHAR + searchString + ANY_CHAR;
+            statement.setString(SEARCH_PATTERN_INDEX, searchPattern);
+            statement.setInt(SELECT_SEARCH_LIMIT_CURRENT_INDEX, currentIndex);
+            statement.setInt(SELECT_SEARCH_LIMIT_ON_PAGE_INDEX, itemsOnPage);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     products.add(createInstanceOfProduct(resultSet));
@@ -86,6 +94,23 @@ public class ProductDaoJdbc implements ProductDao {
             LOGGER.error(e.getMessage(), e);
         }
         return products;
+    }
+
+    @Override
+    public int countSearchResults(String searchString) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_SEARCH_RESULTS)) {
+            String searchPattern = ANY_CHAR + searchString + ANY_CHAR;
+            statement.setString(1, searchPattern);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return INVALID_COUNT;
     }
 
     @Override
@@ -122,8 +147,8 @@ public class ProductDaoJdbc implements ProductDao {
         List<Product> products = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PRODUCTS)) {
-            statement.setInt(LIMIT_CURRENT_INDEX, currentIndex);
-            statement.setInt(LIMIT_ON_PAGE_INDEX, itemsOnPage);
+            statement.setInt(SELECT_ALL_LIMIT_CURRENT_INDEX, currentIndex);
+            statement.setInt(SELECT_ALL_LIMIT_ON_PAGE_INDEX, itemsOnPage);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     products.add(createInstanceOfProduct(resultSet));

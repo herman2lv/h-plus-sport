@@ -16,8 +16,13 @@ public class ProductService {
         return PRODUCT_DAO.getProductById(productId);
     }
 
-    public static List<Product> searchProducts(String searchString) {
-        return PRODUCT_DAO.searchProducts(searchString);
+    public static List<Product> searchProducts(String searchString,
+                                               int currentIndex, int itemsOnPage) {
+        return PRODUCT_DAO.searchProducts(searchString, currentIndex, itemsOnPage);
+    }
+
+    public static int countSearchResults(String searchString) {
+        return PRODUCT_DAO.countSearchResults(searchString);
     }
 
     public static List<Product> getProducts(int currentIndex, int itemsOnPage) {
