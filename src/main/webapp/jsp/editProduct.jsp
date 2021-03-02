@@ -20,6 +20,7 @@
     <h2 class="headline"><fmt:message key="ui.header.editProduct"/></h2>
     <form action="controller" method="post">
       <input type="hidden" name="command" value="edit_product"/>
+      <input type="hidden" name="page" value="${page}"/>
       <input type="hidden" name="product" value="${productId}"/>
       <label for="productName"><fmt:message key="ui.productName"/></label><br/>
       <input type="text" name="productName" id="productName" value="${productName}" required>

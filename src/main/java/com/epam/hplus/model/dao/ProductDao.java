@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ProductDao {
     List<Product> searchProducts(String searchString);
-    List<Product> getProducts();
+    List<Product> getProducts(int currentIndex, int itemsOnPage);
+    int countProducts();
     Product getProductById(int productId);
     boolean updateProduct(Product product);
 }

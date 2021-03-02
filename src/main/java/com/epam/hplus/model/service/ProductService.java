@@ -20,8 +20,12 @@ public class ProductService {
         return PRODUCT_DAO.searchProducts(searchString);
     }
 
-    public static List<Product> getProducts() {
-        return PRODUCT_DAO.getProducts();
+    public static List<Product> getProducts(int currentIndex, int itemsOnPage) {
+        return PRODUCT_DAO.getProducts(currentIndex, itemsOnPage);
+    }
+
+    public static int countProducts() {
+        return PRODUCT_DAO.countProducts();
     }
 
     public static boolean deleteProduct(int productId) {

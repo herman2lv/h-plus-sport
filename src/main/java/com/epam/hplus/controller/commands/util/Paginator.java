@@ -31,4 +31,15 @@ public class Paginator {
         req.getSession().setAttribute(REQUEST_PAGE, currentPage);
         LOGGER.info("CURRENT PAGE SET TO SESSION = {}", currentPage);
     }
+
+    public static Integer getCurrentPage(HttpServletRequest req) {
+        Integer currentPage = RequestProcessor.getIntFromRequest(req, REQUEST_PAGE);
+        if (currentPage == 0) {
+            currentPage = (Integer) req.getSession().getAttribute(REQUEST_PAGE);
+            if (currentPage == null) {
+                currentPage = 1;
+            }
+        }
+        return currentPage;
+    }
 }

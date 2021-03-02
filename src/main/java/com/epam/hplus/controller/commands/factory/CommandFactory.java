@@ -6,12 +6,14 @@ import com.epam.hplus.controller.commands.impl.EmptyCommand;
 import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 
+import static com.epam.hplus.util.constants.Context.REQUEST_COMMAND;
+
 public class CommandFactory {
     private CommandFactory() {
     }
 
     public static Command defineCommand(HttpServletRequest req) {
-        String action = req.getParameter("command");
+        String action = req.getParameter(REQUEST_COMMAND);
         Command command = new EmptyCommand();
         if (action == null || action.isEmpty()) {
             return command;

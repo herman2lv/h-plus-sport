@@ -14,34 +14,35 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.epam.hplus.model.dao.Impl.UserDaoJdbc.INVALID_COUNT;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_ACTIVE;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_COST;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_DESCRIPTION;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_IMAGE_PATH;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_PRODUCT_ID;
 import static com.epam.hplus.util.constants.Database.PRODUCTS_PRODUCT_NAME;
-import static com.epam.hplus.util.constants.Database.PRODUCTS_TABLE;
 
 public class ProductDaoJdbc implements ProductDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductDaoJdbc.class);
     private static final ProductDaoJdbc INSTANCE = new ProductDaoJdbc();
-    private static final String SELECT_ALL_FROM = "SELECT * FROM ";
-    private static final String WHERE = " WHERE ";
-    private static final String EQUALS = " = ";
-    private static final String QUESTION_MARK = "?";
-    private static final String LIKE = " like ";
-    private static final String DELETE_FROM = "DELETE FROM ";
-    private static final String COMA = ", ";
-    private static final String SET = " SET ";
-    private static final String UPDATE = "UPDATE ";
+    private static final String SELECT_ALL_PRODUCTS =
+            "SELECT * FROM products WHERE active = TRUE LIMIT ?, ?";
+    private static final int LIMIT_CURRENT_INDEX = 1;
+    private static final int LIMIT_ON_PAGE_INDEX = 2;
+    private static final String COUNT_PRODUCTS =
+            "SELECT COUNT(*) FROM products WHERE active = TRUE";
+    private static final String SELECT_PRODUCT_BY_ID =
+            "SELECT * FROM products WHERE product_id = ?";
+    private static final String SELECT_PRODUCTS_LIKE =
+            "SELECT * FROM products WHERE product_name LIKE ? AND active = TRUE";
+    private static final String UPDATE_PRODUCT = "UPDATE products SET product_name = ?, "
+            + "image_path = ?, cost = ?, description = ?, active = ? WHERE product_id = ?";
     private static final int UPDATE_PRODUCT_NAME_INDEX = 1;
     private static final int UPDATE_PRODUCT_IMG_INDEX = 2;
     private static final int UPDATE_PRODUCT_COST_INDEX = 3;
     private static final int UPDATE_PRODUCT_DESCRIPTION_INDEX = 4;
     private static final int UPDATE_PRODUCT_ACTIVE_INDEX = 5;
     private static final int UPDATE_PRODUCT_ID_INDEX = 6;
-    private static final String AND = " AND ";
-    private static final String TRUE = " TRUE ";
 
     private ProductDaoJdbc() {
     }
@@ -52,15 +53,8 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public boolean updateProduct(Product product) {
-        String query = UPDATE + PRODUCTS_TABLE + SET
-                + PRODUCTS_PRODUCT_NAME + EQUALS + QUESTION_MARK + COMA
-                + PRODUCTS_IMAGE_PATH + EQUALS + QUESTION_MARK + COMA
-                + PRODUCTS_COST + EQUALS + QUESTION_MARK + COMA
-                + PRODUCTS_DESCRIPTION + EQUALS + QUESTION_MARK + COMA
-                + PRODUCTS_ACTIVE + EQUALS + QUESTION_MARK
-                + WHERE + PRODUCTS_PRODUCT_ID + EQUALS + QUESTION_MARK;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_PRODUCT)) {
             statement.setString(UPDATE_PRODUCT_NAME_INDEX, product.getName());
             statement.setString(UPDATE_PRODUCT_IMG_INDEX, product.getProductImgPath());
             statement.setBigDecimal(UPDATE_PRODUCT_COST_INDEX, product.getCost());
@@ -79,10 +73,8 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public List<Product> searchProducts(String searchString) {
         List<Product> products = new ArrayList<>();
-        String query = SELECT_ALL_FROM + PRODUCTS_TABLE + WHERE + PRODUCTS_PRODUCT_NAME
-                + LIKE + QUESTION_MARK + AND + PRODUCTS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(SELECT_PRODUCTS_LIKE)) {
             String searchPattern = "%" + searchString + "%";
             statement.setString(1, searchPattern);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -99,10 +91,8 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public Product getProductById(int id) {
         Product product = null;
-        String query = SELECT_ALL_FROM + PRODUCTS_TABLE
-                + WHERE + PRODUCTS_PRODUCT_ID + EQUALS + QUESTION_MARK;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(SELECT_PRODUCT_BY_ID)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -128,19 +118,34 @@ public class ProductDaoJdbc implements ProductDao {
 
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(int currentIndex, int itemsOnPage) {
         List<Product> products = new ArrayList<>();
-        String query = SELECT_ALL_FROM + PRODUCTS_TABLE
-                + WHERE + PRODUCTS_ACTIVE + EQUALS + TRUE;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
-                products.add(createInstanceOfProduct(resultSet));
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PRODUCTS)) {
+            statement.setInt(LIMIT_CURRENT_INDEX, currentIndex);
+            statement.setInt(LIMIT_ON_PAGE_INDEX, itemsOnPage);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    products.add(createInstanceOfProduct(resultSet));
+                }
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
         return products;
+    }
+
+    @Override
+    public int countProducts() {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(COUNT_PRODUCTS)) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return INVALID_COUNT;
     }
 }

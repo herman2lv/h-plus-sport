@@ -22,9 +22,13 @@
       <form method="get" action="controller">
         <input type="hidden" name="product" value="${product.productId}">
         <input type="hidden" name="command" value="add_new_product_page">
+        <input type="hidden" name="page" value="${page}"/>
         <button><fmt:message key="ui.addNewProduct"/></button>
       </form>
       <c:if test="${products.size() > 0}">
+
+        <jsp:include page="paginator.jsp"/>
+
         <table id="orderHistory">
           <tr>
             <th><fmt:message key="ui.no"/></th>
@@ -37,7 +41,7 @@
           </tr>
           <c:forEach items="${products}" var="product" varStatus="counter">
             <tr>
-              <td>${counter.count}</td>
+              <td>${counter.count + index}</td>
               <td>${product.name}</td>
               <td><img id="pic1" width="80px" height="60px" src="${product.productImgPath}"></td>
               <td>${product.productImgPath}</td>
@@ -46,11 +50,13 @@
               <td>
                 <form method="get" action="controller">
                   <input type="hidden" name="product" value="${product.productId}">
+                  <input type="hidden" name="page" value="${page}"/>
                   <input type="hidden" name="command" value="delete_product">
                   <button><fmt:message key="ui.deleteProduct"/></button>
                 </form>
                 <form method="get" action="controller">
                   <input type="hidden" name="product" value="${product.productId}">
+                  <input type="hidden" name="page" value="${page}"/>
                   <input type="hidden" name="command" value="edit_product_page">
                   <button><fmt:message key="ui.editProduct"/></button>
                 </form>
@@ -58,6 +64,9 @@
             </tr>
           </c:forEach>
         </table>
+
+        <jsp:include page="paginator.jsp"/>
+
         <br/>
       </c:if>
       <c:if test="${products.size() == 0}">

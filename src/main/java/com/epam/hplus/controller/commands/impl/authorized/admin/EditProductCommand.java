@@ -1,6 +1,7 @@
 package com.epam.hplus.controller.commands.impl.authorized.admin;
 
 import com.epam.hplus.controller.commands.Command;
+import com.epam.hplus.controller.commands.util.Paginator;
 import com.epam.hplus.controller.commands.util.RequestProcessor;
 import com.epam.hplus.model.beans.Product;
 import com.epam.hplus.model.service.ProductService;
@@ -26,6 +27,7 @@ public class EditProductCommand implements Command {
             product.setDescription(description);
             ProductService.updateProduct(product);
         }
+        Paginator.transferPageToSession(req);
         return ConfigurationManger.getProperty("page.productManagementRedirect");
 
     }

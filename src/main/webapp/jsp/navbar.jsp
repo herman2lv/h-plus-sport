@@ -62,6 +62,7 @@
           <li>
             <form action="controller" method="get">
               <input type="hidden" name="command" value="product_management"/>
+              <input type="hidden" name="page" value="1"/>
               <input type="submit" value='<fmt:message key="ui.header.productManagement"/>'/>
             </form>
           </li>

@@ -32,6 +32,10 @@ public class Context {
     public static final String REQUEST_NUMBER_OF_ITEMS = "numberOfItems";
     public static final String REQUEST_NUMBER_OF_PAGES = "numberOfPages";
     public static final String REQUEST_CURRENT_INDEX = "index";
+    public static final String REQUEST_PAGINATOR_COMMAND = "paginatorCommand";
+    public static final String REQUEST_COMMAND = "command";
+
+
 
     private Context() {
     }

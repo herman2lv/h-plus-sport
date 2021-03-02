@@ -10,7 +10,7 @@
     <td>
       <c:if test="${page > 2}">
         <form action="controller" method="get">
-          <input type="hidden" name="command" value="user_management"/>
+          <input type="hidden" name="command" value="${paginatorCommand}"/>
           <input type="hidden" name="page" value="1"/>
           <input type="submit" value='<fmt:message key="ui.button.firstPage"/>'/>
         </form>
@@ -19,7 +19,7 @@
     <td>
       <c:if test="${page > 1}">
         <form action="controller" method="get">
-          <input type="hidden" name="command" value="user_management"/>
+          <input type="hidden" name="command" value="${paginatorCommand}"/>
           <input type="hidden" name="page" value="${page - 1}"/>
           <input type="submit" value='<fmt:message key="ui.button.previousPage"/>'/>
         </form>
@@ -33,7 +33,7 @@
     <td>
       <c:if test="${page < numberOfPages}">
         <form action="controller" method="get">
-          <input type="hidden" name="command" value="user_management"/>
+          <input type="hidden" name="command" value="${paginatorCommand}"/>
           <input type="hidden" name="page" value="${page + 1}"/>
           <input type="submit" value='<fmt:message key="ui.button.nextPage"/>'/>
         </form>
@@ -42,7 +42,7 @@
     <td>
       <c:if test="${page < numberOfPages - 1}">
         <form action="controller" method="get">
-          <input type="hidden" name="command" value="user_management"/>
+          <input type="hidden" name="command" value="${paginatorCommand}"/>
           <input type="hidden" name="page" value="${numberOfPages}"/>
           <input type="submit" value='<fmt:message key="ui.button.lastPage"/>'/>
         </form>
