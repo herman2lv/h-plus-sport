@@ -34,8 +34,8 @@ public class Context {
     public static final String REQUEST_CURRENT_INDEX = "index";
     public static final String REQUEST_PAGINATOR_COMMAND = "paginatorCommand";
     public static final String REQUEST_COMMAND = "command";
-
-
+    public static final String REQUEST_ERROR_CODE = "errorCode";
+    public static final String REQUEST_ERROR_MESSAGE = "errorMessage";
 
     private Context() {
     }

@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 
-import static com.epam.hplus.util.constants.Context.REQUEST_ERROR;
+import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_CODE;
+import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_MESSAGE;
 import static com.epam.hplus.util.constants.Context.SESSION_USER_ROLE;
 
 @WebFilter("/controller")
@@ -33,9 +34,12 @@ public class UserRoleFilter implements Filter {
         if (action != null && isRestrictedAction(action, request)) {
             LOGGER.info(LogManager.getMessage("log.unauthorized"),
                     request.getRequestURI(), action);
-            req.setAttribute(REQUEST_ERROR, MessageManager.getMessage("msg.unauthorized"));
-            req.getRequestDispatcher(
-                    ConfigurationManger.getProperty("page.login")).forward(request, res);
+            req.setAttribute(REQUEST_ERROR_CODE,
+                    MessageManager.getMessage("msg.errorCode403"));
+            req.setAttribute(REQUEST_ERROR_MESSAGE,
+                    MessageManager.getMessage("msg.errorMessage403"));
+            req.getRequestDispatcher(ConfigurationManger.getProperty("page.error"))
+                    .forward(req, res);
             return;
         }
         chain.doFilter(request, res);

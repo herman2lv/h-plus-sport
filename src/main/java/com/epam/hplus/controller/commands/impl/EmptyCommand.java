@@ -7,6 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public class EmptyCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
-        return ConfigurationManger.getProperty("page.index");
+        return ConfigurationManger.getProperty("page.error");
     }
 }

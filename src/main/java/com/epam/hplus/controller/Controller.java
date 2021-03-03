@@ -13,6 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_CODE;
+import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_MESSAGE;
+
 @WebServlet("/controller")
 @MultipartConfig(fileSizeThreshold = Controller.MB1,
         maxFileSize = Controller.MB10,
@@ -41,10 +44,12 @@ public class Controller extends HttpServlet {
         if (page != null) {
             req.getRequestDispatcher(page).forward(req, resp);
         } else {
-            page = ConfigurationManger.getProperty("page.index");
-            req.getSession()
-                    .setAttribute("nullPage", MessageManager.getMessage("msg.nullPage"));
-            resp.sendRedirect(req.getContextPath() + page);
+            req.setAttribute(REQUEST_ERROR_CODE,
+                    MessageManager.getMessage("msg.errorCode404"));
+            req.setAttribute(REQUEST_ERROR_MESSAGE,
+                    MessageManager.getMessage("msg.errorMessage404"));
+            req.getRequestDispatcher(ConfigurationManger.getProperty("page.error"))
+                    .forward(req, resp);
         }
     }
 }
