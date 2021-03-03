@@ -46,17 +46,17 @@ public class ProductValidatorTest {
     }
 
     @Test
-    public void isNotValidImagePositiveTest() {
+    public void isValidImageNegativeTest() {
         Assert.assertFalse(validator.isValidImage(notValidImage));
     }
 
     @Test
-    public void isValidProductNameTest() {
+    public void isValidProductNamePositiveTest() {
         Assert.assertTrue(validator.isValidProductName(validProductName));
     }
 
     @Test
-    public void isNotValidProductNameTest() {
+    public void isValidProductNameNegativeTest() {
         Assert.assertFalse(validator.isValidProductName(notValidProductName));
     }
 

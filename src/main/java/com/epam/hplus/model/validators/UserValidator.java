@@ -3,8 +3,8 @@ package com.epam.hplus.model.validators;
 import java.util.Date;
 
 public class UserValidator {
-    private static final String USERNAME_REGEX = "[a-zA-Z0-9_\\-]{4,30}";
-    private static final String PASSWORD_REGEX = "[a-zA-Z0-9_\\-\\p{Punct}]{8,40}";
+    private static final String USERNAME_REGEX = "[a-zA-Z0-9_\\-.]{4,30}";
+    private static final String PASSWORD_REGEX = "[a-zA-Zа-яА-я0-9_\\-\\p{Punct}]{8,40}";
     private static final String PERSONAL_NAME = "[a-zA-Zа-яА-Я-]{2,50}";
     private static final Date MAX_DATE = new Date(1262296800000L); //2010-01-01
     private static final Date MIN_DATE = new Date(-1577929800000L); //1920-01-01
