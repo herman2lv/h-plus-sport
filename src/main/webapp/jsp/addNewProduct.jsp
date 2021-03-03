@@ -24,8 +24,8 @@
       <label for="productName"><fmt:message key="ui.productName"/></label><br/>
       <input type="text" minlength="4" maxlength="50" name="productName" id="productName" required>
       <br/>
-      <label for="imgPath"><fmt:message key="ui.image"/></label><br/>
-      <input type="file" accept="image/jpeg" name="imgPath" id="imgPath" required>
+      <label for="image"><fmt:message key="ui.image"/></label><br/>
+      <input type="file" accept="image/jpeg" name="image" id="image" required>
       <br/>
       <label for="cost"><fmt:message key="ui.cost"/></label><br/>
       <input type="number" min="00.01" max="999" step=".01" name="cost" id="cost" required>

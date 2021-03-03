@@ -42,4 +42,8 @@ public class ProductService {
     public static boolean updateProduct(Product product) {
         return PRODUCT_DAO.updateProduct(product);
     }
+
+    public static int createProduct(Product product) {
+        return PRODUCT_DAO.createProduct(product);
+    }
 }

@@ -47,14 +47,38 @@ public class ProductDaoJdbc implements ProductDao {
     private static final int UPDATE_PRODUCT_DESCRIPTION_INDEX = 4;
     private static final int UPDATE_PRODUCT_ACTIVE_INDEX = 5;
     private static final int UPDATE_PRODUCT_ID_INDEX = 6;
+    private static final String INSERT_PRODUCT = "INSERT INTO products "
+            + "(product_name, image_path, cost, description, active) "
+            + "VALUES (?, ?, ?, ?, ?)";
     protected static final String ANY_CHAR = "%";
     protected static final int INVALID_COUNT = -1;
+    protected static final int INVALID_ID = -1;
 
     private ProductDaoJdbc() {
     }
 
     public static ProductDaoJdbc getInstance() {
         return INSTANCE;
+    }
+
+    @Override
+    public int createProduct(Product product) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT_PRODUCT)) {
+            statement.setString(UPDATE_PRODUCT_NAME_INDEX, product.getName());
+            statement.setString(UPDATE_PRODUCT_IMG_INDEX, product.getProductImgPath());
+            statement.setBigDecimal(UPDATE_PRODUCT_COST_INDEX, product.getCost());
+            statement.setString(UPDATE_PRODUCT_DESCRIPTION_INDEX, product.getDescription());
+            statement.setBoolean(UPDATE_PRODUCT_ACTIVE_INDEX, product.isActive());
+            if (statement.executeUpdate() > 0) {
+                try (ResultSet keys = statement.getGeneratedKeys()) {
+                    return keys.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return INVALID_ID;
     }
 
     @Override
