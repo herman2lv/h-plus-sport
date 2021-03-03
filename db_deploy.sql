@@ -42,47 +42,47 @@ CREATE table orders_details (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-INSERT into users values('admin','d033e22ae348aeb5660fc2140aec35850c4da997',
+INSERT into users values('admin','d033e22ae348aeb5660fc2140aec35850c4da997',                -- password=admin
                          'Andrew','Webber','1986-04-26','Exercise in Gym', 1, true);
-INSERT into users values('user','12dea96fec20593566ab75692c9949596833adc9',
+INSERT into users values('user','12dea96fec20593566ab75692c9949596833adc9',                 -- password=user
                          'Mark','Johnson','1991-12-30','Playing a sport', 3, true);
-INSERT into users values('luka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('luka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',                 -- password=1234
                          'Alexander','Showshenko','1954-08-30','Playing a sport', 2, true);
-INSERT into users values('herman','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('herman','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',               -- password=1234
                          'Herman','House','1999-09-15','Exercise in Gym', 2, true);
-INSERT into users values('boris','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('boris','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',                -- password=1234
                          'June','Swift','1979-08-06','Exercise in Gym', 2, true);
-INSERT into users values('kitty','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('kitty','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',                -- password=1234
                          'Ann','Cruise','1978-11-14','Playing a sport', 3, true);
-INSERT into users values('maroon','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('maroon','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',               -- password=1234
                          'Tom','Hornet','1969-12-22','Exercise in Gym', 3, true);
-INSERT into users values('wissenbad','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('wissenbad','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',            -- password=1234
                          'Karen','Jakobson','1982-06-26','Playing a sport', 3, true);
-INSERT into users values('bechebe','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('bechebe','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',              -- password=1234
                          'Elizabeth','Horeing','1984-06-23','Exercise in Gym', 3, true);
-INSERT into users values('candibober','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('candibober','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',           -- password=1234
                          'Manilla','Windsdor','1998-04-08','Playing a sport', 3, true);
-INSERT into users values('kandibober','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('kandibober','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',           -- password=1234
                          'Cameron','Canterberry','1991-09-05','Exercise in Gym', 3, true);
-INSERT into users values('lolka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('lolka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',                -- password=1234
                          'Johanna','Fairystin','1992-10-05','Playing a sport', 3, true);
-INSERT into users values('native','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('native','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',               -- password=1234
                          'Rebekka','Kimanno','1989-12-02','Exercise in Gym', 3, true);
-INSERT into users values('youmotherfriend','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('youmotherfriend','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',      -- password=1234
                          'Camilla','Schwarzkopf','1972-11-11','Exercise in Gym', 3, true);
-INSERT into users values('letsdoit','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('letsdoit','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',             -- password=1234
                          'Bernard','Totenbrom','1976-01-10','Playing a sport', 3, true);
-INSERT into users values('camelcompact','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('camelcompact','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',         -- password=1234
                          'Nissan','Burstenster','1965-05-12','Exercise in Gym', 3, true);
-INSERT into users values('nairobi','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('nairobi','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',              -- password=1234
                          'Lima','Hopkins','1974-03-17','Exercise in Gym', 3, true);
-INSERT into users values('yamaha','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('yamaha','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',               -- password=1234
                          'Mandy','West','1998-07-18','Playing a sport', 3, true);
-INSERT into users values('mariupol','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('mariupol','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',             -- password=1234
                          'John','Black','1949-08-17','Exercise in Gym', 3, true);
-INSERT into users values('lengsington','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('lengsington','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',          -- password=1234
                          'Carrol','Miranst','1978-11-12','Playing a sport', 2, true);
-INSERT into users values('remarka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',
+INSERT into users values('remarka','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',              -- password=1234
                          'Andrew','Lloyd','1955-06-11','Exercise in Gym', 2, true);
 
 INSERT into orders (username, order_date, order_cost, confirmation_status)
@@ -164,7 +164,7 @@ INSERT into orders_details
         (14, 11, 1),
         (15, 10, 3),
         (15, 8, 1),
-        (15, 8, 2),
+        (15, 12, 2),
         (15, 7, 1),
         (16, 4, 2),
         (16, 3, 1),

@@ -18,11 +18,7 @@ public class EditProductPageCommand implements Command {
         req.setAttribute(REQUEST_PAGE, currentPage);
         int productId = RequestProcessor.getIntFromRequest(req, REQUEST_PRODUCT);
         Product product = ProductService.getProduct(productId);
-        req.setAttribute("productId", product.getProductId());
-        req.setAttribute("productName", product.getName());
-        req.setAttribute("imagePath", product.getProductImgPath());
-        req.setAttribute("productCost", product.getCost());
-        req.setAttribute("description", product.getDescription());
+        req.setAttribute(REQUEST_PRODUCT, product);
         return ConfigurationManger.getProperty("page.editProduct");
     }
 }

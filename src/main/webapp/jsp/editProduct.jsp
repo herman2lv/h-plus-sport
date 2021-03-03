@@ -18,18 +18,25 @@
 <section id="orders" class="section">
   <div class="container">
     <h2 class="headline"><fmt:message key="ui.header.editProduct"/></h2>
-    <form action="controller" method="post">
+    <form action="controller" method="post" enctype="multipart/form-data">
       <input type="hidden" name="command" value="edit_product"/>
       <input type="hidden" name="page" value="${page}"/>
-      <input type="hidden" name="product" value="${productId}"/>
+      <input type="hidden" name="product" value="${product.productId}"/>
       <label for="productName"><fmt:message key="ui.productName"/></label><br/>
-      <input type="text" name="productName" id="productName" value="${productName}" required>
+      <input type="text" name="productName" id="productName" value="${product.name}" required>
       <br/>
       <label for="cost"><fmt:message key="ui.cost"/></label><br/>
-      <input type="number" min="00.01" max="999" step=".01" name="cost" id="cost" value="${productCost}" required>
+      <input type="number" min="00.01" max="999" step=".01" name="cost" id="cost" value="${product.cost}" required>
+      <br/>
+      <label for="currentImage"><fmt:message key="ui.currentImage"/></label><br/>
+      <img id="currentImage" width="200px" height="150px" src="<c:out value="${product.productImgPath}"/>">
+      <br/>
+      <label for="image"><fmt:message key="ui.newImage"/></label><br/>
+      <input type="checkbox" name="changeImage" value="true">
+      <input type="file" accept="image/jpeg" name="image" id="image">
       <br/>
       <label for="description"><fmt:message key="ui.description"/></label><br/>
-      <textarea rows="5" cols="25" name="description" id="description" required>${description}</textarea>
+      <textarea rows="5" cols="25" name="description" id="description" required>${product.description}</textarea>
       <br/>
       <input type="submit" value='<fmt:message key="ui.editProduct.submit"/>' id="submit">
     </form>

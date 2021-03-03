@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 public class ImageProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImageProcessor.class);
+    private static final String IMAGE_FILE_EXTENSION = ".jpg";
 
     private ImageProcessor() {
     }
@@ -29,5 +31,9 @@ public class ImageProcessor {
             LOGGER.error(e.getMessage(), e);
             return null;
         }
+    }
+
+    public static String generateImageFileName() {
+        return UUID.randomUUID().toString() + IMAGE_FILE_EXTENSION;
     }
 }
