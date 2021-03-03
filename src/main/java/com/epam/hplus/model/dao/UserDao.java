@@ -5,7 +5,7 @@ import com.epam.hplus.model.beans.User;
 import java.util.List;
 
 public interface UserDao {
-    int createUser(User user);
+    boolean createUser(User user);
 
     User getUser(String username);
 

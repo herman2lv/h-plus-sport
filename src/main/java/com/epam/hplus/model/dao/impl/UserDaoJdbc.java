@@ -65,7 +65,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public int createUser(User user) {
+    public boolean createUser(User user) {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_USER)) {
             statement.setString(USERS_USERNAME_INDEX, user.getUsername());
@@ -76,10 +76,10 @@ public class UserDaoJdbc implements UserDao {
             statement.setString(USERS_ACTIVITY_INDEX, user.getActivity());
             statement.setInt(USERS_ROLE_INDEX, user.getRole());
             statement.setBoolean(USERS_ACTIVE_INDEX, user.isActive());
-            return statement.executeUpdate();
+            return statement.executeUpdate() == 1;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
-            return 0;
+            return false;
         }
     }
 

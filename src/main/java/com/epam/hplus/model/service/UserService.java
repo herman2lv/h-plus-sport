@@ -41,8 +41,7 @@ public class UserService {
     }
 
     public static boolean registerNewUser(User user) {
-        int rowsAffected = USER_DAO.createUser(user);
-        return rowsAffected == 1;
+        return USER_DAO.createUser(user);
     }
 
     public static User getUser(String username) {
