@@ -3,7 +3,7 @@ package com.epam.hplus.model.validators;
 import java.math.BigDecimal;
 
 public class ProductValidator {
-    private static final String PRODUCT_REGEX = "[a-zA-Zа-яА-я0-9_\\- ()]{4,50}";
+    private static final String PRODUCT_REGEX = "[a-zA-Zа-яА-я0-9_\\- ().']{4,50}";
     protected static final String JPG = ".jpg";
 
     public boolean isValidProductName(String productName) {
