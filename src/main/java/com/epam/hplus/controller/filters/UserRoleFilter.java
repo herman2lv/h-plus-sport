@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 
+import static com.epam.hplus.util.constants.Context.REQUEST_COMMAND;
 import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_CODE;
 import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_MESSAGE;
 import static com.epam.hplus.util.constants.Context.SESSION_USER_ROLE;
@@ -24,13 +25,12 @@ import static com.epam.hplus.util.constants.Context.SESSION_USER_ROLE;
 @WebFilter("/controller")
 public class UserRoleFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRoleFilter.class);
-    private static final String ACTION = "command";
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        String action = req.getParameter(ACTION);
+        String action = req.getParameter(REQUEST_COMMAND);
         if (action != null && isRestrictedAction(action, request)) {
             LOGGER.info(LogManager.getMessage("log.unauthorized"),
                     request.getRequestURI(), action);

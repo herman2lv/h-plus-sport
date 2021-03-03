@@ -1,12 +1,12 @@
 package com.epam.hplus.view.tags;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.PageContext;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class InsertDateTagHandler extends SimpleTagSupport {
     private String format = "yyyy-MM-dd HH:mm";

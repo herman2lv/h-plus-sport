@@ -1,8 +1,8 @@
 package com.epam.hplus.model.service;
 
 import com.epam.hplus.model.beans.Order;
-import com.epam.hplus.model.dao.impl.OrderDaoJdbc;
 import com.epam.hplus.model.dao.OrderDao;
+import com.epam.hplus.model.dao.impl.OrderDaoJdbc;
 
 import java.util.List;
 

@@ -3,10 +3,10 @@ package com.epam.hplus.controller.commands.impl;
 import com.epam.hplus.controller.commands.Command;
 import com.epam.hplus.model.beans.Order;
 import com.epam.hplus.model.beans.Product;
-import com.epam.hplus.util.resources.ConfigurationManger;
-import com.epam.hplus.util.resources.MessageManager;
 import com.epam.hplus.model.service.CartService;
 import com.epam.hplus.model.service.OrderService;
+import com.epam.hplus.util.resources.ConfigurationManger;
+import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

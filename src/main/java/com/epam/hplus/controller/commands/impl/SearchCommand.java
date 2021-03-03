@@ -43,11 +43,5 @@ public class SearchCommand implements Command {
         return ConfigurationManger.getProperty("page.search");
 
 
-
-
-
-
-
-
     }
 }

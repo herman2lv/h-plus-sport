@@ -20,8 +20,6 @@ import static com.epam.hplus.util.constants.Context.REQUEST_IMAGE;
 import static com.epam.hplus.util.constants.Context.REQUEST_PRODUCT_NAME;
 
 public class AddNewProductCommand implements Command {
-
-
     @Override
     public String execute(HttpServletRequest req) {
         Paginator.transferPageToSession(req);

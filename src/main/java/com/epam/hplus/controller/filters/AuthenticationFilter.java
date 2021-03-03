@@ -40,8 +40,8 @@ public class AuthenticationFilter implements Filter {
 
     private boolean isRestrictedAction(String action, HttpServletRequest request) {
         return action != null
-               && isRestrictedResource(action)
-               && userIsNotAuthorized(request);
+                && isRestrictedResource(action)
+                && userIsNotAuthorized(request);
     }
 
     private boolean isRestrictedResource(String action) {

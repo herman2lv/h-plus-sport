@@ -1,7 +1,7 @@
 package com.epam.hplus.model.service;
 
-import com.epam.hplus.model.dao.impl.UserDaoJdbc;
 import com.epam.hplus.model.dao.UserDao;
+import com.epam.hplus.model.dao.impl.UserDaoJdbc;
 
 /**
  * A service class of model layer, intended to provide the information needed to user's

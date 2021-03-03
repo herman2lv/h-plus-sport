@@ -1,30 +1,18 @@
 package com.epam.hplus.util.constants;
 
 public class Database {
-    public static final String ORDERS_TABLE = "orders";
     public static final String ORDERS_ORDER_ID = "order_id";
     public static final String ORDERS_USERNAME = "username";
     public static final String ORDERS_ORDER_DATE = "order_date";
     public static final String ORDERS_ORDER_COST = "order_cost";
     public static final String ORDERS_CONFIRMATION = "confirmation_status";
-    public static final String ORDERS_DETAILS_TABLE = "orders_details";
-    public static final String ORDERS_DETAILS_ORDER_ID = "order_id";
-    public static final String ORDERS_DETAILS_ORDER_ID_FULL =
-            ORDERS_DETAILS_TABLE + "." + ORDERS_DETAILS_ORDER_ID;
-    public static final String ORDERS_DETAILS_PRODUCT_ID = "product_id";
-    public static final String ORDERS_DETAILS_PRODUCT_ID_FULL =
-            ORDERS_DETAILS_TABLE + "." + ORDERS_DETAILS_PRODUCT_ID;
     public static final String ORDERS_DETAILS_NUMBER_OF_PRODUCTS = "number_of_products";
-    public static final String PRODUCTS_TABLE = "products";
     public static final String PRODUCTS_PRODUCT_ID = "product_id";
-    public static final String PRODUCTS_PRODUCT_ID_FULL =
-            PRODUCTS_TABLE + "." + PRODUCTS_PRODUCT_ID;
     public static final String PRODUCTS_PRODUCT_NAME = "product_name";
     public static final String PRODUCTS_IMAGE_PATH = "image_path";
     public static final String PRODUCTS_COST = "cost";
     public static final String PRODUCTS_DESCRIPTION = "description";
     public static final String PRODUCTS_ACTIVE = "active";
-    public static final String USERS_TABLE = "users";
     public static final String USERS_USERNAME = "username";
     public static final String USERS_PASSWORD = "password";
     public static final String USERS_FIRST_NAME = "first_name";
