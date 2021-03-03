@@ -20,7 +20,6 @@
 <section id="orders" class="section">
   <div class="container">
     <h2 class="headline"><fmt:message key="ui.headline.products"/></h2>
-    <p><fmt:message key="ui.search.aboutCatalog"/></p>
     <p>
         <span id="size">
           <fmt:message key="ui.itemsInCart"/>
