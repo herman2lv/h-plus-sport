@@ -5,7 +5,6 @@ import com.epam.hplus.util.resources.LogManager;
 import com.epam.hplus.util.resources.MessageManager;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -15,9 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.epam.hplus.util.constants.Context.REQUEST_ERROR;
 import static com.epam.hplus.util.constants.Context.SESSION_USERNAME;
@@ -25,19 +21,6 @@ import static com.epam.hplus.util.constants.Context.SESSION_USERNAME;
 @WebFilter(urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFilter.class);
-    private List<String> restrictedActions;
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        restrictedActions = new ArrayList<>(Arrays.asList(
-                "profile",
-                "orders",
-                "order_management",
-                "user_management",
-                "add_new_product_page",
-                "edit_product_page",
-                "product_management"));
-    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -62,7 +45,7 @@ public class AuthenticationFilter implements Filter {
     }
 
     private boolean isRestrictedResource(String action) {
-        for (String restrictedAction : restrictedActions) {
+        for (String restrictedAction : RestrictedActions.getAuthenticatedUserOnlyActions()) {
             if (action.equalsIgnoreCase(restrictedAction)) {
                 return true;
             }
