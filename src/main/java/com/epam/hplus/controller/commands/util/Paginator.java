@@ -30,19 +30,22 @@ public class Paginator {
 
     public static void transferPageToSession(HttpServletRequest req) {
         int currentPage = RequestProcessor.getIntFromRequest(req, REQUEST_PAGE);
-        LOGGER.info("CURRENT PAGE = {}", currentPage);
         if (currentPage == 0) {
             currentPage = 1;
         }
         req.getSession().setAttribute(REQUEST_PAGE, currentPage);
-        LOGGER.info("CURRENT PAGE SET TO SESSION = {}", currentPage);
     }
 
     public static Integer getCurrentPage(HttpServletRequest req) {
         Integer currentPage = RequestProcessor.getIntFromRequest(req, REQUEST_PAGE);
         if (currentPage == 0) {
-            currentPage = (Integer) req.getSession().getAttribute(REQUEST_PAGE);
-            if (currentPage == null) {
+            try {
+                currentPage = (Integer) req.getSession().getAttribute(REQUEST_PAGE);
+                if (currentPage == null) {
+                    currentPage = 1;
+                }
+            } catch (ClassCastException e) {
+                LOGGER.error(e.getMessage(), e);
                 currentPage = 1;
             }
         }
