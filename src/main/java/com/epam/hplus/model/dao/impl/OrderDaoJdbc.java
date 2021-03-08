@@ -232,16 +232,29 @@ public class OrderDaoJdbc implements OrderDao {
 
     @Override
     public boolean removeOrder(int orderId) {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            connection.setAutoCommit(false);
             if (isApproved(connection, orderId)) {
                 return false;
             }
             deleteOrderDetails(connection, orderId);
             deleteOrder(connection, orderId);
+            connection.commit();
             return true;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
             return false;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
         }
     }
 
