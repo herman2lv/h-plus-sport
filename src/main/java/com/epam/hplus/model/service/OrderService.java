@@ -122,7 +122,7 @@ public class OrderService {
      */
     private static boolean setOrderStatus(int orderId, boolean status) {
         Order order = ORDER_DAO.getOrderById(orderId);
-        order.setStatus(status);
+        order.setConfirmationStatus(status);
         return ORDER_DAO.updateOrder(order);
     }
 

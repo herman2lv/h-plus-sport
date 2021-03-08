@@ -51,7 +51,7 @@
             </td>
             <td>$<c:out value="${order.orderCost}"/></td>
             <td>
-              <c:if test="${order.status}">
+              <c:if test="${order.confirmed}">
                 <fmt:message key="ui.orderStatus.approved"/>
                 <form action="controller" method="post">
                   <input type="hidden" name="command" value="reject_order">
@@ -60,7 +60,7 @@
                   <input type="submit" value='<fmt:message key="ui.reject"/>'>
                 </form>
               </c:if>
-              <c:if test="${!order.status}">
+              <c:if test="${!order.confirmed}">
                 <fmt:message key="ui.orderStatus.pending"/>
                 <form action="controller" method="post">
                   <input type="hidden" name="command" value="remove_order_by_manager">

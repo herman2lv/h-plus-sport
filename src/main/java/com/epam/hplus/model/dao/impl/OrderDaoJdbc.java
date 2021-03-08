@@ -300,7 +300,7 @@ public class OrderDaoJdbc implements OrderDao {
             statement.setDate(INSERT_ORDERS_DATE_COLUMN,
                     new java.sql.Date(order.getOrderDate().getTime()));
             statement.setBigDecimal(INSERT_ORDERS_COST_COLUMN, order.getOrderCost());
-            statement.setBoolean(INSERT_ORDERS_STATUS_CONFIRM_COLUMN, order.isStatus());
+            statement.setBoolean(INSERT_ORDERS_STATUS_CONFIRM_COLUMN, order.isConfirmed());
             statement.setLong(UPDATE_ORDER_ID_COLUMN, order.getOrderId());
             if (statement.executeUpdate() == 1) {
                 return true;

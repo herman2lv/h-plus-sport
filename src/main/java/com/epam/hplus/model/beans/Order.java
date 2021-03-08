@@ -36,27 +36,27 @@ public class Order {
      * Confirmation status of the order. {@code True} stands for approved and {@code false} stands
      * for rejected/pending.
      */
-    private boolean status;
+    private boolean confirmationStatus;
 
     /**
      * Constructor with all parameters, used to create instance of {@code Order} which already has
      * unique {@param orderId} and to retrieve information about user's order from data storage.
      *
-     * @param orderId        {@code long} value of unique order identification number
-     * @param username       {@code String} represents name of order's owner
-     * @param orderDate      {@code Date} of order creation
-     * @param listOfProducts {@code Map} represents list of orders and its number
-     * @param orderCost      {@code BigDecimal} value of total cost of order's {@code Product}
-     * @param status         {@code boolean} value represents confirmation status of teh order
+     * @param orderId            {@code long} value of unique order identification number
+     * @param username           {@code String} represents name of order's owner
+     * @param orderDate          {@code Date} of order creation
+     * @param listOfProducts     {@code Map} represents list of orders and its number
+     * @param orderCost          {@code BigDecimal} value of total cost of order's {@code Product}
+     * @param confirmationStatus {@code boolean} value represents confirmation status of teh order
      */
-    public Order(long orderId, String username, Date orderDate,
-                 Map<Product, Long> listOfProducts, BigDecimal orderCost, boolean status) {
+    public Order(long orderId, String username, Date orderDate, Map<Product, Long> listOfProducts,
+                 BigDecimal orderCost, boolean confirmationStatus) {
         this.orderId = orderId;
         this.username = username;
         this.orderDate = orderDate;
         this.listOfProducts = listOfProducts;
         this.orderCost = orderCost;
-        this.status = status;
+        this.confirmationStatus = confirmationStatus;
     }
 
     /**
@@ -64,19 +64,19 @@ public class Order {
      * Order} which doesn't have unique {@param orderId} yet and to sen information about user's
      * order to data storage.
      *
-     * @param username       {@code String} represents name of order's owner
-     * @param orderDate      {@code Date} of order creation
-     * @param listOfProducts {@code Map} represents list of orders and its number
-     * @param orderCost      {@code BigDecimal} value of total cost of order's {@code Product}
-     * @param status         {@code boolean} value represents confirmation status of teh order
+     * @param username           {@code String} represents name of order's owner
+     * @param orderDate          {@code Date} of order creation
+     * @param listOfProducts     {@code Map} represents list of orders and its number
+     * @param orderCost          {@code BigDecimal} value of total cost of order's {@code Product}
+     * @param confirmationStatus {@code boolean} value represents confirmation status of teh order
      */
-    public Order(String username, Date orderDate,
-                 Map<Product, Long> listOfProducts, BigDecimal orderCost, boolean status) {
+    public Order(String username, Date orderDate, Map<Product, Long> listOfProducts,
+                 BigDecimal orderCost, boolean confirmationStatus) {
         this.username = username;
         this.orderDate = orderDate;
         this.listOfProducts = listOfProducts;
         this.orderCost = orderCost;
-        this.status = status;
+        this.confirmationStatus = confirmationStatus;
     }
 
     /**
@@ -176,16 +176,16 @@ public class Order {
      *
      * @return {@code boolean} value that represents confirmation status of the order
      */
-    public boolean isStatus() {
-        return status;
+    public boolean isConfirmed() {
+        return confirmationStatus;
     }
 
     /**
      * Standard setter method to access private class member.
      *
-     * @param status {@code boolean} value represents confirmation status of teh order
+     * @param confirmationStatus {@code boolean} value represents confirmation status of teh order
      */
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setConfirmationStatus(boolean confirmationStatus) {
+        this.confirmationStatus = confirmationStatus;
     }
 }
