@@ -37,7 +37,7 @@
           <tr>
             <td>${counter.count + index}</td>
             <td><c:out value="${order.username}"/></td>
-            <td>${order.orderId}</td>
+            <td>ID${order.orderId}</td>
             <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
             <td>
               <table>

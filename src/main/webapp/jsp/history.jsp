@@ -26,6 +26,7 @@
       <table id="orderHistory">
         <tr>
           <th><fmt:message key="ui.orderNo"/></th>
+          <th><fmt:message key="ui.orderId"/></th>
           <th><fmt:message key="ui.orderDate"/></th>
           <th><fmt:message key="ui.products"/></th>
           <th><fmt:message key="ui.cost"/></th>
@@ -34,6 +35,7 @@
         <c:forEach items="${orders}" var="order" varStatus="counter">
           <tr>
             <td>${counter.count + index}</td>
+            <td>ID${order.orderId}</td>
             <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
             <td>
               <table>
