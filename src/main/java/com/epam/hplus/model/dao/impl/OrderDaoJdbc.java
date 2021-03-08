@@ -144,7 +144,8 @@ public class OrderDaoJdbc implements OrderDao {
     private Order createInstanceOfOrder(Connection connection, ResultSet ordersSet)
             throws SQLException {
         int orderId = ordersSet.getInt(ORDERS_ORDER_ID);
-        try (PreparedStatement statementProducts = connection.prepareStatement(SELECT_ORDERS_DETAILS)) {
+        try (PreparedStatement statementProducts =
+                     connection.prepareStatement(SELECT_ORDERS_DETAILS)) {
             statementProducts.setInt(1, orderId);
             try (ResultSet productsSet = statementProducts.executeQuery()) {
                 Map<Product, Long> products = createMapOfProducts(productsSet);
@@ -170,13 +171,26 @@ public class OrderDaoJdbc implements OrderDao {
 
     @Override
     public int createOrder(Order order) {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            connection.setAutoCommit(false);
             int orderId = insertOrder(connection, order);
             insertOrdersDetails(connection, order, orderId);
+            connection.commit();
             return orderId;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
             return INVALID_ID;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
         }
     }
 
