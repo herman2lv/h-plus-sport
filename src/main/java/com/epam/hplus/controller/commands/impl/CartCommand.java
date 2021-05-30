@@ -18,6 +18,7 @@ import static com.epam.hplus.util.constants.Context.SESSION_CART;
 
 public class CartCommand implements Command {
     @Override
+    @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest req) {
         List<Product> products = (ArrayList<Product>) req.getSession().getAttribute(SESSION_CART);
         if (products != null) {

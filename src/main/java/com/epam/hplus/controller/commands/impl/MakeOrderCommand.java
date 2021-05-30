@@ -36,6 +36,7 @@ public class MakeOrderCommand implements Command {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private Order createInstanceOfOrder(HttpSession session) {
         List<Product> cart = (List<Product>) session.getAttribute(SESSION_CART);
         String username = (String) session.getAttribute(SESSION_USERNAME);

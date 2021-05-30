@@ -29,6 +29,7 @@ public class AddProductCommand implements Command {
         return ConfigurationManger.getProperty("page.searchRedirect");
     }
 
+    @SuppressWarnings("unchecked")
     private List<Product> getCart(HttpSession session) {
         List<Product> cart = (ArrayList<Product>) session.getAttribute(SESSION_CART);
         if (cart == null) {

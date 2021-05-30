@@ -20,6 +20,7 @@ import static com.epam.hplus.util.constants.Context.REQUEST_ERROR_MESSAGE;
 @MultipartConfig(fileSizeThreshold = Controller.MB1,
         maxFileSize = Controller.MB10,
         maxRequestSize = Controller.MB100)
+@SuppressWarnings(value = "serial")
 public class Controller extends HttpServlet {
     protected static final int MB1 = 1024 * 1024;
     protected static final int MB10 = 1024 * 1024 * 10;

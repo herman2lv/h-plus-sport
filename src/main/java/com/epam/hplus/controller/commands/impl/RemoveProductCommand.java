@@ -17,6 +17,7 @@ import static com.epam.hplus.util.constants.Context.SESSION_CART;
 
 public class RemoveProductCommand implements Command {
     @Override
+    @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest req) {
         HttpSession session = req.getSession();
         int productId = RequestProcessor.getIntFromRequest(req, REQUEST_PRODUCT);

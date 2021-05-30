@@ -21,16 +21,15 @@ public class RestrictedActions {
             "order_management",
             "reject_order",
             "remove_order_by_manager"));
-    private static final List<String> AUTHENTICATED_USER_ONLY_ACTIONS = new ArrayList<>() {
-        {
-            this.addAll(Arrays.asList(
+    private static final List<String> AUTHENTICATED_USER_ONLY_ACTIONS = new ArrayList<>();
+    static {
+      AUTHENTICATED_USER_ONLY_ACTIONS.addAll(Arrays.asList(
                     "orders",
                     "profile",
                     "remove_order"));
-            this.addAll(ADMIN_ONLY_ACTIONS);
-            this.addAll(MANAGER_ONLY_ACTIONS);
-        }
-    };
+      AUTHENTICATED_USER_ONLY_ACTIONS.addAll(ADMIN_ONLY_ACTIONS);
+      AUTHENTICATED_USER_ONLY_ACTIONS.addAll(MANAGER_ONLY_ACTIONS);
+    }
 
     private RestrictedActions() {
     }
